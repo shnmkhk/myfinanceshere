@@ -23,10 +23,4 @@ public class SheetNotFoundException extends Throwable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SheetNotFoundException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
-	}
-
 }
