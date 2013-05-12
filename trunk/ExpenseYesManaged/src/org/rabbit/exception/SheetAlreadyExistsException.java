@@ -21,9 +21,4 @@ public class SheetAlreadyExistsException extends Throwable {
 		super(message, cause);
 	}
 
-	public SheetAlreadyExistsException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
-
 }
