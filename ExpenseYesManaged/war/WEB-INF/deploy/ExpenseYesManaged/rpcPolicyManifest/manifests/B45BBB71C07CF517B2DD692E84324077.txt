@@ -1,2 +1,0 @@
-serviceClass: org.rabbit.client.GreetingService
-path: 3F9185414C4A487CA62D1DD9517DC4B1.gwt.rpc

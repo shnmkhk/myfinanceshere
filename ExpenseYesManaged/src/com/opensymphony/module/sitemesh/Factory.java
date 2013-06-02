@@ -9,14 +9,11 @@
 
 package com.opensymphony.module.sitemesh;
 
-import com.opensymphony.module.sitemesh.factory.FactoryException;
-import com.opensymphony.module.sitemesh.util.ClassLoaderUtil;
-import com.opensymphony.module.sitemesh.util.Container;
-
-import javax.naming.InitialContext;
-import javax.rmi.PortableRemoteObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
+import com.opensymphony.module.sitemesh.factory.FactoryException;
+import com.opensymphony.module.sitemesh.util.ClassLoaderUtil;
 
 /**
  * Factory responsible for creating appropriate instances of implementations.
@@ -38,7 +35,7 @@ public abstract class Factory implements PageParserSelector {
      * entry <code>sitemesh.factory</code>.
      */
     public static Factory getInstance(Config config) {
-        Factory instance = (Factory)config.getServletContext().getAttribute(SITEMESH_FACTORY);
+        Factory instance = (Factory) config.getServletContext().getAttribute(SITEMESH_FACTORY);
         if (instance == null) {
             String factoryClass = "com.opensymphony.module.sitemesh.factory.DefaultFactory";
             try {

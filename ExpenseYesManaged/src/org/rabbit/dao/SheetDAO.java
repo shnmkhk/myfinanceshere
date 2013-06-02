@@ -9,9 +9,11 @@ import org.rabbit.model.Sheet;
 import com.google.appengine.api.datastore.Key;
 
 /**
- * DAO interface for Sheet entity.
+ * DAO Interface for Sheet entity.
  * 
- * @author Shanmukha
+ * @author shanmukha.k@gmail.com <br/>
+ * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
+ * Date created: 01-May-2013
  */
 public interface SheetDAO {
 
@@ -33,13 +35,11 @@ public interface SheetDAO {
 	public void deleteSheet(int month, int year) throws SheetNotFoundException;
 
 	/**
-	 * Returns all the sheet entries available in the database of given kind.
-	 * Eg. "Sheet"
+	 * Returns all the sheet entries available in the database of Sheet kind.
 	 * 
-	 * @param kind
 	 * @return
 	 */
-	public List<Sheet> getAllSheets(String kind);
+	public List<Sheet> getAllSheets();
 
 	/**
 	 * Gets the unique sheet entry from the database matching the given month

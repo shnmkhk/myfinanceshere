@@ -64,6 +64,9 @@ public class Entry implements Serializable {
 	}
 
 	/**
+	 * The type of the transaction. Possible values are
+	 * 'E' [Expense] or 'I' [Income]
+	 * 
 	 * @return the type
 	 */
 	public char getType() {

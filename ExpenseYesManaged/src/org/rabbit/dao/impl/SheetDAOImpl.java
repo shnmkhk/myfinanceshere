@@ -21,6 +21,13 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 
+/**
+ * DAO layer loading/ persisting implementation for Sheet entity
+ * 
+ * @author shanmukha.k@gmail.com <br/>
+ * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
+ * Date created: 01-May-2013
+ */
 public class SheetDAOImpl implements SheetDAO {
 
 	private SheetDAOImpl(){
@@ -76,7 +83,7 @@ public class SheetDAOImpl implements SheetDAO {
 	}
 
 	@Override
-	public List<Sheet> getAllSheets(String kind) {
+	public List<Sheet> getAllSheets() {
 
 		Query query = new Query(Sheet.class.getSimpleName());
 		List<Entity> list = Util.getDatastoreServiceInstance().prepare(query)

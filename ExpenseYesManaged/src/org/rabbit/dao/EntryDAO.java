@@ -10,8 +10,9 @@ import org.rabbit.model.Sheet;
 /**
  * DAO Interface for Entry
  * 
- * @author Shanmukha
- * Created on May 1, 2013
+ * @author shanmukha.k@gmail.com <br/>
+ * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
+ * Date created: 01-May-2013
  */
 public interface EntryDAO {
 
