@@ -22,6 +22,13 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
+/**
+ * DAO layer loading/ persisting implementation for Transaction entity
+ * 
+ * @author shanmukha.k@gmail.com <br/>
+ * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
+ * Date created: 01-May-2013
+ */
 public class TransactionDAOImpl implements TransactionDAO {
 
 	private TransactionDAOImpl(){
@@ -102,6 +109,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public Transaction getTransactionByEntryAndIndex(Entry entry,
 			int sequenceIndex) throws TransactionNotFoundException {
 		Query query = new Query(Transaction.class.getSimpleName(),

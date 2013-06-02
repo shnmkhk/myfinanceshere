@@ -25,6 +25,13 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
+/**
+ * DAO layer loading/ persisting implementation for Entry entity
+ * 
+ * @author shanmukha.k@gmail.com <br/>
+ * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
+ * Date created: 01-May-2013
+ */
 public class EntryDAOImpl implements EntryDAO {
 
 	private SheetDAO sheetDAO = SheetDAOImpl.getInstance();
@@ -72,7 +79,6 @@ public class EntryDAOImpl implements EntryDAO {
 	@Override
 	public boolean deleteEntry(Sheet sheet, int sequenceIndex)
 			throws EntryNotFoundException {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		Entry entry = getEntryBySheetAndIndex(sheet, sequenceIndex);
 		if (entry == null) {
@@ -117,6 +123,7 @@ public class EntryDAOImpl implements EntryDAO {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public Entry getEntryBySheetAndIndex(Sheet sheet, int sequenceIndex)
 			throws EntryNotFoundException {
 		Query query = new Query(Entry.class.getSimpleName(), sheet.getKey());

@@ -7,9 +7,11 @@ import org.rabbit.model.Entry;
 import org.rabbit.model.Transaction;
 
 /**
- * DAO interface for Transaction entity
+ * DAO Interface for Transaction entity
  * 
- * @author Shanmukha Created on May 1, 2013
+ * @author shanmukha.k@gmail.com <br/>
+ * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
+ * Date created: 01-May-2013
  */
 public interface TransactionDAO {
 
