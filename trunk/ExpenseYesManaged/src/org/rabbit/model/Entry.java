@@ -30,7 +30,7 @@ public class Entry implements Serializable {
 	private String description;
 
 	private char status;
-
+	
 	@ForeignKey
 	private Sheet sheet;
 	
@@ -155,5 +155,15 @@ public class Entry implements Serializable {
 
 	public void setSheet(Sheet sheet) {
 		this.sheet = sheet;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Entry [key=" + key + ", sequenceIndex=" + sequenceIndex
+				+ ", type=" + type + ", amount=" + amount + ", shortCode="
+				+ shortCode + ", description=" + description + ", status="
+				+ status + ", sheet=" + sheet + "]";
 	}
 }

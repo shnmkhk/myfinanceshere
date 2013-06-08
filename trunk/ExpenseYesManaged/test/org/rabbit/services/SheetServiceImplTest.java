@@ -23,66 +23,44 @@ public class SheetServiceImplTest extends BaseTest {
 	private final SheetService sheetService = SheetServiceImpl.getInstance();
 
 	@Test(expected = IllegalArgumentException.class)
-	public final void testAddNewSheetInvalidMonthNegative() {
+	public final void testAddNewSheetInvalidMonthNegative() throws SheetAlreadyExistsException {
 		final int MONTH = -6;
 		final int YEAR = 2013;
-		try {
-			sheetService.addNewSheet(MONTH, YEAR);
-		} catch (SheetAlreadyExistsException e) {
-			e.printStackTrace();
-		}
+		sheetService.addNewSheet(MONTH, YEAR);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public final void testAddNewSheetInvalidMonthOutOfRange() {
+	public final void testAddNewSheetInvalidMonthOutOfRange() throws SheetAlreadyExistsException {
 		final int MONTH = 16;
 		final int YEAR = 2013;
-		try {
-			sheetService.addNewSheet(MONTH, YEAR);
-		} catch (SheetAlreadyExistsException e) {
-			e.printStackTrace();
-		}
+		sheetService.addNewSheet(MONTH, YEAR);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public final void testAddNewSheetInvalidYearNegative() {
+	public final void testAddNewSheetInvalidYearNegative() throws SheetAlreadyExistsException {
 		final int MONTH = 16;
 		final int YEAR = -2013;
-		try {
-			sheetService.addNewSheet(MONTH, YEAR);
-		} catch (SheetAlreadyExistsException e) {
-			e.printStackTrace();
-		}
+		sheetService.addNewSheet(MONTH, YEAR);
 	}
 
 	@Test
-	public final void testAddNewSheetSuccess() {
+	public final void testAddNewSheetSuccess() throws SheetAlreadyExistsException {
 		final int MONTH = 6;
 		final int YEAR = 2013;
-		try {
-			Sheet sheet = sheetService.addNewSheet(MONTH, YEAR);
-			Assert.assertNotNull(sheet);
-			Assert.assertEquals(MONTH, sheet.getMonth());
-			Assert.assertEquals(YEAR, sheet.getYear());
-		} catch (SheetAlreadyExistsException e) {
-			e.printStackTrace();
-		}
+		Sheet sheet = sheetService.addNewSheet(MONTH, YEAR);
+		Assert.assertNotNull(sheet);
+		Assert.assertEquals(MONTH, sheet.getMonth());
+		Assert.assertEquals(YEAR, sheet.getYear());
 	}
 
 	@Test
-	public final void testGetAllSheetsSuccess() {
+	public final void testGetAllSheetsSuccess() throws SheetAlreadyExistsException {
 		int MONTH = 6;
 		final int YEAR = 2013;
-		try {
-			sheetService.addNewSheet(MONTH, YEAR);
-			sheetService.addNewSheet(++MONTH, YEAR);
-			sheetService.addNewSheet(++MONTH, YEAR);
-			sheetService.addNewSheet(++MONTH, YEAR);
-
-		} catch (SheetAlreadyExistsException e) {
-			Assert.fail("Unexpected error occurred, check the trace");
-			e.printStackTrace();
-		}
+		sheetService.addNewSheet(MONTH, YEAR);
+		sheetService.addNewSheet(++MONTH, YEAR);
+		sheetService.addNewSheet(++MONTH, YEAR);
+		sheetService.addNewSheet(++MONTH, YEAR);
 
 		List<Sheet> availableSheets = sheetService.getAllSheets();
 		Assert.assertNotNull(availableSheets);
@@ -90,15 +68,10 @@ public class SheetServiceImplTest extends BaseTest {
 	}
 
 	@Test
-	public final void testGetSheetSuccess() throws SheetNotFoundException {
+	public final void testGetSheetSuccess() throws SheetNotFoundException, SheetAlreadyExistsException {
 		int MONTH = 6;
 		final int YEAR = 2013;
-		try {
-			sheetService.addNewSheet(MONTH, YEAR);
-		} catch (SheetAlreadyExistsException alreadyExistsException) {
-			alreadyExistsException.printStackTrace();
-		}
-
+		sheetService.addNewSheet(MONTH, YEAR);
 		Sheet sheet = sheetService.getSheet(MONTH, YEAR);
 		Assert.assertNotNull(sheet);
 		Assert.assertEquals(MONTH, sheet.getMonth());
@@ -113,14 +86,10 @@ public class SheetServiceImplTest extends BaseTest {
 	}
 
 	@Test(expected = SheetNotFoundException.class)
-	public final void testDeleteSheetSuccess() throws SheetNotFoundException {
+	public final void testDeleteSheetSuccess() throws SheetNotFoundException, SheetAlreadyExistsException {
 		int MONTH = 6;
 		final int YEAR = 2013;
-		try {
-			sheetService.addNewSheet(MONTH, YEAR);
-		} catch (SheetAlreadyExistsException alreadyExistsException) {
-			alreadyExistsException.printStackTrace();
-		}
+		sheetService.addNewSheet(MONTH, YEAR);
 
 		Sheet sheet = sheetService.getSheet(MONTH, YEAR);
 		Assert.assertNotNull(sheet);
