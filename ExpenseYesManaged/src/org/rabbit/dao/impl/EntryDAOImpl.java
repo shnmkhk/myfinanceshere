@@ -22,6 +22,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
@@ -56,8 +57,9 @@ public class EntryDAOImpl implements EntryDAO {
 		Query query = new Query(Entry.class.getSimpleName(), sheet.getKey());
 		query.addSort("sequenceIndex", SortDirection.DESCENDING);
 
-		Entity recentEntry = Util.getDatastoreServiceInstance().prepare(query)
-				.asSingleEntity();
+		FetchOptions fetchOptions = FetchOptions.Builder.withLimit(1);
+		List<Entity> entriesOfGivenSheet = (List<Entity>) Util.getDatastoreServiceInstance().prepare(query).asList(fetchOptions);
+		Entity recentEntry = (entriesOfGivenSheet != null) && (entriesOfGivenSheet.size() > 0) ? entriesOfGivenSheet.get(0) : null;
 		int maxSeqIx = 0;
 		if (recentEntry != null) {
 			maxSeqIx = NumUtil.getIntValue(
@@ -138,6 +140,7 @@ public class EntryDAOImpl implements EntryDAO {
 							"Entry not found in the database with sheet %s and sequence index %d",
 							sheet.getKey().getName(), sequenceIndex));
 		}
+		System.out.println("uniqueEntity: " + uniqueEntity);
 		return prepareEntry(uniqueEntity);
 	}
 
@@ -157,13 +160,13 @@ public class EntryDAOImpl implements EntryDAO {
 		if (entity == null) {
 			return null;
 		}
-		Entry entry = new Entry(entity.getKey(), NumUtil.getIntValue(entity
-				.getProperty("sequenceIndex").toString(), -1), entity
-				.getProperty("type").toString().charAt(0),
-				NumUtil.getDoubleValue(entity.getProperty("amount").toString(),
-						-1), entity.getProperty("shortCode").toString(), entity
-						.getProperty("description").toString(), entity
-						.getProperty("status").toString().charAt(0));
+		Entry entry = new Entry(entity.getKey(), NumUtil.getIntValue(String.valueOf(entity
+				.getProperty("sequenceIndex")), -1), Character.valueOf((char)NumUtil.getIntValue(entity
+						.getProperty("type"), -1)),
+				NumUtil.getDoubleValue(String.valueOf(entity.getProperty("amount")),
+						-1), String.valueOf(entity.getProperty("shortCode")), String.valueOf(entity
+						.getProperty("description")), Character.valueOf((char)NumUtil.getIntValue(entity
+						.getProperty("status"), -1)));
 		try {
 			entry.setSheet(sheetDAO.getSheet(entity.getKey().getParent()));
 		} catch (SheetNotFoundException e) {

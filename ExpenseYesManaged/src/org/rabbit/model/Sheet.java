@@ -1,5 +1,7 @@
 package org.rabbit.model;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -10,7 +12,7 @@ import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(detachable="true")
 @Unique(name = "SHEET_MONTH_YR_UNIQUE_IX", members = { "month", "year" })
-public class Sheet {
+public class Sheet implements Serializable {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -63,5 +65,14 @@ public class Sheet {
 	 */
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Sheet [key=" + key + ", month=" + month + ", year=" + year
+				+ "]";
 	}
 }

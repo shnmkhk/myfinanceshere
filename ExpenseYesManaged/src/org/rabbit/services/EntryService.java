@@ -8,7 +8,9 @@ import java.util.List;
 
 import org.rabbit.exception.EntryAlreadyExistsException;
 import org.rabbit.exception.EntryNotFoundException;
+import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Entry;
+import org.rabbit.model.Sheet;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -29,12 +31,11 @@ public interface EntryService {
 	 * @param shortCode
 	 * @param description
 	 * @param status
-	 * @param parentSheetKey
 	 * @return
 	 * @throws EntryAlreadyExistsException
 	 */
 	public Entry addANewEntry(char type, double amount, String shortCode,
-			String description, char status, Key parentSheetKey) throws EntryAlreadyExistsException;
+			String description, char status, Sheet parentSheet) throws EntryAlreadyExistsException;
 	
 	/**
 	 * Deletes entry object matched for the given associated sheet key and 
@@ -44,8 +45,9 @@ public interface EntryService {
 	 * @param sequenceIndex
 	 * @return
 	 * @throws EntryNotFoundException
+	 * @throws SheetNotFoundException 
 	 */
-	public boolean deleteEntry(Key parentSheetKey, int sequenceIndex) throws EntryNotFoundException;
+	public boolean deleteEntry(Key parentSheetKey, int sequenceIndex) throws EntryNotFoundException, SheetNotFoundException;
 	
 	
 	/**
@@ -61,8 +63,9 @@ public interface EntryService {
 	 * 
 	 * @param parentSheetKey
 	 * @return
+	 * @throws SheetNotFoundException 
 	 */
-	public List<Entry> getEntries(Key parentSheetKey);
+	public List<Entry> getEntries(Key parentSheetKey) throws SheetNotFoundException;
 	
 	/**
 	 * Returns the unique entry associated with the given
@@ -72,8 +75,9 @@ public interface EntryService {
 	 * @param sequenceIndex
 	 * @return
 	 * @throws EntryNotFoundException
+	 * @throws SheetNotFoundException 
 	 */
-	public Entry getEntryBySheetAndIndex(Key parentSheetKey, int sequenceIndex) throws EntryNotFoundException;
+	public Entry getEntryBySheetAndIndex(Key parentSheetKey, int sequenceIndex) throws EntryNotFoundException, SheetNotFoundException;
 	
 	/**
 	 * Updates the specified entry instance with the 

@@ -115,4 +115,14 @@ public class Transaction implements Serializable {
 		this.sequenceIndex = sequenceIndex;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Transaction [key=" + key + ", openingBalance=" + openingBalance
+				+ ", description=" + description + ", transactionAmount="
+				+ transactionAmount + ", sequenceIndex=" + sequenceIndex
+				+ ", entry=" + entry + "]";
+	}
 }
