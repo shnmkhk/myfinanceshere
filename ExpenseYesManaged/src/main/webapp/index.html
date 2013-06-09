@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>My Finances</title>
+  </head>
+
+  <body>
+    <h1>My Finances!</h1>
+	
+	<form action="myfinances" method="POST">
+		<input type="hidden" name="openingBalance" value="12243.51"/>
+		<table>
+			<tr>
+				<td><label for="">Description</label></td>
+				<td><textarea rows="3" cols="20" name="description" id="description"></textarea></td>
+			</tr>
+			<tr>
+				<td><label for="openingBalance">Opening balance</label></td>
+				<td><span id="openingBalance">Rs. 12,243.51</span></td>
+			</tr>
+			<tr>
+				<td><label for="transactionAmount">Amount</label></td>
+				<td><input type="text" value="" name="transactionAmount" id="transactionAmount"/></td>
+			</tr>
+			
+			<tr>
+				<td colspan="1">&nbsp;</td>
+				<td>
+				<input type="reset" value="Reset"/>
+				<input type="submit" value="Save transaction"/>
+				</td>
+			</tr>
+		</table>
+	</form>
+  </body>
+</html>
