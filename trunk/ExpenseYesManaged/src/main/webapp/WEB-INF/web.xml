@@ -5,13 +5,34 @@
 	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
 	<!-- Servlets -->
+
 	<servlet>
-		<servlet-name>Myfinances</servlet-name>
-		<servlet-class>org.rabbit.server.MyfinancesServlet</servlet-class>
+		<servlet-name>SheetAction</servlet-name>
+		<servlet-class>org.rabbit.servlets.SheetAction</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Myfinances</servlet-name>
-		<url-pattern>/myfinances</url-pattern>
+		<servlet-name>SheetAction</servlet-name>
+		<url-pattern>/sa</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>EntryAction</servlet-name>
+		<servlet-class>org.rabbit.servlets.EntryAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EntryAction</servlet-name>
+		<url-pattern>/ea</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>TransactionAction</servlet-name>
+		<servlet-class>org.rabbit.servlets.TransactionAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TransactionAction</servlet-name>
+		<url-pattern>/ta</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->

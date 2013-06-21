@@ -9,5 +9,6 @@
 
     <decorator name="baseTemplate" page="ExpenseYesManaged-base.jsp">
         <pattern>/*</pattern>
+        <pattern>/list/*</pattern>
     </decorator>
 </decorators>
