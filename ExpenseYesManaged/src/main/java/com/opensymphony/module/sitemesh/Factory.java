@@ -44,7 +44,7 @@ public abstract class Factory implements PageParserSelector {
                 instance = (Factory)con.newInstance(new Config[] { config });
                 config.getServletContext().setAttribute(SITEMESH_FACTORY, instance);
             } catch (InvocationTargetException e) {
-                throw new FactoryException("Cannot construct Factory : " + factoryClass, e.getTargetException());
+                throw new FactoryException("Cannot construct Factory : " + factoryClass, e);
         
             } catch (Exception e) {
                 throw new FactoryException("Cannot construct Factory : " + factoryClass, e);

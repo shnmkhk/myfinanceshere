@@ -3,6 +3,8 @@ package org.rabbit.shared;
 public class NumUtil {
 
 	
+	public static final int MINUS_ONE = -1;
+
 	public static int getIntValue(Object intValueStr, int defaultValue){
 		if (intValueStr == null) {
 			return defaultValue;

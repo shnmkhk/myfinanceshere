@@ -1,0 +1,8 @@
+SET APPENGINE_HOME=D:\temp\appengine-java-sdk-1.8.1.1
+java -cp bin\classes;%APPENGINE_HOME%\lib\appengine-tools-api.jar;%APPENGINE_HOME%\lib\appengine-remote-api;
+             lib\jdo-api.jar;
+                    lib\log4j.jar;lib\asm.jar
+     -Dlog4j.configuration=file:log4j.properties
+     org.datanucleus.enhancer.DataNucleusEnhancer -v
+     target/classes/org/mydomain/mypackage1/package.jdo
+     target/classes/org/mydomain/mypackage2/package.jdo
