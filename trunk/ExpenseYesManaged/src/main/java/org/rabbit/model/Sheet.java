@@ -2,21 +2,12 @@ package org.rabbit.model;
 
 import java.io.Serializable;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Unique;
 
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(detachable="true")
-@Unique(name = "SHEET_MONTH_YR_UNIQUE_IX", members = { "month", "year" })
-public class Sheet implements Serializable {
-
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+public class Sheet extends BaseEntity implements Serializable {
 
 	private int month;
 
@@ -27,14 +18,6 @@ public class Sheet implements Serializable {
 		this.key = key;
 		this.month = month;
 		this.year = year;
-	}
-
-	public Key getKey() {
-		return key;
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
 	}
 
 	/**

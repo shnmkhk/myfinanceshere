@@ -65,5 +65,20 @@ public class BaseEntity implements Serializable {
                              this.lastUpdatedBy = lastUpdatedBy;
              }
 
+			/**
+			 * @return the key
+			 */
+			public Key getKey() {
+				return key;
+			}
+
+			/**
+			 * @param key the key to set
+			 */
+			public void setKey(Key key) {
+				this.key = key;
+			}
+
+             
 
 }

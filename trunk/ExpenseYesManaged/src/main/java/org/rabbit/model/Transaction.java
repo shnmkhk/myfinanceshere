@@ -11,26 +11,21 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
-public class Transaction implements Serializable {
+public class Transaction extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 4351901171868709445L;
-
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
 
 	private double openingBalance;
 
 	private String description;
 
 	private double transactionAmount;
-	
+
 	private int sequenceIndex;
-	
+
 	@ForeignKey
 	private Entry entry;
-	
-	
+
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -99,14 +94,6 @@ public class Transaction implements Serializable {
 		this.entry = entry;
 	}
 
-	public Key getKey() {
-		return key;
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
-	}
-
 	public int getSequenceIndex() {
 		return sequenceIndex;
 	}
@@ -115,7 +102,9 @@ public class Transaction implements Serializable {
 		this.sequenceIndex = sequenceIndex;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

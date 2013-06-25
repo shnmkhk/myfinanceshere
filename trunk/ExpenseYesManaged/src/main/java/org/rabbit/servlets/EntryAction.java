@@ -19,4 +19,14 @@ public class EntryAction extends HttpServlet {
                                              throws IOException {
 
              }
+             
+             /* (non-Javadoc)
+            * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+            */
+            @Override
+            protected void service(HttpServletRequest arg0, HttpServletResponse arg1)
+            throws ServletException, IOException {
+            // TODO Auto-generated method stub
+            super.service(arg0, arg1);
+            }
 }
