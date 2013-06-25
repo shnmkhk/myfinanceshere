@@ -11,13 +11,9 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
-public class Entry implements Serializable {
+public class Entry extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1910736454574078429L;
-
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
 
 	private int sequenceIndex;
 
@@ -53,14 +49,6 @@ public class Entry implements Serializable {
 		this.shortCode = shortCode;
 		this.description = description;
 		this.status = status;
-	}
-
-	public Key getKey() {
-		return key;
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
 	}
 
 	/**
