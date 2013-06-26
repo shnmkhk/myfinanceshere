@@ -1,3 +1,4 @@
+<%@ include file="common/header.jsp" %>
 <form action="/sa" method="POST">
              <table class="form-container">
                              <tr>
