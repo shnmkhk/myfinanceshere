@@ -7,6 +7,7 @@ import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Sheet;
 import org.rabbit.services.SheetService;
+import org.rabbit.shared.NumUtil;
 
 /**
  * Service class implementation for loading/ persisting activities on <br/> 
@@ -28,35 +29,48 @@ public class SheetServiceImpl implements SheetService {
 		return SheetServiceImplHolder.SHEET_SERVICE_INSTANCE;
 	}
 
-	private void validateMonthAndYear(int month, int year) {
-		if (month < 1 || month > 12){
-			throw new IllegalArgumentException(String.format("Month cannot be %d, it should be in the limits [1-12]", month));
-		}
-
-		if (year < 0){
-			throw new IllegalArgumentException(String.format("Year cannot be %d, it should be in a positive number", year));
+	private void validateMonthAndYear(int month, int year) throws IllegalArgumentException {
+		if (month == NumUtil.MINUS_ONE || year == NumUtil.MINUS_ONE){
+			throw new IllegalArgumentException(String.format("Invalid month or year"));
+		} else {
+			StringBuffer errorMsgBuf = new StringBuffer();
+			if (month < NumUtil.MONTH_LOWER_LIMIT || month > NumUtil.MONTH_UPPER_LIMIT){
+				errorMsgBuf.append(String.format("Month cannot be %d, it should be in the range [%d (January) to %d (December)]", month, NumUtil.MONTH_LOWER_LIMIT, NumUtil.MONTH_UPPER_LIMIT));
+			}
+	
+			if (year < NumUtil.YEAR_LOWER_LIMIT || year > NumUtil.YEAR_UPPER_LIMIT){
+				if (errorMsgBuf.length() > 0) {
+					errorMsgBuf.append("<br/>");
+				}
+				errorMsgBuf.append(String.format("Year cannot be %d, it should be equal or later to 1970", year));
+			}
+			
+			if (errorMsgBuf.length() > 0){
+				throw new IllegalArgumentException(errorMsgBuf.toString());
+			}
 		}
 	}
-	@Override
+	
+	
 	public Sheet addNewSheet(int month, int year)
-			throws SheetAlreadyExistsException {
+			throws SheetAlreadyExistsException, IllegalArgumentException {
 		validateMonthAndYear(month, year);
 		return SheetDAOImpl.getInstance().createNewSheet(month, year);
 	}
 
-	@Override
+	
 	public List<Sheet> getAllSheets() {
 		return SheetDAOImpl.getInstance().getAllSheets();
 	}
 
-	@Override
-	public Sheet getSheet(int month, int year) throws SheetNotFoundException {
+	
+	public Sheet getSheet(int month, int year) throws SheetNotFoundException, IllegalArgumentException {
 		validateMonthAndYear(month, year);
 		return SheetDAOImpl.getInstance().getSheet(month, year);
 	}
 
-	@Override
-	public void deleteSheet(int month, int year) throws SheetNotFoundException {
+	
+	public void deleteSheet(int month, int year) throws SheetNotFoundException, IllegalArgumentException {
 		validateMonthAndYear(month, year);
 		SheetDAOImpl.getInstance().deleteSheet(month, year);
 	}

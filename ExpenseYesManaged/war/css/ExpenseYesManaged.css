@@ -1,0 +1,220 @@
+/** Add css rules here for your application. */
+/** Example rules used by the template application (remove for your app) */
+h1 {
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
+}
+
+.actionButton {
+	display: block;
+	font-size: 16pt;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400px;
+}
+
+.dialogVPanel {
+	margin: 5px;
+}
+
+.serverResponseLabelError {
+	color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+	margin: 15px 6px 6px;
+}
+
+.body {
+	width: 98%;
+	height: 100%;
+	margin: 5px auto;
+}
+
+.random-image-background {
+	background-image: url('images/finances2.jpg');
+	background-repeat: repeat;
+	background-color: #FFFEFE;		
+}
+
+.form-background {
+	background: rgb(255, 255, 255); /* The Fallback */
+	padding: 10px;
+	margin: 5px auto;
+	width: 100%;
+	height: 100%;
+	border: 1px solid gray;
+}
+
+.header {
+	font-size: medium;
+	font-weight: bold;
+	text-align: center;
+	background-color: rgba(0, 0, 0);
+	padding: 0px;
+	margin: 5px auto;
+	width: 98%;
+	height: 30%;
+	text-align: center;
+}
+
+.header-container {
+	
+	background: #2F2F2F; /* The Fallback */
+	padding: 10px;
+	border: 1px solid white;
+	margin-top: 10px;
+	color: #FFFFFF;
+}
+
+/*
+.logo {
+	background-image: url("images/ExpenseYesManaged_small.gif");
+	width: 32px;
+	height: 39px;
+}
+*/
+
+.main-body {
+	margin: 1px auto;
+	width: 99%;
+	height: 100%;
+	text-align: left;
+	vertical-align: top;
+	border: 1px solid gray;
+}
+
+.main-container {
+	margin: 5px auto;
+	border: 1px solid gray;
+	width: 90%;
+	height: 100%;
+	text-align: center;
+
+	background: rgb(0, 0, 0) transparent; /* The Fallback */
+   	background: rgba(0, 0, 0, 0.6);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000); 
+    zoom: 1;
+   	  
+	border: 1px solid gray;
+}
+
+.rabbit-common-align-left {
+	text-align: left;
+	float: none;
+}
+
+.rabbit-common-align-right {
+	text-align: right;
+	float: none;
+}
+
+.rabbit-common-float-right {
+	clear: none;
+	float: right;
+}
+
+.rabbit-common-float-left {
+	clear: none;
+	float: left;
+}
+
+
+.rabbit-common-least-padded {
+	padding: 3px;
+}
+
+.rabbit-common-medium-padded {
+	padding: 5px;
+}
+
+.rabbit-common-highly-padded {
+	padding: 10px;
+}
+
+.rabbit-table {
+	border: 1px solid gray;	
+	border-collapse: collapse;
+}
+
+.rabbit-table td {
+	border: 1px solid gray;	
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+.rabbit-default-invisible {
+	display: none;
+	visibility: hidden;
+}
+
+span.tagline {
+	font-size: x-small;
+	font-weight: normal;	
+}
+
+table.form-container {
+	border: 1px solid gray;
+	width: 100%;
+}
+table.form-container, table.form-container td {
+	padding: 5px;
+}
+
+table.form-container td {
+	text-align: left;
+}
+
+
+table.form-container input[type="submit"] {
+	border: 1px solid gray;
+	background-color: orange;
+	color: #FFFFFF;
+	padding: 3px;
+}
+
+body {
+	/*font-family: Tahoma, Geneva, sans-serif;*/
+	font-family: Verdana,Helvetica,Arial,sans-serif;
+}
+
+ul.horizontal-list li {
+	display: inline;
+}
+
+ul.horizontal-list {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: left;
+}
+
+div.info-message {
+	border: 1px solid #000000;
+	background-color: yellow;
+	color: #000000;
+	padding: 3px 5px;
+}
+
+div.error-message {
+	border: 1px solid #000000;
+	background-color: yellow;
+	color: red;
+	padding: 3px 5px;
+}
+
+div.header-text {
+	font-size: large;
+	font-weight: bold;	
+}
+
+
+span.pagebanner, span.pagelinks {
+	width: inherit;
+}

@@ -39,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.TransactionService#addNewTransaction(java.lang.String, double, double, org.rabbit.model.Entry)
 	 */
-	@Override
+	
 	public Transaction addNewTransaction(String description,
 			double openingBalance, double transactionAmount, Entry entry) {
 		return transactionDAO.createNewTransaction(description, openingBalance, transactionAmount, entry);
@@ -48,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.TransactionService#deleteTransaction(org.rabbit.model.Entry, int)
 	 */
-	@Override
+	
 	public void deleteTransaction(Entry entry, int sequenceIndex) throws TransactionNotFoundException {
 		transactionDAO.deleteTransaction(entry, sequenceIndex);
 	}
@@ -56,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.TransactionService#getAllTransactions()
 	 */
-	@Override
+	
 	public List<Transaction> getAllTransactions() {
 		return transactionDAO.getAllTransactions();
 	}
@@ -64,7 +64,7 @@ public class TransactionServiceImpl implements TransactionService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.TransactionService#getTransactionByEntry(org.rabbit.model.Entry)
 	 */
-	@Override
+	
 	public List<Transaction> getTransactionByEntry(Entry entry) {
 		return transactionDAO.getTransactionByEntry(entry);
 	}
@@ -72,7 +72,7 @@ public class TransactionServiceImpl implements TransactionService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.TransactionService#getTransactionByEntryAndIndex(org.rabbit.model.Entry, int)
 	 */
-	@Override
+	
 	public Transaction getTransactionByEntryAndIndex(Entry entry,
 			int sequenceIndex) throws TransactionNotFoundException {
 		return transactionDAO.getTransactionByEntryAndIndex(entry, sequenceIndex);
@@ -81,7 +81,7 @@ public class TransactionServiceImpl implements TransactionService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.TransactionService#updateTransaction(com.google.appengine.api.datastore.Transaction)
 	 */
-	@Override
+	
 	public Transaction updateTransaction(Transaction transaction) {
 		return transactionDAO.updateTransaction(transaction);
 	}

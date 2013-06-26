@@ -1,6 +1,7 @@
 package org.rabbit.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.jdo.JDOObjectNotFoundException;
@@ -12,7 +13,7 @@ import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Sheet;
 import org.rabbit.server.PMF;
 import org.rabbit.shared.NumUtil;
-import org.rabbit.shared.TextUtil;
+import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.Util;
 
 import com.google.appengine.api.datastore.Entity;
@@ -42,7 +43,7 @@ public class SheetDAOImpl implements SheetDAO {
 	}
 
 	
-	@Override
+	
 	public Sheet createNewSheet(int month, int year)
 			throws SheetAlreadyExistsException {
 
@@ -56,8 +57,9 @@ public class SheetDAOImpl implements SheetDAO {
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Key key = KeyFactory.createKey(null, Sheet.class.getSimpleName(),
-				TextUtil.getSheetKeyId(month, year));
+				ObjectUtils.getSheetKeyId(month, year));
 		sheet = new Sheet(key, month, year);
+		sheet.setCreatedOn(Calendar.getInstance().getTime());
 		
 		pm.makePersistent(sheet);
 		sheet = pm.detachCopy(sheet);
@@ -66,7 +68,7 @@ public class SheetDAOImpl implements SheetDAO {
 		return sheet;
 	}
 
-	@Override
+	
 	public void deleteSheet(int month, int year) throws SheetNotFoundException {
 		Sheet sheet = getSheet(month, year);
 		if (sheet == null) {
@@ -77,12 +79,12 @@ public class SheetDAOImpl implements SheetDAO {
 		}
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		pm.deletePersistent( pm.getObjectById( Sheet.class,
-				TextUtil.getSheetKeyId(month, year) ) ); 
+				ObjectUtils.getSheetKeyId(month, year) ) ); 
 		
 		pm.close();
 	}
 
-	@Override
+	
 	public List<Sheet> getAllSheets() {
 
 		Query query = new Query(Sheet.class.getSimpleName());
@@ -92,19 +94,28 @@ public class SheetDAOImpl implements SheetDAO {
 		List<Sheet> sheetsList = new ArrayList<Sheet>(list.size());
 		for (Entity e : list) {
 			Sheet sheet = new Sheet(e.getKey(), NumUtil.getIntValue(e
-					.getProperty("month").toString(), -1), NumUtil.getIntValue(
-					e.getProperty("year").toString(), -1));
-
+					.getProperty("month"), -1), NumUtil.getIntValue(
+					e.getProperty("year"), -1));
+			
+			sheet.setCreatedBy(ObjectUtils.getStrValue(e.getProperty("createdBy")));
+			if (ObjectUtils.isNotNullAndNotEmpty(e.getProperty("createdOn"))) {
+				sheet.setCreatedOn((java.util.Date)e.getProperty("createdOn"));
+			}
+			sheet.setLastUpdatedBy(ObjectUtils.getStrValue(e.getProperty("lastUpdatedBy")));
+			if (ObjectUtils.isNotNullAndNotEmpty(e.getProperty("lastUpdatedOn"))) {
+				sheet.setLastUpdatedOn((java.util.Date)e.getProperty("lastUpdatedOn"));
+			}
+			
 			sheetsList.add(sheet);
 		}
 
 		return sheetsList;
 	}
 
-	@Override
+	
 	public Sheet getSheet(int month, int year) throws SheetNotFoundException {
 		Key key = KeyFactory.createKey(Sheet.class.getSimpleName(),
-				TextUtil.getSheetKeyId(month, year));
+				ObjectUtils.getSheetKeyId(month, year));
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
@@ -116,7 +127,7 @@ public class SheetDAOImpl implements SheetDAO {
 		}
 	}
 	
-	@Override
+	
 	public Sheet getSheet(Key sheetKey) throws SheetNotFoundException {
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();

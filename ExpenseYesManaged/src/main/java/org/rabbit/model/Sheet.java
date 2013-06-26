@@ -9,6 +9,8 @@ import com.google.appengine.api.datastore.Key;
 @PersistenceCapable(detachable="true")
 public class Sheet extends BaseEntity implements Serializable {
 
+	private static final long serialVersionUID = -7567328471499565269L;
+
 	private int month;
 
 	private int year;
@@ -18,6 +20,14 @@ public class Sheet extends BaseEntity implements Serializable {
 		this.key = key;
 		this.month = month;
 		this.year = year;
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
 	}
 
 	/**
@@ -50,12 +60,11 @@ public class Sheet extends BaseEntity implements Serializable {
 		this.year = year;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
+	
 	public String toString() {
-		return "Sheet [key=" + key + ", month=" + month + ", year=" + year
-				+ "]";
+		return "Sheet [month=" + month + ", year=" + year + ", createdOn="
+				+ createdOn + ", lastUpdatedOn=" + lastUpdatedOn
+				+ ", createdBy=" + createdBy + ", lastUpdatedBy="
+				+ lastUpdatedBy + "]";
 	}
 }
