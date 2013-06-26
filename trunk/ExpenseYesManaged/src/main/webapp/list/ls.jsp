@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
-
+<%@ include file="../common/header.jsp" %>
 <title>Rabbit Computing :: Available sheets</title>
 <body>
              <display:table name="${sessionScope.allSheets}" class="Mars" >
