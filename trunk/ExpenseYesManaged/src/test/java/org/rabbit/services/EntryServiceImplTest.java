@@ -17,7 +17,7 @@ import org.rabbit.model.Entry;
 import org.rabbit.model.Sheet;
 import org.rabbit.services.impl.EntryServiceImpl;
 import org.rabbit.services.impl.SheetServiceImpl;
-import org.rabbit.shared.TextUtil;
+import org.rabbit.shared.ObjectUtils;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -143,7 +143,7 @@ public class EntryServiceImplTest extends BaseTest {
 	 */
 	@Test
 	public final void testGetEntryBySheetAndIndex() throws EntryNotFoundException, SheetNotFoundException, EntryAlreadyExistsException {
-		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), TextUtil.getSheetKeyId(MONTH, YEAR));
+		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(MONTH, YEAR));
 		entry = entryService.getEntryBySheetAndIndex(parentSheetKey, entry.getSequenceIndex());
 		Assert.assertNotNull(entry);
 		
@@ -161,7 +161,7 @@ public class EntryServiceImplTest extends BaseTest {
 	 */
 	@Test
 	public final void testUpdateEntry() throws EntryNotFoundException, SheetNotFoundException {
-		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), TextUtil.getSheetKeyId(MONTH, YEAR));
+		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(MONTH, YEAR));
 		Assert.assertNotNull(entry);
 		
 		entry.setAmount(35000);

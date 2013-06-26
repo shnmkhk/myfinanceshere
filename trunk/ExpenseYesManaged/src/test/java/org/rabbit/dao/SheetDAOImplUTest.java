@@ -18,15 +18,17 @@ public class SheetDAOImplUTest extends BaseTest  {
 	public void testCreateNewSheet() throws SheetAlreadyExistsException,
 			SheetNotFoundException {
 		// Persist Sheet entry.
-		sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
 
 		// Retrieve it back from the database again.
-		Sheet sheet = sheetDAO.getSheet(12, 2013);
+		// sheet = sheetDAO.getSheet(12, 2013);
 		
 		// Assert each property against the expected values.
 		Assert.assertNotNull(sheet);
+		System.out.println(sheet.getCreatedOn());
 		Assert.assertEquals(sheet.getMonth(), 12);
 		Assert.assertEquals(sheet.getYear(), 2013);
+		Assert.assertNotNull(sheet.getCreatedOn());
 	}
 
 	@Test

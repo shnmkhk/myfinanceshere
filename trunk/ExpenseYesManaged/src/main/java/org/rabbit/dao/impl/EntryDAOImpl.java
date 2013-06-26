@@ -1,6 +1,7 @@
 package org.rabbit.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -14,7 +15,7 @@ import org.rabbit.model.Entry;
 import org.rabbit.model.Sheet;
 import org.rabbit.server.PMF;
 import org.rabbit.shared.NumUtil;
-import org.rabbit.shared.TextUtil;
+import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.Util;
 
 import com.google.appengine.api.datastore.Entity;
@@ -48,7 +49,7 @@ public class EntryDAOImpl implements EntryDAO {
 		return EntryDAOImplHandler.entryDAOImpl;
 	}
 
-	@Override
+	
 	public Entry createNewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet sheet)
 			throws EntryAlreadyExistsException {
@@ -67,18 +68,19 @@ public class EntryDAOImpl implements EntryDAO {
 		}
 		Key key = KeyFactory.createKey(sheet.getKey(),
 				Entry.class.getSimpleName(),
-				TextUtil.getEntryKeyId(sheet.getKey(), ++maxSeqIx));
+				ObjectUtils.getEntryKeyId(sheet.getKey(), ++maxSeqIx));
 
 		Entry entry = new Entry(key, maxSeqIx, type, amount, shortCode,
 				description, status);
 
+		entry.setCreatedOn(Calendar.getInstance().getTime());
 		pm.makePersistent(entry);
 		pm.close();
 
 		return entry;
 	}
 
-	@Override
+	
 	public boolean deleteEntry(Sheet sheet, int sequenceIndex)
 			throws EntryNotFoundException {
 
@@ -94,7 +96,7 @@ public class EntryDAOImpl implements EntryDAO {
 		return true;
 	}
 
-	@Override
+	
 	public List<Entry> getAllEntries() {
 		Query query = new Query(Entry.class.getSimpleName());
 		List<Entity> entitiesList = Util.getDatastoreServiceInstance()
@@ -105,7 +107,7 @@ public class EntryDAOImpl implements EntryDAO {
 		return entriesList;
 	}
 
-	@Override
+	
 	public List<Entry> getEntriesBySheet(Sheet sheet) {
 		Query query = new Query(Entry.class.getSimpleName(), sheet.getKey());
 
@@ -114,7 +116,7 @@ public class EntryDAOImpl implements EntryDAO {
 		return prepareEntriesList(entitiesList);
 	}
 
-	@Override
+	
 	public Entry updateEntry(Entry entry) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
@@ -124,7 +126,7 @@ public class EntryDAOImpl implements EntryDAO {
 		return entry;
 	}
 
-	@Override
+	
 	@SuppressWarnings("deprecation")
 	public Entry getEntryBySheetAndIndex(Sheet sheet, int sequenceIndex)
 			throws EntryNotFoundException {

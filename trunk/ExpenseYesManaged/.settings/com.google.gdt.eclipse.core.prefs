@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 jarsExcludedFromWebInfLib=
+lastWarOutDir=C\:/Users/katuri_rao/workspace/ExpenseYesManaged/war
 launchConfigExternalUrlPrefix=
-warSrcDir=src/main/webapp
+warSrcDir=war
 warSrcDirIsOutput=true

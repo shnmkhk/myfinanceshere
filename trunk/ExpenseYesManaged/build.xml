@@ -51,10 +51,7 @@
 				<include name="**/*.xml" />
 			</fileset>
 		</copy>
-		<javac target="1.6" source="1.6" debug="true" listfiles="true" srcdir="src" destdir="war/WEB-INF/classes" classpathref="project.classpath" />
-
-
-
+		<javac target="1.6" source="1.6" srcdir="src" destdir="war/WEB-INF/classes" classpathref="project.classpath" />
 	</target>
 
 	<target name="datanucleusenhance" depends="clean,compile" description="Performs enhancement on compiled data classes.">

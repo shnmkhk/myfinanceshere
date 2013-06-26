@@ -1,86 +1,70 @@
 package org.rabbit.server;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.rabbit.exception.EntryNotFoundException;
+import org.rabbit.exception.SheetNotFoundException;
+import org.rabbit.model.Entry;
+import org.rabbit.model.Sheet;
 import org.rabbit.model.Transaction;
+import org.rabbit.services.EntryService;
+import org.rabbit.services.TransactionService;
+import org.rabbit.services.impl.EntryServiceImpl;
+import org.rabbit.services.impl.TransactionServiceImpl;
+import org.rabbit.shared.NumUtil;
+import org.rabbit.shared.RequestUtil;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 public class MyfinancesServlet extends HttpServlet {
+	
+	private static final long serialVersionUID = -8801600974223631863L;
+
+	private static TransactionService transactionService = TransactionServiceImpl.getInstance();
+	private static EntryService entryService = EntryServiceImpl.getInstance();
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		Query q = pm.newQuery(Transaction.class);
-		try {
-			List<Transaction> results = (List<Transaction>) q.execute();
-			resp.getWriter().println("Results: " + results.size());
-			System.out.println("Results: " + results.size() + " Time: "
-					+ new Date());
-			for (Transaction t : results) {
-				resp.getWriter().println(t.toString());
-				resp.getWriter().println("<br/>");
-			}
-		} finally {
-			q.closeAll();
-			pm.close();
-		}
-		resp.setContentType("text/html");
-		resp.getWriter().println("<a href='/'>Click to add another entry</a>");
-
+			throws IOException, ServletException {
+		
+		List<Transaction> results = (List<Transaction>) transactionService.getAllTransactions(); 
+		req.setAttribute("transactionResults", results);
+		
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/list.jsp");
+		requestDispatcher.forward(req, resp);
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-
-		resp.setContentType("text/html");
-		resp.getWriter().println("Hello, world");
-
-		String skip = req.getParameter("skip");
-		PersistenceManager pm;
-		if (skip == null) {
-			System.out.println("Adding an entry -->");
-			pm = PMF.get().getPersistenceManager();
-			try {
-
-				Transaction transaction = new Transaction();
-
-				transaction.setDescription(req.getParameter("description"));
-				transaction.setOpeningBalance(Double.parseDouble(req
-						.getParameter("openingBalance")));
-				transaction.setTransactionAmount(Double.parseDouble(req
-						.getParameter("transactionAmount")));
-
-				pm.makePersistent(transaction);
-			} finally {
-				pm.close();
+		response.setContentType("text/html");
+		boolean skip = RequestUtil.getBoolValue(request, "skip", false);
+		if (!skip) {
+			int entryIx = RequestUtil.getIntValue(request, "entryIx", NumUtil.MINUS_ONE);
+			long sheetId = RequestUtil.getLongValue(request, "sheetId", NumUtil.MINUS_ONE);
+			
+			if (NumUtil.MINUS_ONE == entryIx || NumUtil.MINUS_ONE == sheetId) {
+				response.getWriter().println("<div style='color: red;'>Invalid arguments<br/>Expected sheet identifier along with entry sequence number</div>");
+				return;
 			}
-
-			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-
-			int i = 0;
-			while (!pm.isClosed() || i < 3) {
-				System.out.println("pm.isClosed(): " + pm.isClosed() + " i: "
-						+ i);
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				i++;
+			Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), sheetId);
+			try {
+				Entry entry = entryService.getEntryBySheetAndIndex(parentSheetKey, entryIx);
+				transactionService.addNewTransaction(RequestUtil.getStringValue(request, "description"), 
+						RequestUtil.getDoubleValue(request, "openingBalance", -1), RequestUtil.getDoubleValue(request, "transactionAmount", -1)
+						, entry);
+			} catch (EntryNotFoundException e){
+				e.printStackTrace();
+			} catch (SheetNotFoundException e) {
+				e.printStackTrace();
 			}
 		}
-		resp.getWriter().println(
-				"<a href='/myfinances'>Click to see the listing</a>");
+		response.getWriter().println("<a href='/myfinances'>Click to see the listing</a>");
 	}
 }

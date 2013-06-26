@@ -1,6 +1,7 @@
 package org.rabbit.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -11,7 +12,7 @@ import org.rabbit.model.Entry;
 import org.rabbit.model.Transaction;
 import org.rabbit.server.PMF;
 import org.rabbit.shared.NumUtil;
-import org.rabbit.shared.TextUtil;
+import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.Util;
 
 import com.google.appengine.api.datastore.Entity;
@@ -43,7 +44,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	
-	@Override
+	
 	public Transaction createNewTransaction(String description,
 			double openingBalance, double transactionAmount, Entry entry) {
 
@@ -62,11 +63,11 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 		Key key = KeyFactory.createKey(entry.getKey(),
 				Transaction.class.getSimpleName(),
-				TextUtil.getEntryKeyId(entry.getKey(), ++maxSeqIx));
+				ObjectUtils.getEntryKeyId(entry.getKey(), ++maxSeqIx));
 
 		Transaction transaction = new Transaction(key, openingBalance,
 				description, transactionAmount, maxSeqIx);
-
+		transaction.setCreatedOn(Calendar.getInstance().getTime());
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		pm.makePersistent(transaction);
 		pm.close();
@@ -74,7 +75,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return transaction;
 	}
 
-	@Override
+	
 	public void deleteTransaction(Entry entry, int sequenceIndex)
 			throws TransactionNotFoundException {
 		Transaction transaction = getTransactionByEntryAndIndex(entry,
@@ -89,7 +90,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		Util.deleteEntity(transaction.getKey());
 	}
 
-	@Override
+	
 	public List<Transaction> getAllTransactions() {
 		Query query = new Query(Transaction.class.getSimpleName());
 		List<Entity> entitiesList = Util.getDatastoreServiceInstance()
@@ -98,7 +99,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return prepareTransactionsList(entitiesList);
 	}
 
-	@Override
+	
 	public List<Transaction> getTransactionByEntry(Entry entry) {
 		Query query = new Query(Transaction.class.getSimpleName(),
 				entry.getKey());
@@ -108,7 +109,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return prepareTransactionsList(entitiesList);
 	}
 
-	@Override
+	
 	@SuppressWarnings("deprecation")
 	public Transaction getTransactionByEntryAndIndex(Entry entry,
 			int sequenceIndex) throws TransactionNotFoundException {
@@ -125,7 +126,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return prepareTransaction(entity);
 	}
 
-	@Override
+	
 	public Transaction updateTransaction(Transaction transaction) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		return pm.makePersistent(transaction);

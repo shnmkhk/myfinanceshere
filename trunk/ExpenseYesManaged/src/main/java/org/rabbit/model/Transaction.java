@@ -3,10 +3,7 @@ package org.rabbit.model;
 import java.io.Serializable;
 
 import javax.jdo.annotations.ForeignKey;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -20,12 +17,13 @@ public class Transaction extends BaseEntity implements Serializable {
 	private String description;
 
 	private double transactionAmount;
-
+	
 	private int sequenceIndex;
-
+	
 	@ForeignKey
 	private Entry entry;
-
+	
+	
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -94,6 +92,14 @@ public class Transaction extends BaseEntity implements Serializable {
 		this.entry = entry;
 	}
 
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
 	public int getSequenceIndex() {
 		return sequenceIndex;
 	}
@@ -102,12 +108,10 @@ public class Transaction extends BaseEntity implements Serializable {
 		this.sequenceIndex = sequenceIndex;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
+	
 	public String toString() {
 		return "Transaction [key=" + key + ", openingBalance=" + openingBalance
 				+ ", description=" + description + ", transactionAmount="

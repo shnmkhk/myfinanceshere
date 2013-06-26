@@ -42,7 +42,7 @@ public class EntryServiceImpl implements EntryService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.EntryService#addANewEntry(char, double, java.lang.String, java.lang.String, char, com.google.appengine.api.datastore.Key)
 	 */
-	@Override
+	
 	public Entry addANewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet sheet)
 			throws EntryAlreadyExistsException {
@@ -58,7 +58,7 @@ public class EntryServiceImpl implements EntryService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.EntryService#deleteEntry(com.google.appengine.api.datastore.Key, int)
 	 */
-	@Override
+	
 	public boolean deleteEntry(Key parentSheetKey, int sequenceIndex)
 			throws EntryNotFoundException, SheetNotFoundException {
 		Sheet parentSsheetForSpecifiedKey = sheetDAO.getSheet(parentSheetKey);
@@ -71,7 +71,7 @@ public class EntryServiceImpl implements EntryService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.EntryService#getAllEntries()
 	 */
-	@Override
+	
 	public List<Entry> getAllEntries() {
 		return entryDAO.getAllEntries();
 	}
@@ -79,7 +79,7 @@ public class EntryServiceImpl implements EntryService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.EntryService#getEntries(com.google.appengine.api.datastore.Key)
 	 */
-	@Override
+	
 	public List<Entry> getEntries(Key parentSheetKey) throws SheetNotFoundException {
 		return entryDAO.getEntriesBySheet(sheetDAO.getSheet(parentSheetKey));
 	}
@@ -87,7 +87,7 @@ public class EntryServiceImpl implements EntryService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.EntryService#getEntryBySheetAndIndex(com.google.appengine.api.datastore.Key, int)
 	 */
-	@Override
+	
 	public Entry getEntryBySheetAndIndex(Key parentSheetKey, int sequenceIndex)
 			throws EntryNotFoundException, SheetNotFoundException {
 		return entryDAO.getEntryBySheetAndIndex(sheetDAO.getSheet(parentSheetKey), sequenceIndex);
@@ -96,7 +96,7 @@ public class EntryServiceImpl implements EntryService {
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.EntryService#updateEntry(org.rabbit.model.Entry)
 	 */
-	@Override
+	
 	public Entry updateEntry(Entry entry) {
 		return entryDAO.updateEntry(entry);
 	}
