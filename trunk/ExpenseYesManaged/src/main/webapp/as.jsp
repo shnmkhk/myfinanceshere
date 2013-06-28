@@ -2,7 +2,7 @@
 <title>Add a sheet</title>
 <body>
 	<jsp:include page="/common/header.jsp"></jsp:include>
-	<form action="/sa" method="POST">
+	<form action="/sa/#content" method="POST">
 		<table class="form-container">
 			<tr>
 				<td><label for="month">Month</label><br /> <input type="text"

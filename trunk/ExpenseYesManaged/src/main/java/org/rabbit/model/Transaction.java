@@ -3,21 +3,27 @@ package org.rabbit.model;
 import java.io.Serializable;
 
 import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable
+@PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
 public class Transaction extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 4351901171868709445L;
 
+	@Persistent
 	private double openingBalance;
 
+	@Persistent
 	private String description;
 
+	@Persistent
 	private double transactionAmount;
 	
+	@Persistent
 	private int sequenceIndex;
 	
 	@ForeignKey

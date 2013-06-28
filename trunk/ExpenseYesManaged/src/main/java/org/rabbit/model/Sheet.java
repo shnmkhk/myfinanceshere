@@ -2,17 +2,23 @@ package org.rabbit.model;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+
+import org.rabbit.shared.ObjectUtils;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(detachable="true")
+@PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
 public class Sheet extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -7567328471499565269L;
 
+	@Persistent
 	private int month;
 
+	@Persistent
 	private int year;
 
 	public Sheet(Key key, int month, int year) {
@@ -66,5 +72,9 @@ public class Sheet extends BaseEntity implements Serializable {
 				+ createdOn + ", lastUpdatedOn=" + lastUpdatedOn
 				+ ", createdBy=" + createdBy + ", lastUpdatedBy="
 				+ lastUpdatedBy + "]";
+	}
+	
+	public String getKeyStr(){
+		return ObjectUtils.getSheetKeyId(month, year);
 	}
 }

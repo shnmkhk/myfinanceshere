@@ -13,11 +13,16 @@ public class ObjectUtils {
 		return String.valueOf(month) + "_" + String.valueOf(year);
 	}
 
-	public static final String[] getMonthYr(String sheetKeyId) {
+	public static final int[] getMonthYr(String sheetKeyId) {
 		if (isNullOrEmpty(sheetKeyId)) {
 			return null;
 		}
-		return sheetKeyId.split("_");
+		String[] monthYrStr = sheetKeyId.split("_");
+		int[] monthYrInt = new int[monthYrStr.length];
+		monthYrInt[0] = getIntValue(monthYrStr[0], NumUtil.MINUS_ONE);
+		monthYrInt[1] = getIntValue(monthYrStr[1], NumUtil.MINUS_ONE);
+		
+		return monthYrInt;
 	}
 
 	public static final String getEntryKeyId(Key parentKey, int sequenceIndex) {

@@ -3,28 +3,33 @@ package org.rabbit.model;
 import java.io.Serializable;
 
 import javax.jdo.annotations.ForeignKey;
-import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable
+@PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
 public class Entry extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1910736454574078429L;
 
+	@Persistent
 	private int sequenceIndex;
 
+	@Persistent
 	private char type;
 
+	@Persistent
 	private double amount;
 
+	@Persistent
 	private String shortCode;
 
+	@Persistent
 	private String description;
 
+	@Persistent
 	private char status;
 	
 	@ForeignKey
