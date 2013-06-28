@@ -12,7 +12,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SheetAction</servlet-name>
-		<url-pattern>/sa</url-pattern>
+		<url-pattern>/sa/*</url-pattern>
 	</servlet-mapping>
 
 
@@ -22,7 +22,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntryAction</servlet-name>
-		<url-pattern>/ea</url-pattern>
+		<url-pattern>/ea/*</url-pattern>
 	</servlet-mapping>
 
 
@@ -32,7 +32,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>TransactionAction</servlet-name>
-		<url-pattern>/ta</url-pattern>
+		<url-pattern>/ta/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->

@@ -2,6 +2,7 @@ package org.rabbit.services.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.rabbit.dao.impl.SheetDAOImpl;
 import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
@@ -73,5 +74,13 @@ public class SheetServiceImpl implements SheetService {
 	public void deleteSheet(int month, int year) throws SheetNotFoundException, IllegalArgumentException {
 		validateMonthAndYear(month, year);
 		SheetDAOImpl.getInstance().deleteSheet(month, year);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.rabbit.services.SheetService#getSheet(java.lang.String)
+	 */
+	public Sheet getSheet(String sheetKeyStr) throws SheetNotFoundException {
+		int[] monthYr = org.rabbit.shared.ObjectUtils.getMonthYr(sheetKeyStr);
+		return getSheet(monthYr[0], monthYr[1]);
 	}
 }

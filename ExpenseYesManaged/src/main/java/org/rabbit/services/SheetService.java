@@ -44,6 +44,15 @@ public interface SheetService {
 	public Sheet getSheet(int month, int year) throws SheetNotFoundException;
 
 	/**
+	 * Returns the sheet of respective month, year in mm_yyyy format
+	 * 
+	 * @param sheetKeyStr
+	 * @return
+	 * @throws SheetNotFoundException
+	 */
+	public Sheet getSheet(String sheetKeyStr) throws SheetNotFoundException;
+
+	/**
 	 * Deletes the sheet entry of the specified month and year.
 	 * 
 	 * @param month

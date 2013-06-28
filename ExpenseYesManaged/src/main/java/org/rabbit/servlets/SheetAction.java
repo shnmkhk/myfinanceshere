@@ -1,62 +1,40 @@
 package org.rabbit.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.rabbit.exception.SheetAlreadyExistsException;
-import org.rabbit.model.Sheet;
-import org.rabbit.services.SheetService;
-import org.rabbit.services.impl.SheetServiceImpl;
 import org.rabbit.shared.NumUtil;
 import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.RequestUtil;
 
-public class SheetAction extends HttpServlet {
+public class SheetAction extends BaseServlet {
 	
 	private static final long serialVersionUID = -8801600974223631863L;
 	
-	private static SheetService sheetService = SheetServiceImpl.getInstance();
-
-	private void unloadMessages(HttpServletRequest request){
-		request.getSession().removeAttribute("INFO_MESSAGE");
-		request.getSession().removeAttribute("ERROR_MESSAGE");
+	protected void unloadMessages(HttpServletRequest request) {
+		super.unloadMessages(request);
 		request.getSession().removeAttribute("INPUT_MONTH");
 		request.getSession().removeAttribute("INPUT_YEAR");
 	}
-	private void refreshAllSheetsIntoServletContext(HttpServletRequest request) {
-		List<Sheet> allSheets = (List<Sheet>) sheetService.getAllSheets();
-		request.getSession().setAttribute("allSheets", allSheets);			
-	}
 	
-	public void doGet(HttpServletRequest request, HttpServletResponse resp)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		unloadMessages(request);
-		refreshAllSheetsIntoServletContext(request);
-		
-		String baseHref = (String) request.getSession().getServletContext().getAttribute("baseHref");
-		if (ObjectUtils.isNullOrEmpty(baseHref)) {
-			baseHref = RequestUtil.EMPTY_STR;
-		}
-		resp.sendRedirect(baseHref + "/list/ls.jsp");
+		RequestUtil.refreshAllSheetsIntoSession(request);
+		String baseHref = handleCancelAndReturnBaseHref(request, response);
+		response.sendRedirect(baseHref + "/list/ls.jsp#content");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
-		unloadMessages(request);
-		String baseHref = (String) request.getSession().getServletContext().getAttribute("baseHref");
-		if (ObjectUtils.isNullOrEmpty(baseHref)) {
-			baseHref = RequestUtil.EMPTY_STR;
-		}
-		
+		String baseHref = handleCancelAndReturnBaseHref(request, response);
 		String submit = RequestUtil.getStringValue(request, "submit");
 		if (RequestUtil.EMPTY_STR.equals(submit) || RequestUtil.CANCEL_STR.equalsIgnoreCase(submit)) {
-			response.sendRedirect(baseHref + "/sa");
+			response.sendRedirect(baseHref + "/sa#content");
 			return;
 		}
 
@@ -68,7 +46,7 @@ public class SheetAction extends HttpServlet {
 			request.getSession().setAttribute("INFO_MESSAGE", String.format("Added a new sheet for month - <b>%d</b> and year - <b>%d</b>", month, year));
 			request.getSession().setAttribute("SHEET_KEY_ID", ObjectUtils.getSheetKeyId(month, year));
 			
-			refreshAllSheetsIntoServletContext(request);
+			RequestUtil.refreshAllSheetsIntoSession(request);
 			response.sendRedirect(baseHref + "/list/ls.jsp");
 			return;
 		} catch (SheetAlreadyExistsException e) {
@@ -89,4 +67,5 @@ public class SheetAction extends HttpServlet {
 		
 		response.sendRedirect(baseHref + "/as.jsp");
 	}
+
 }

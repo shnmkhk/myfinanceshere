@@ -7,6 +7,7 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
+<%@ page errorPage="/error.jsp" %>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -59,7 +60,7 @@
 								</div>
 							</div>
 						</div>
-
+						<jsp:include page="/common/navigation.jsp"></jsp:include>
 						<div class="body" style="height: 70%" id="content">
 							<table class="form-background">
 								<tr>
@@ -71,23 +72,6 @@
 								</tr>
 								<tr>
 									<td><decorator:body /></td>
-								</tr>
-							</table>
-							<table class="form-background">
-								<tr>
-									<td>
-										<div>
-											<ul class="horizontal-list">
-												<li><label>shanmukha.k@gmail.com</label></li>
-												<li>&nbsp;|&nbsp;</li>
-												<li><a href="/">Logout</a></li>
-												<li>&nbsp;|&nbsp;</li>
-												<li><a href="/as.jsp">Add a sheet</a></li>
-												<li>&nbsp;|&nbsp;</li>
-												<li><a href="/sa">Sheet Listing</a></li>
-											</ul>
-										</div>
-									</td>
 								</tr>
 							</table>
 						</div>
