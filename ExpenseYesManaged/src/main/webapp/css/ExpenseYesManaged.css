@@ -40,7 +40,7 @@ h1 {
 .random-image-background {
 	background-image: url('images/finances2.jpg');
 	background-repeat: repeat;
-	background-color: #FFFEFE;		
+	background-color: #FFFEFE;
 }
 
 .form-background {
@@ -64,7 +64,6 @@ h1 {
 }
 
 .header-container {
-	
 	background: #2F2F2F; /* The Fallback */
 	padding: 10px;
 	border: 1px solid white;
@@ -79,7 +78,6 @@ h1 {
 	height: 39px;
 }
 */
-
 .main-body {
 	margin: 1px auto;
 	width: 99%;
@@ -92,15 +90,14 @@ h1 {
 .main-container {
 	margin: 5px auto;
 	border: 1px solid gray;
-	width: 90%;
+	width: 99%;
 	height: 100%;
 	text-align: center;
-
 	background: rgb(0, 0, 0) transparent; /* The Fallback */
-   	background: rgba(0, 0, 0, 0.6);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000); 
-    zoom: 1;
-   	  
+	background: rgba(0, 0, 0, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,
+		endColorstr=#80000000);
+	zoom: 1;
 	border: 1px solid gray;
 }
 
@@ -124,7 +121,6 @@ h1 {
 	float: left;
 }
 
-
 .rabbit-common-least-padded {
 	padding: 3px;
 }
@@ -138,12 +134,12 @@ h1 {
 }
 
 .rabbit-table {
-	border: 1px solid gray;	
+	border: 1px solid gray;
 	border-collapse: collapse;
 }
 
 .rabbit-table td {
-	border: 1px solid gray;	
+	border: 1px solid gray;
 	border-collapse: collapse;
 	padding: 5px;
 }
@@ -155,21 +151,21 @@ h1 {
 
 span.tagline {
 	font-size: x-small;
-	font-weight: normal;	
+	font-weight: normal;
 }
 
 table.form-container {
 	border: 1px solid gray;
 	width: 100%;
 }
-table.form-container, table.form-container td {
+
+table.form-container,table.form-container td {
 	padding: 5px;
 }
 
 table.form-container td {
 	text-align: left;
 }
-
 
 table.form-container input[type="submit"] {
 	border: 1px solid gray;
@@ -180,11 +176,11 @@ table.form-container input[type="submit"] {
 
 body {
 	/*font-family: Tahoma, Geneva, sans-serif;*/
-	font-family: Verdana,Helvetica,Arial,sans-serif;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
 }
 
 ul.horizontal-list li {
-	display: inline;
+	display: inline-table;
 }
 
 ul.horizontal-list {
@@ -210,10 +206,72 @@ div.error-message {
 
 div.header-text {
 	font-size: large;
-	font-weight: bold;	
+	font-weight: bold;
+}
+
+span.pagebanner,span.pagelinks {
+	width: inherit;
+}
+
+div.sheet-container {
+	width: 4em;
+	background-color: #FFFFFF;
+	border: 1px solid black;
+	padding: 3px 0px 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+div.sheet-container div.sheet-container-month {
+	color: #000000;
+	font-weight: bold;
+	width: auto;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	height: 70%;
+}
+
+div.sheet-container div.sheet-container-year {
+	background-color: #000000;
+	color: #FFFFFF;
+	font-weight: normal;
+	width: auto;
+	line-height: 1.5em;
+	vertical-align: middle;
+	height: 30%;
+}
+
+a.no-underline {
+	text-decoration: none;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.style-class-income {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.style-class-expense {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.sum-of-entries-amounts {
+	padding-right: 5px;
+}
+.sum-of-entries-amounts label{
+	font-weight: bold;
 }
 
 
-span.pagebanner, span.pagelinks {
-	width: inherit;
+a, a:hover, a:VISITED, a:ACTIVE {
+	color: navy;
 }

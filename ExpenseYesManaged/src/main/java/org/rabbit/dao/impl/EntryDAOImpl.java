@@ -113,6 +113,7 @@ public class EntryDAOImpl implements EntryDAO {
 
 		List<Entity> entitiesList = Util.getDatastoreServiceInstance()
 				.prepare(query).asList(FetchOptions.Builder.withDefaults());
+		
 		return prepareEntriesList(entitiesList);
 	}
 
@@ -142,7 +143,6 @@ public class EntryDAOImpl implements EntryDAO {
 							"Entry not found in the database with sheet %s and sequence index %d",
 							sheet.getKey().getName(), sequenceIndex));
 		}
-		System.out.println("uniqueEntity: " + uniqueEntity);
 		return prepareEntry(uniqueEntity);
 	}
 
@@ -153,6 +153,15 @@ public class EntryDAOImpl implements EntryDAO {
 		List<Entry> entriesList = new ArrayList<Entry>(entitiesList.size());
 		for (Entity entity : entitiesList) {
 			Entry entry = prepareEntry(entity);
+			
+			entry.setCreatedBy(ObjectUtils.getStrValue(entity.getProperty("createdBy")));
+			if (ObjectUtils.isNotNullAndNotEmpty(entity.getProperty("createdOn"))) {
+				entry.setCreatedOn((java.util.Date)entity.getProperty("createdOn"));
+			}
+			entry.setLastUpdatedBy(ObjectUtils.getStrValue(entity.getProperty("lastUpdatedBy")));
+			if (ObjectUtils.isNotNullAndNotEmpty(entity.getProperty("lastUpdatedOn"))) {
+				entry.setLastUpdatedOn((java.util.Date)entity.getProperty("lastUpdatedOn"));
+			}
 			entriesList.add(entry);
 		}
 		return entriesList;

@@ -7,6 +7,8 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import org.rabbit.shared.ObjectUtils;
+
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
@@ -78,7 +80,7 @@ public class Entry extends BaseEntity implements Serializable {
 	 * @return the amount
 	 */
 	public double getAmount() {
-		return amount;
+		return Math.abs(amount);
 	}
 
 	/**
@@ -158,5 +160,30 @@ public class Entry extends BaseEntity implements Serializable {
 				+ ", type=" + type + ", amount=" + amount + ", shortCode="
 				+ shortCode + ", description=" + description + ", status="
 				+ status + ", sheet=" + sheet + "]";
+	}
+	
+	public String getStyleClass(){
+		if (type == 'I'){
+			return "style-class-income";
+		} else {
+			return "style-class-expense";
+		}
+	}
+	
+	public String getTypeStr() {
+		if (type == 'I'){
+			return "Income" + ObjectUtils.getSimpleDate(getCreatedOn());
+		} else {
+			return "Expense" + ObjectUtils.getSimpleDate(getCreatedOn());
+		}
+	}
+	
+	public double getSignedAmount(){
+		if (type == 'I'){
+			return amount;
+		} else {
+			return (-1) * amount;
+		}
+
 	}
 }

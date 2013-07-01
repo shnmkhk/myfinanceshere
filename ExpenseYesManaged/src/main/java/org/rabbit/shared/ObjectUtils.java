@@ -1,5 +1,9 @@
 package org.rabbit.shared;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.google.appengine.api.datastore.Key;
 
 public class ObjectUtils {
@@ -125,4 +129,12 @@ public class ObjectUtils {
 
 		return RequestUtil.EMPTY_STR;
 	}
+	
+	public static final String getSimpleDate(Date date) {
+		if (isNullOrEmpty(date)){
+			return RequestUtil.EMPTY_STR;
+		}
+		return " (" + simplestDf.format(date) + ")";
+	}
+	private static final DateFormat simplestDf = new SimpleDateFormat("MMM dd, yyyy");
 }

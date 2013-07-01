@@ -12,7 +12,7 @@
 						<label for="type_income">Income</label>
 					</span> 
 					<span>
-						<input type="radio" name="type" id="type_expense" value="E"/>
+						<input type="radio" name="type" id="type_expense" value="E" checked="checked"/>
 						<label for="type_expense">Expense</label>
 					</span> 
 				</td>
@@ -26,7 +26,7 @@
 					id="amount" name="amount" maxlength="32" size="10" value="<c:out value='${sessionScope.INPUT_AMOUNT}'/>" /></td>
 			</tr>
 			<tr>
-				<td><label for="description">Describe</label><br /> <textarea id="description" name="description" rows="4" columns="10"><c:out value='${sessionScope.INPUT_DESCRIPTION}'/></textarea></td>
+				<td><label for="description">Describe</label><br /> <textarea id="description" name="description" rows="4" cols="11"><c:out value='${sessionScope.INPUT_DESCRIPTION}'/></textarea></td>
 			</tr>
 			<tr>
 				<td><input type="submit" name="submit" value="Add" /> <input

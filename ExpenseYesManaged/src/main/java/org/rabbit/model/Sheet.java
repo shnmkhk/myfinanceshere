@@ -10,7 +10,7 @@ import org.rabbit.shared.ObjectUtils;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
+@PersistenceCapable(detachable = "true", identityType = IdentityType.APPLICATION)
 public class Sheet extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -7567328471499565269L;
@@ -66,15 +66,45 @@ public class Sheet extends BaseEntity implements Serializable {
 		this.year = year;
 	}
 
-	
 	public String toString() {
 		return "Sheet [month=" + month + ", year=" + year + ", createdOn="
 				+ createdOn + ", lastUpdatedOn=" + lastUpdatedOn
 				+ ", createdBy=" + createdBy + ", lastUpdatedBy="
 				+ lastUpdatedBy + "]";
 	}
-	
-	public String getKeyStr(){
+
+	public String getShortMonthStr() {
+		switch (month) {
+		case 1:
+			return "Jan";
+		case 2:
+			return "Feb";
+		case 3:
+			return "Mar";
+		case 4:
+			return "Apr";
+		case 5:
+			return "May";
+		case 6:
+			return "Jun";
+		case 7:
+			return "Jul";
+		case 8:
+			return "Aug";
+		case 9:
+			return "Sep";
+		case 10:
+			return "Oct";
+		case 11:
+			return "Nov";
+		case 12:
+			return "Dec";
+		default:
+			return "";
+		}
+	}
+
+	public String getKeyStr() {
 		return ObjectUtils.getSheetKeyId(month, year);
 	}
 }

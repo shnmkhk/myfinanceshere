@@ -1,5 +1,7 @@
 package org.rabbit.shared;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,15 +55,47 @@ public class RequestUtil {
 		return ObjectUtils.getBooleanValue(paramValue, defaultValue);
 	}
 
-	public static void refreshAllSheetsIntoSession(
-			HttpServletRequest request) {
-		List<Sheet> allSheets = (List<Sheet>) SheetServiceImpl.getInstance().getAllSheets();
-		request.getSession().setAttribute("allSheets", allSheets);
+	public static void refreshAllSheetsIntoSession(HttpServletRequest request) {
+		request.getSession().removeAttribute("allSheets");
+		List<Sheet> allSheets = (List<Sheet>) SheetServiceImpl.getInstance()
+				.getAllSheets();
+		if (ObjectUtils.isNotNullAndNotEmpty(allSheets)) {
+			Collections.sort(allSheets, new Comparator<Sheet>() {
+				public int compare(Sheet o1, Sheet o2) {
+					// Descending sorting...
+					if (o1.getYear() == o2.getYear()) {
+						return o2.getMonth() - o1.getMonth();
+					}
+
+					return o2.getYear() - o1.getYear();
+				}
+			});
+			request.getSession().setAttribute("allSheets", allSheets);
+		}
 	}
-	
+
 	public static void refreshAllEntriesOfGivenSheetIntoSession(
-			HttpServletRequest request, Sheet sheet) throws SheetNotFoundException {
-		List<Entry> entriesOfSelectedSheet = (List<Entry>) EntryServiceImpl.getInstance().getEntries(sheet.getKey());
-		request.getSession().setAttribute("entriesOfSelectedSheet", entriesOfSelectedSheet);
+			HttpServletRequest request, Sheet sheet)
+			throws SheetNotFoundException {
+		request.getSession().removeAttribute("entriesTotal");
+		request.getSession().removeAttribute("entriesOfSelectedSheet");
+		
+		List<Entry> entriesOfSelectedSheet = (List<Entry>) EntryServiceImpl
+				.getInstance().getEntries(sheet.getKey());
+		if (ObjectUtils.isNotNullAndNotEmpty(entriesOfSelectedSheet)) {
+			Collections.sort(entriesOfSelectedSheet, new Comparator<Entry>() {
+				public int compare(Entry o1, Entry o2) {
+					// Descending sorting...
+					return o2.getCreatedOn().compareTo(o1.getCreatedOn());
+				}
+			});
+			request.getSession().setAttribute("entriesOfSelectedSheet",
+					entriesOfSelectedSheet);
+			double totalSavings = 0.0;
+			for (Entry entry : entriesOfSelectedSheet) {
+				totalSavings += entry.getSignedAmount();
+			}
+			request.getSession().setAttribute("entriesTotal", totalSavings);
+		}
 	}
 }

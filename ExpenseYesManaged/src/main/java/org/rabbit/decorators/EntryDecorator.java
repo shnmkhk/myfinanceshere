@@ -18,8 +18,6 @@ public class EntryDecorator extends TableDecorator {
 		Entry entry = (Entry) getCurrentRowObject();
 		String sheetKeyStr = entry.getSheet().getKeyStr();
 		int sequenceNumber = entry.getSequenceIndex();
-		return "<a href='/ta/" + sheetKeyStr + "'/" + sequenceNumber + ">"
-				+ entry.getSheet().getMonth() + "_"
-				+ entry.getSheet().getYear() + "_" + sequenceNumber + "</a>";
+		return entry.getShortCode() + "&nbsp;<a href='/ea/" + sheetKeyStr + "/" + sequenceNumber + "/delete#content'>[Del]</a>&nbsp;<br/>" + entry.getTypeStr();
 	}
 }
