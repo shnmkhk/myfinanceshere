@@ -1,12 +1,21 @@
-<%@ page import="java.util.List, org.rabbit.model.Sheet" errorPage="/error.jsp"%>
+<%@ page import="java.util.List, org.rabbit.model.Sheet"
+	errorPage="/error.jsp"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <title>Listing available sheets</title>
 <body>
-	<jsp:include page="/common/header.jsp"></jsp:include>
-	<display:table name="${sessionScope.allSheets}" class="Mars" pagesize="5" requestURI="#content" id="sheetRow" decorator="org.rabbit.decorators.SheetDecorator">
-		<display:column title="Select" property="hyperlink" />
-		<display:column property="month" title="Month" />
-		<display:column property="year" title="Year" />
-		<display:column property="createdOn" title="Creation date" format="{0,date,MMM dd, yyyy}"/>
-	</display:table>
+	<%@ include file="/common/header.jsp" %>
+	<c:if test="${not empty sessionScope.allSheets}">
+		<ul class="horizontal-list occupy-half-page-width">
+			<c:forEach var="sheetObj" items="${sessionScope.allSheets}">
+				<li>
+					<a class="no-underline" href='/ea/<c:out value="${sheetObj.keyStr }"/>#content'>
+					<div class="sheet-container">
+						<div class="sheet-container-month"><c:out value="${sheetObj.shortMonthStr}"/></div>
+						<div class="sheet-container-year"><c:out value="${sheetObj.year}"/></div>
+					</div>
+					</a>
+				</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 </body>

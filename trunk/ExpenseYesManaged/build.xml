@@ -51,10 +51,19 @@
 				<include name="**/*.xml" />
 			</fileset>
 		</copy>
-		<javac target="1.6" source="1.6" srcdir="src" destdir="war/WEB-INF/classes" classpathref="project.classpath" />
+		<javac target="1.6" source="1.6" srcdir="src" destdir="war/WEB-INF/classes" classpathref="project.classpath" nowarn="true" optimize="on" />
 	</target>
 
-	<target name="datanucleusenhance" depends="clean,compile" description="Performs enhancement on compiled data classes.">
+	<target name="datanucleusenhance" depends="clean,compile" description="Performs enhancement on compiled data classes with clean compile">
+		<enhance_war war="war">
+			<args>
+				<arg value="-enhancerVersion" />
+				<arg value="v2" />
+			</args>
+		</enhance_war>
+	</target>
+	
+	<target name="datanucleusenhance-just-compile" depends="compile" description="Performs enhancement on compiled data classes with just compile">
 		<enhance_war war="war">
 			<args>
 				<arg value="-enhancerVersion" />
@@ -63,9 +72,15 @@
 		</enhance_war>
 	</target>
 
+
 	<target name="runserver" depends="datanucleusenhance" description="Starts the development server.">
 		<dev_appserver war="war" />
 	</target>
+	
+	<target name="quick-runserver" depends="datanucleusenhance-just-compile" description="Starts the development server in quick mode (incremental compilation">
+		<dev_appserver war="war" />
+	</target>
+
 
 	<target name="update" depends="datanucleusenhance" description="Uploads the application to App Engine.">
 		<appcfg action="update" war="war" />

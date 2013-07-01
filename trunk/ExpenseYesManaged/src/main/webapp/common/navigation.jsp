@@ -13,9 +13,8 @@
 		<tr>
 			<td>
 				<div>
-					Sheet Key: <c:out value="${sheetKeyId}"/>
 					<ul class="horizontal-list">
-						<li><label>shanmukha.k@gmail.com</label></li>
+						<li><label>Logged in as <b>shanmukh</b></label></li>
 						<li>&nbsp;|&nbsp;</li>
 						<li><a href="/">Logout</a></li>
 						<li>&nbsp;|&nbsp;</li>

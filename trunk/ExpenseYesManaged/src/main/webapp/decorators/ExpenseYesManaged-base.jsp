@@ -15,10 +15,11 @@
 <!--                                                               -->
 <!-- Consider inlining CSS to reduce the number of requested files -->
 <!--                                                               -->
-<link type="text/css" rel="stylesheet" href="/css/displaytag.css">
-<link type="text/css" rel="stylesheet" href="/css/print.css">
-<link type="text/css" rel="stylesheet" href="/css/site.css">
-<link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css">
+<link type="text/css" rel="stylesheet" href="/css/displaytag.css"></link>
+<link type="text/css" rel="stylesheet" href="/css/print.css"></link>
+<link type="text/css" rel="stylesheet" href="/css/site.css"></link>
+<link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css"></link>
+<link type="text/css" rel="stylesheet" href="/css/jquery-ui-1.10.3.custom.css"></link>
 <!--                                           -->
 <!-- Any title is fine                         -->
 <!--                                           -->
@@ -27,7 +28,7 @@
 <!-- If you add any GWT meta tags, they must   -->
 <!-- be added before this line.                -->
 <!--                                           -->
-<title>Rabbit Computing :: <decorator:title /></title>
+<title><decorator:title /> - Expense (Yes) Managed</title>
 </head>
 
 <!--                                           -->
@@ -37,19 +38,19 @@
 <!--                                           -->
 <body>
 	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-	<noscript>
+	<!-- <noscript>
 		<div
 			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
 			Your web browser must have JavaScript enabled in order for this
 			application to display correctly.</div>
-	</noscript>
+	</noscript> -->
 	<div class="main-body random-image-background" align="center">
 		<div class="main-container transparent-black-background">
 			<div class="main-widget">
 				<div class="main-content">
 					<div style="height: 100%; margin: 0px">
 						<div class="header" style="height: 30%">
-							<div class="rabbit-common-align-left header-container">
+							<div class="rabbit-common-align-left header-container" onclick="location.href='/'" style="cursor: pointer;">
 								<p style="padding-left: 5px;">
 									<font color="#FFFFFF">Expense-<font color="orange"
 										size="4">Yes</font>-Managed<br /> <span class="tagline">Enable
