@@ -190,6 +190,36 @@ ul.horizontal-list {
 	text-align: left;
 }
 
+ul.horizontal-list li.header-one {
+	color: orange;
+	background-color: #FFFFFF;
+	font-weight: bold;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
+ul.horizontal-list li.header-two {
+	color: #FFFFFF;
+	background-color: orange;
+	font-weight: bold;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
+ul.horizontal-list li.header-three {
+	color: orange;
+	background-color: #FFFFFF;
+	font-weight: bold;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
 div.info-message {
 	border: 1px solid #000000;
 	background-color: yellow;
@@ -214,16 +244,28 @@ span.pagebanner,span.pagelinks {
 }
 
 div.sheet-container {
-	width: 4em;
+	min-width: 4em;
 	background-color: #FFFFFF;
 	border: 1px solid black;
-	padding: 3px 0px 0px;
 	text-align: center;
 	vertical-align: middle;
 }
 
+div.sheet-container div.optional-title {
+	color: #FFFFFF;
+	background-color: #000000;
+	font-weight: bold;
+	width: auto;
+	height: auto;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
 div.sheet-container div.sheet-container-month {
-	color: #000000;
+	color: orange;
+	background-color: #FFFFFF;
 	font-weight: bold;
 	width: auto;
 	font-size: 1.3em;
@@ -233,13 +275,15 @@ div.sheet-container div.sheet-container-month {
 }
 
 div.sheet-container div.sheet-container-year {
-	background-color: #000000;
+	background-color: orange;
 	color: #FFFFFF;
 	font-weight: normal;
 	width: auto;
 	line-height: 1.5em;
 	vertical-align: middle;
 	height: 30%;
+	border-top: 1px solid #666666;
+	font-weight: bold;
 }
 
 a.no-underline {
@@ -271,7 +315,18 @@ a.no-underline {
 	font-weight: bold;
 }
 
+.sign-in-with-google {
+	background-image: url('images/google_icon.png'); /* 16px x 16px */
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    padding-left: 16px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
 
-a, a:hover, a:VISITED, a:ACTIVE {
-	color: navy;
+label.required-field {
+	font-weight: bold;
 }

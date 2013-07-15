@@ -3,8 +3,7 @@
 <decorators defaultdir="/decorators">
     <!-- Any urls that are excluded will never be decorated by Sitemesh -->
     <excludes>
-        <pattern>/exclude.jsp</pattern>
-        <pattern>/exclude/*</pattern>
+        <pattern>/_ah/*</pattern>
     </excludes>
 
     <decorator name="baseTemplate" page="ExpenseYesManaged-base.jsp">

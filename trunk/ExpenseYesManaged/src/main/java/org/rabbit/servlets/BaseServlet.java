@@ -5,6 +5,7 @@ package org.rabbit.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,9 @@ import org.rabbit.services.impl.SheetServiceImpl;
 import org.rabbit.services.impl.TransactionServiceImpl;
 import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.RequestUtil;
+
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /**
  * @author shanmukha.k@gmail.com <br/>
@@ -32,6 +36,19 @@ public class BaseServlet extends HttpServlet {
 	protected void unloadMessages(HttpServletRequest request){
 		request.getSession().removeAttribute("INFO_MESSAGE");
 		request.getSession().removeAttribute("ERROR_MESSAGE");
+	}
+	
+	public boolean doAuthCheck(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		UserService userService = UserServiceFactory.getUserService();
+        String thisURL = request.getRequestURI();
+        response.setContentType("text/html");
+        if (request.getUserPrincipal() != null) {            
+            return true;
+        } else {
+            response.sendRedirect("/");
+            return false;
+        }
 	}
 	
 	/**

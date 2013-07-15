@@ -23,16 +23,18 @@ public class TransactionAction extends BaseServlet {
 
 	private static final long serialVersionUID = -2061169867104019807L;
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
+		if (!doAuthCheck(request, response)){
+			return;
+		}
 		List<Transaction> results = (List<Transaction>) transactionService
 				.getAllTransactions();
-		req.setAttribute("transactionResults", results);
+		request.setAttribute("transactionResults", results);
 
-		RequestDispatcher requestDispatcher = req
+		RequestDispatcher requestDispatcher = request
 				.getRequestDispatcher("/list/lt.jsp");
-		requestDispatcher.forward(req, resp);
+		requestDispatcher.forward(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

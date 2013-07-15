@@ -1,6 +1,7 @@
 package org.rabbit.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
@@ -23,7 +24,7 @@ public interface SheetDAO {
 	 * @param month
 	 * @param year
 	 */
-	public Sheet createNewSheet(int month, int year) throws SheetAlreadyExistsException;
+	public Sheet createNewSheet(String userId, int month, int year) throws SheetAlreadyExistsException;
 
 	/**
 	 * Removes an existing sheet entry matching the specified month and year.
@@ -32,14 +33,23 @@ public interface SheetDAO {
 	 * @param year
 	 * @return
 	 */
-	public void deleteSheet(int month, int year) throws SheetNotFoundException;
+	public void deleteSheet(String userId, int month, int year) throws SheetNotFoundException;
 
 	/**
 	 * Returns all the sheet entries available in the database of Sheet kind.
 	 * 
 	 * @return
 	 */
-	public List<Sheet> getAllSheets();
+	public List<Sheet> getAllSheets(String userId);
+	
+	/**
+	 * Returns all the available sheets keeping years in the keys and sheet entries 
+	 * in the values.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Map<Integer, List<Sheet>> getAllSheetsMap(String userId);
 
 	/**
 	 * Gets the unique sheet entry from the database matching the given month
@@ -49,7 +59,7 @@ public interface SheetDAO {
 	 * @param year
 	 * @return
 	 */
-	public Sheet getSheet(int month, int year) throws SheetNotFoundException;
+	public Sheet getSheet(String userId, int month, int year) throws SheetNotFoundException;
 
 	/**
 	 * Gets the sheet entity based on its key

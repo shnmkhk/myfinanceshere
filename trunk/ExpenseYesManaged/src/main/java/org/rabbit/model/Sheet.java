@@ -6,6 +6,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import org.rabbit.common.Month;
 import org.rabbit.shared.ObjectUtils;
 
 import com.google.appengine.api.datastore.Key;
@@ -20,14 +21,18 @@ public class Sheet extends BaseEntity implements Serializable {
 
 	@Persistent
 	private int year;
-
-	public Sheet(Key key, int month, int year) {
+	
+	@Persistent
+	private String userId;
+	
+	public Sheet(Key key, int month, int year, String userId) {
 		super();
 		this.key = key;
 		this.month = month;
 		this.year = year;
+		this.userId = userId;
 	}
-
+	
 	public Key getKey() {
 		return key;
 	}
@@ -65,46 +70,36 @@ public class Sheet extends BaseEntity implements Serializable {
 	public void setYear(int year) {
 		this.year = year;
 	}
+	
 
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
 	public String toString() {
-		return "Sheet [month=" + month + ", year=" + year + ", createdOn="
-				+ createdOn + ", lastUpdatedOn=" + lastUpdatedOn
-				+ ", createdBy=" + createdBy + ", lastUpdatedBy="
-				+ lastUpdatedBy + "]";
+		return "Sheet [month=" + month + ", year=" + year + ", userId="
+				+ userId + "]";
 	}
 
 	public String getShortMonthStr() {
-		switch (month) {
-		case 1:
-			return "Jan";
-		case 2:
-			return "Feb";
-		case 3:
-			return "Mar";
-		case 4:
-			return "Apr";
-		case 5:
-			return "May";
-		case 6:
-			return "Jun";
-		case 7:
-			return "Jul";
-		case 8:
-			return "Aug";
-		case 9:
-			return "Sep";
-		case 10:
-			return "Oct";
-		case 11:
-			return "Nov";
-		case 12:
-			return "Dec";
-		default:
-			return "";
-		}
+		return Month.shortMonthArr[month - 1];
 	}
 
 	public String getKeyStr() {
-		return ObjectUtils.getSheetKeyId(month, year);
+		return ObjectUtils.getSheetKeyStrForView(month, year);
 	}
 }

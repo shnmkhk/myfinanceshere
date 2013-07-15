@@ -46,13 +46,7 @@ public class EntryServiceImpl implements EntryService {
 	public Entry addANewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet sheet)
 			throws EntryAlreadyExistsException {
-		try {
-			return entryDAO.createNewEntry(type, amount, shortCode, description, status, sheetDAO.getSheet(sheet.getMonth(), sheet.getYear()));
-		} catch (SheetNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+		return entryDAO.createNewEntry(type, amount, shortCode, description, status, sheet);
 	}
 
 	/* (non-Javadoc)

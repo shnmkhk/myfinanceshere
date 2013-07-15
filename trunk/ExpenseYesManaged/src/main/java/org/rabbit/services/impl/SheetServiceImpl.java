@@ -1,14 +1,15 @@
 package org.rabbit.services.impl;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.rabbit.dao.impl.SheetDAOImpl;
 import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Sheet;
 import org.rabbit.services.SheetService;
 import org.rabbit.shared.NumUtil;
+import org.rabbit.shared.ObjectUtils;
 
 /**
  * Service class implementation for loading/ persisting activities on <br/> 
@@ -53,34 +54,35 @@ public class SheetServiceImpl implements SheetService {
 	}
 	
 	
-	public Sheet addNewSheet(int month, int year)
+	public Sheet addNewSheet(String userId, int month, int year)
 			throws SheetAlreadyExistsException, IllegalArgumentException {
 		validateMonthAndYear(month, year);
-		return SheetDAOImpl.getInstance().createNewSheet(month, year);
+		return SheetDAOImpl.getInstance().createNewSheet(userId, month, year);
 	}
-
 	
-	public List<Sheet> getAllSheets() {
-		return SheetDAOImpl.getInstance().getAllSheets();
+	public List<Sheet> getAllSheets(String userId) {
+		return SheetDAOImpl.getInstance().getAllSheets(userId);
 	}
-
 	
-	public Sheet getSheet(int month, int year) throws SheetNotFoundException, IllegalArgumentException {
+	public Map<Integer, List<Sheet>> getAllSheetsMap(String userId) {
+		return SheetDAOImpl.getInstance().getAllSheetsMap(userId);
+	}
+	
+	public Sheet getSheet(String userId, int month, int year) throws SheetNotFoundException, IllegalArgumentException {
 		validateMonthAndYear(month, year);
-		return SheetDAOImpl.getInstance().getSheet(month, year);
+		return SheetDAOImpl.getInstance().getSheet(userId, month, year);
 	}
-
 	
-	public void deleteSheet(int month, int year) throws SheetNotFoundException, IllegalArgumentException {
+	public void deleteSheet(String userId, int month, int year) throws SheetNotFoundException, IllegalArgumentException {
 		validateMonthAndYear(month, year);
-		SheetDAOImpl.getInstance().deleteSheet(month, year);
+		SheetDAOImpl.getInstance().deleteSheet(userId, month, year);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.rabbit.services.SheetService#getSheet(java.lang.String)
 	 */
-	public Sheet getSheet(String sheetKeyStr) throws SheetNotFoundException {
-		int[] monthYr = org.rabbit.shared.ObjectUtils.getMonthYr(sheetKeyStr);
-		return getSheet(monthYr[0], monthYr[1]);
+	public Sheet getSheet(String userId, String sheetKeyStr) throws SheetNotFoundException {
+		String[] fragmentsWithTypeArr = ObjectUtils.getSheetKeyFragments(sheetKeyStr);
+		return getSheet(userId, ObjectUtils.getIntValue(fragmentsWithTypeArr[0], NumUtil.MINUS_ONE), ObjectUtils.getIntValue(fragmentsWithTypeArr[1], NumUtil.MINUS_ONE));
 	}
 }

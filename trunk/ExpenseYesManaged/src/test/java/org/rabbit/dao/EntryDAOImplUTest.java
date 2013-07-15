@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rabbit.common.BaseTest;
+import org.rabbit.common.Constants;
 import org.rabbit.dao.impl.EntryDAOImpl;
 import org.rabbit.dao.impl.SheetDAOImpl;
 import org.rabbit.exception.EntryAlreadyExistsException;
@@ -21,7 +22,7 @@ public class EntryDAOImplUTest extends BaseTest {
 	@Test
 	public void testCreateNewEntry() throws EntryAlreadyExistsException,
 			SheetAlreadyExistsException, EntryNotFoundException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry = entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
 
@@ -35,7 +36,7 @@ public class EntryDAOImplUTest extends BaseTest {
 	public void testDeleteEntry() throws EntryAlreadyExistsException,
 			SheetAlreadyExistsException {
 		try {
-			Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+			Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 			Entry entry = entryDAO.createNewEntry('I', 33000,
 					"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
 
@@ -51,7 +52,7 @@ public class EntryDAOImplUTest extends BaseTest {
 	
 	@Test
 	public void testGetAllEntries() throws EntryAlreadyExistsException, SheetAlreadyExistsException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 
 		entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
@@ -65,8 +66,8 @@ public class EntryDAOImplUTest extends BaseTest {
 	
 	@Test
 	public void testGetEntriesBySheet() throws SheetAlreadyExistsException, EntryAlreadyExistsException {
-		Sheet dec_13 = sheetDAO.createNewSheet(12, 2013);
-		Sheet nov_13 = sheetDAO.createNewSheet(11, 2013);
+		Sheet dec_13 = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
+		Sheet nov_13 = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 11, 2013);
 
 		entryDAO.createNewEntry('I', 33000,
 				"DECEMBER_MONTH_SALARAY", "December Month Salary", 'S', dec_13);
@@ -84,7 +85,7 @@ public class EntryDAOImplUTest extends BaseTest {
 	
 	@Test
 	public void testUpdateEntry() throws SheetAlreadyExistsException, EntryAlreadyExistsException, EntryNotFoundException {
-		Sheet dec_13 = sheetDAO.createNewSheet(12, 2013);
+		Sheet dec_13 = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry decSalaryEntry = entryDAO.createNewEntry('I', 33000.00,
 				"DECEMBER_MONTH_SALARAY", "December Month Salary", 'S', dec_13);
 		entryDAO.createNewEntry('E', 6000,
@@ -100,7 +101,7 @@ public class EntryDAOImplUTest extends BaseTest {
 	
 	@Test
 	public void testGetEntryBySheetAndIndex() throws SheetAlreadyExistsException, EntryAlreadyExistsException, EntryNotFoundException {
-		Sheet dec_13 = sheetDAO.createNewSheet(12, 2013);
+		Sheet dec_13 = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry decSalaryEntry = entryDAO.createNewEntry('I', 33000.00,
 				"DECEMBER_MONTH_SALARAY", "December Month Salary", 'S', dec_13);
 		Entry decSalaryEntryEval = entryDAO.getEntryBySheetAndIndex(dec_13, decSalaryEntry.getSequenceIndex());
@@ -110,7 +111,7 @@ public class EntryDAOImplUTest extends BaseTest {
 	
 	@Test
 	public void testAddEntryCheckUnique() throws SheetAlreadyExistsException, EntryAlreadyExistsException, EntryNotFoundException {
-		Sheet dec_13 = sheetDAO.createNewSheet(12, 2013);
+		Sheet dec_13 = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry decSalaryEntry = entryDAO.createNewEntry('I', 33000.00,
 				"DECEMBER_MONTH_SALARAY", "December Month Salary", 'S', dec_13);
 		Entry decHouseRentEntry = entryDAO.createNewEntry('E', 6000.00,

@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.rabbit.common.BaseTest;
+import org.rabbit.common.Constants;
 import org.rabbit.exception.EntryAlreadyExistsException;
 import org.rabbit.exception.EntryNotFoundException;
 import org.rabbit.exception.SheetAlreadyExistsException;
@@ -47,7 +48,7 @@ public class EntryServiceImplTest extends BaseTest {
 	
 	@Before
 	public final void preExecutionToEachTest() throws SheetAlreadyExistsException, EntryAlreadyExistsException{
-		sheet = sheetService.addNewSheet(MONTH, YEAR);
+		sheet = sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 		entry = entryService.addANewEntry(ENTRY_TYPE_INCOME, AMOUNT, SHORT_CODE, DESC, STATUS, sheet);
 	}
 	
@@ -114,10 +115,10 @@ public class EntryServiceImplTest extends BaseTest {
 	public final void testGetEntries() throws EntryAlreadyExistsException, SheetNotFoundException, SheetAlreadyExistsException, EntryNotFoundException {
 		// Remove entry and sheets that are created in pre-execution method.
 		entryService.deleteEntry(sheet.getKey(), entry.getSequenceIndex());
-		sheetService.deleteSheet(MONTH, YEAR);
+		sheetService.deleteSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 		
-		Sheet nov13Sheet = sheetService.addNewSheet(11, 2013);
-		Sheet dec13Sheet = sheetService.addNewSheet(12, 2013);
+		Sheet nov13Sheet = sheetService.addNewSheet(Constants.TEST_USER_ID, 11, 2013);
+		Sheet dec13Sheet = sheetService.addNewSheet(Constants.TEST_USER_ID, 12, 2013);
 
 		entry = entryService.addANewEntry(ENTRY_TYPE_INCOME, AMOUNT, SHORT_CODE, DESC, STATUS, nov13Sheet);
 		entry = entryService.addANewEntry(ENTRY_TYPE_INCOME, AMOUNT, SHORT_CODE, DESC, STATUS, nov13Sheet);
@@ -143,7 +144,7 @@ public class EntryServiceImplTest extends BaseTest {
 	 */
 	@Test
 	public final void testGetEntryBySheetAndIndex() throws EntryNotFoundException, SheetNotFoundException, EntryAlreadyExistsException {
-		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(MONTH, YEAR));
+		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(Constants.TEST_USER_ID, MONTH, YEAR));
 		entry = entryService.getEntryBySheetAndIndex(parentSheetKey, entry.getSequenceIndex());
 		Assert.assertNotNull(entry);
 		
@@ -161,7 +162,7 @@ public class EntryServiceImplTest extends BaseTest {
 	 */
 	@Test
 	public final void testUpdateEntry() throws EntryNotFoundException, SheetNotFoundException {
-		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(MONTH, YEAR));
+		Key parentSheetKey = KeyFactory.createKey(Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(Constants.TEST_USER_ID, MONTH, YEAR));
 		Assert.assertNotNull(entry);
 		
 		entry.setAmount(35000);

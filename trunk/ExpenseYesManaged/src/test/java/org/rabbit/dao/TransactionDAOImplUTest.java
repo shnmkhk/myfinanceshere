@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rabbit.common.BaseTest;
+import org.rabbit.common.Constants;
 import org.rabbit.dao.impl.EntryDAOImpl;
 import org.rabbit.dao.impl.SheetDAOImpl;
 import org.rabbit.dao.impl.TransactionDAOImpl;
@@ -24,7 +25,7 @@ public class TransactionDAOImplUTest extends BaseTest {
 	@Test
 	public void testCreateNewTransaction() throws SheetAlreadyExistsException,
 			EntryAlreadyExistsException, TransactionNotFoundException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry = entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARY", "April Month Salary", 'S', sheet);
 		Transaction transaction = transactionDAO.createNewTransaction(
@@ -42,7 +43,7 @@ public class TransactionDAOImplUTest extends BaseTest {
 	@Test(expected = TransactionNotFoundException.class)
 	public void testDeleteTransaction() throws SheetAlreadyExistsException,
 			EntryAlreadyExistsException, TransactionNotFoundException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry = entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
 		Transaction transaction = transactionDAO.createNewTransaction(
@@ -56,7 +57,7 @@ public class TransactionDAOImplUTest extends BaseTest {
 	@Test
 	public void testGetAllTransactions() throws SheetAlreadyExistsException,
 			EntryAlreadyExistsException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry = entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
 
@@ -75,7 +76,7 @@ public class TransactionDAOImplUTest extends BaseTest {
 	@Test
 	public void testGetTransactionByEntry() throws SheetAlreadyExistsException,
 			EntryAlreadyExistsException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry = entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
 
@@ -97,7 +98,7 @@ public class TransactionDAOImplUTest extends BaseTest {
 	public void testGetTransactionByEntryAndIndex()
 			throws SheetAlreadyExistsException, EntryAlreadyExistsException,
 			TransactionNotFoundException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry = entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
 
@@ -119,7 +120,7 @@ public class TransactionDAOImplUTest extends BaseTest {
 	@Test
 	public void testUpdateTransaction() throws SheetAlreadyExistsException,
 			EntryAlreadyExistsException, TransactionNotFoundException {
-		Sheet sheet = sheetDAO.createNewSheet(12, 2013);
+		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry = entryDAO.createNewEntry('I', 33000,
 				"APRIL_MONTH_SALARAY", "April Month Salary", 'S', sheet);
 

@@ -3,6 +3,7 @@ package org.rabbit.shared;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,21 +58,22 @@ public class RequestUtil {
 
 	public static void refreshAllSheetsIntoSession(HttpServletRequest request) {
 		request.getSession().removeAttribute("allSheets");
+		request.getSession().removeAttribute("allSheetsMap");
+		
 		List<Sheet> allSheets = (List<Sheet>) SheetServiceImpl.getInstance()
-				.getAllSheets();
-		if (ObjectUtils.isNotNullAndNotEmpty(allSheets)) {
-			Collections.sort(allSheets, new Comparator<Sheet>() {
-				public int compare(Sheet o1, Sheet o2) {
-					// Descending sorting...
-					if (o1.getYear() == o2.getYear()) {
-						return o2.getMonth() - o1.getMonth();
-					}
+				.getAllSheets(request.getUserPrincipal().getName());
+		
+		Map<Integer, List<Sheet>> yearSheetsMap = (Map<Integer, List<Sheet>>) SheetServiceImpl.getInstance()
+				.getAllSheetsMap(request.getUserPrincipal().getName());
 
-					return o2.getYear() - o1.getYear();
-				}
-			});
+		if (ObjectUtils.isNotNullAndNotEmpty(allSheets)) {
 			request.getSession().setAttribute("allSheets", allSheets);
 		}
+		
+		if (ObjectUtils.isNotNullAndNotEmpty(yearSheetsMap)) {
+			request.getSession().setAttribute("allSheetsMap", yearSheetsMap);
+		}
+			
 	}
 
 	public static void refreshAllEntriesOfGivenSheetIntoSession(

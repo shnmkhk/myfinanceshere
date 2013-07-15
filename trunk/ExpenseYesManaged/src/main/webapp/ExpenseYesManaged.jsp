@@ -1,25 +1,29 @@
 <html>
-	<body>
-		<table class="rabbit-common-align-left rabbit-table">
-			<tr>
-				<td><label for="income_expense_container">Income/ Expenditure</label></td>
-				<td id="income_expense_container"></td>
-			</tr>
-			<tr>
-				<td><label for="tags_comments_container">Tags/ Comments</label></td>
-				<td id="tags_comments_container"></td>
-			</tr>
-			<tr>
-				<td><label for="amount_container">Amount</label></td>
-				<td id="amount_container"></td>
-			</tr>
-			<tr>
-				<td id="sendButtonContainer" colspan="2" align="left"></td>
-			</tr>
-			<tr id="error_reporing_row" class="rabbit-default-invisible">
-				<td>&nbsp;</td>
-				<td style="color: red;" id="errorLabelContainer"></td>
-			</tr>
-		</table>
-	</body>
+<%@ page
+	import="com.google.appengine.api.users.UserService, com.google.appengine.api.users.UserServiceFactory"
+	errorPage="/error.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	UserService userService = UserServiceFactory.getUserService();
+	String thisURL = request.getRequestURI();
+%>
+<title>Home</title>
+<body>
+	<p class="P1">Efficient money flow monitoring system</p>
+	<p>
+		Expense-yes-managed is very easy, intuitive expense tracking system
+		from almost every device. <br /> Be it a mobile or desktop or tablet
+		pc as it is built on web platform. Soon, it is going to hit android
+		store.
+	</p>
+	<p>
+		It is still in beta testing. Please leave your feedback <a
+			href="mailto:rabbitcomputing@gmail.com">here</a> to serve you better.
+	</p>
+	
+	<p style="float: right">
+		--<br/>
+		<b>Expense Yes Managed</b> team
+	</p>
+</body>
 </html>
