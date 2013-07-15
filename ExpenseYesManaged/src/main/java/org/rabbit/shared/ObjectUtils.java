@@ -13,8 +13,8 @@ public class ObjectUtils {
 		return input.replaceAll(REPLACE_STRING, "");
 	}
 
-	public static final String getSheetKeyId(int month, int year) {
-		return String.valueOf(month) + "_" + String.valueOf(year);
+	public static final String getSheetKeyId(String userId, int month, int year) {
+		return String.valueOf(userId) + "_" + String.valueOf(month) + "_" + String.valueOf(year);
 	}
 
 	public static final int[] getMonthYr(String sheetKeyId) {
@@ -27,6 +27,14 @@ public class ObjectUtils {
 		monthYrInt[1] = getIntValue(monthYrStr[1], NumUtil.MINUS_ONE);
 		
 		return monthYrInt;
+	}
+	
+	public static final String[] getSheetKeyFragments(String sheetKeyId) {
+		if (isNullOrEmpty(sheetKeyId)) {
+			return null;
+		}
+		String[] fragmentsStrArr = sheetKeyId.split("_");
+		return fragmentsStrArr;
 	}
 
 	public static final String getEntryKeyId(Key parentKey, int sequenceIndex) {
@@ -137,4 +145,12 @@ public class ObjectUtils {
 		return " (" + simplestDf.format(date) + ")";
 	}
 	private static final DateFormat simplestDf = new SimpleDateFormat("MMM dd, yyyy");
+	/**
+	 * @param month
+	 * @param year
+	 * @return
+	 */
+	public static String getSheetKeyStrForView(int month, int year) {
+		return String.valueOf(month) + "_" + String.valueOf(year);
+	}
 }

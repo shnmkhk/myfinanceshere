@@ -28,25 +28,10 @@ code {
 	font-size: 12px;
 }
 
-a {
-	text-decoration: underline;
-}
-
 #leftColumn a {
 	text-decoration: none;
 }
 
-a:link {
-	color: #47a;
-}
-
-a:visited {
-	color: #666;
-}
-
-a:active,a:hover {
-	color: #900;
-}
 
 #legend li.externalLink {
 	background: url(../images/ico_external.png) left top no-repeat;

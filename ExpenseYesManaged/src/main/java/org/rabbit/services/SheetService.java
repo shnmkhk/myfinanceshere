@@ -1,6 +1,7 @@
 package org.rabbit.services;
 
 import java.util.List;
+import java.util.Map;
 
 import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
@@ -23,7 +24,7 @@ public interface SheetService {
 	 * @return
 	 * @throws SheetAlreadyExistsException
 	 */
-	public Sheet addNewSheet(int month, int year)
+	public Sheet addNewSheet(String userId, int month, int year)
 			throws SheetAlreadyExistsException;
 
 	/**
@@ -31,7 +32,16 @@ public interface SheetService {
 	 * 
 	 * @return
 	 */
-	public List<Sheet> getAllSheets();
+	public List<Sheet> getAllSheets(String userId);
+	
+	/**
+	 * Returns all the available sheets keeping years in the keys and sheet entries 
+	 * in the values.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Map<Integer, List<Sheet>> getAllSheetsMap(String userId);
 
 	/**
 	 * Returns the sheet of respective month, year 
@@ -41,7 +51,7 @@ public interface SheetService {
 	 * @return
 	 * @throws SheetNotFoundException
 	 */
-	public Sheet getSheet(int month, int year) throws SheetNotFoundException;
+	public Sheet getSheet(String userId, int month, int year) throws SheetNotFoundException;
 
 	/**
 	 * Returns the sheet of respective month, year in mm_yyyy format
@@ -50,7 +60,7 @@ public interface SheetService {
 	 * @return
 	 * @throws SheetNotFoundException
 	 */
-	public Sheet getSheet(String sheetKeyStr) throws SheetNotFoundException;
+	public Sheet getSheet(String userId, String sheetKeyStr) throws SheetNotFoundException;
 
 	/**
 	 * Deletes the sheet entry of the specified month and year.
@@ -59,5 +69,7 @@ public interface SheetService {
 	 * @param year
 	 * @throws SheetNotFoundException
 	 */
-	public void deleteSheet(int month, int year) throws SheetNotFoundException;
+	public void deleteSheet(String userId, int month, int year) throws SheetNotFoundException;
+	
+	
 }

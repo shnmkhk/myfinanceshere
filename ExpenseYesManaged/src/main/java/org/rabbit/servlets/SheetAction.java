@@ -11,6 +11,9 @@ import org.rabbit.shared.NumUtil;
 import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.RequestUtil;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 public class SheetAction extends BaseServlet {
 	
 	private static final long serialVersionUID = -8801600974223631863L;
@@ -23,6 +26,9 @@ public class SheetAction extends BaseServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		if (!doAuthCheck(request, response)){
+			return;
+		}
 		RequestUtil.refreshAllSheetsIntoSession(request);
 		String baseHref = handleCancelAndReturnBaseHref(request, response);
 		response.sendRedirect(baseHref + "/list/ls.jsp#content");
@@ -30,7 +36,9 @@ public class SheetAction extends BaseServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		
+		if (!doAuthCheck(request, response)){
+			return;
+		}
 		String baseHref = handleCancelAndReturnBaseHref(request, response);
 		String submit = RequestUtil.getStringValue(request, "submit");
 		if (RequestUtil.EMPTY_STR.equals(submit) || RequestUtil.CANCEL_STR.equalsIgnoreCase(submit)) {
@@ -42,9 +50,11 @@ public class SheetAction extends BaseServlet {
 		int year = RequestUtil.getIntValue(request, "year", NumUtil.MINUS_ONE);
 		
 		try {
-			sheetService.addNewSheet(month, year);
+			UserService userService = UserServiceFactory.getUserService();
+			
+			sheetService.addNewSheet(request.getUserPrincipal().getName(), month, year);
 			request.getSession().setAttribute("INFO_MESSAGE", String.format("Added a new sheet for month - <b>%d</b> and year - <b>%d</b>", month, year));
-			request.getSession().setAttribute("SHEET_KEY_ID", ObjectUtils.getSheetKeyId(month, year));
+			request.getSession().setAttribute("SHEET_KEY_ID", ObjectUtils.getSheetKeyId(request.getUserPrincipal().getName(),month, year));
 			
 			RequestUtil.refreshAllSheetsIntoSession(request);
 			response.sendRedirect(baseHref + "/list/ls.jsp");
@@ -67,5 +77,4 @@ public class SheetAction extends BaseServlet {
 		
 		response.sendRedirect(baseHref + "/as.jsp");
 	}
-
 }

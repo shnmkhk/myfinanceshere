@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.rabbit.common.BaseTest;
+import org.rabbit.common.Constants;
 import org.rabbit.exception.EntryAlreadyExistsException;
 import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.model.Entry;
@@ -40,7 +41,7 @@ public class TransactionServiceImplTest extends BaseTest {
 	@Ignore
 	public final void testAddNewTransaction() throws SheetAlreadyExistsException, EntryAlreadyExistsException {
 		
-		Sheet sheet = sheetService.addNewSheet(12, 2013);
+		Sheet sheet = sheetService.addNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		Entry entry  = entryService.addANewEntry('I', 33000,
 				"APRIL_MONTH_SALARY", "April Month Salary", 'S', sheet);
 		Transaction transaction = transactionService.addNewTransaction(

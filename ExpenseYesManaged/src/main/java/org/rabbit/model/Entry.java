@@ -1,6 +1,8 @@
 package org.rabbit.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import javax.jdo.annotations.ForeignKey;
 import javax.jdo.annotations.IdentityType;
@@ -184,6 +186,15 @@ public class Entry extends BaseEntity implements Serializable {
 		} else {
 			return (-1) * amount;
 		}
-
+	}
+	
+	public String getViewFormatLabel(){
+		String sheetKeyStr = getSheet().getKeyStr();
+		int sequenceNumber = getSequenceIndex();
+		return getShortCode() + "&nbsp;<a href='/ea/" + sheetKeyStr + "/" + sequenceNumber + "/delete#content'>[Del]</a>&nbsp;<br/>" + getTypeStr();
+	}
+	private static final NumberFormat nf = new DecimalFormat("###,###,###.00");
+	public String getViewFormatAmount(){
+		return nf.format(amount);
 	}
 }

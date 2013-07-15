@@ -7,7 +7,7 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
-<%@ page errorPage="/error.jsp" %>
+<%@ page errorPage="/error.jsp"%>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -18,8 +18,9 @@
 <link type="text/css" rel="stylesheet" href="/css/displaytag.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/print.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/site.css"></link>
+<link type="text/css" rel="stylesheet"
+	href="/css/jquery-ui-1.10.3.custom.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css"></link>
-<link type="text/css" rel="stylesheet" href="/css/jquery-ui-1.10.3.custom.css"></link>
 <!--                                           -->
 <!-- Any title is fine                         -->
 <!--                                           -->
@@ -49,8 +50,9 @@
 			<div class="main-widget">
 				<div class="main-content">
 					<div style="height: 100%; margin: 0px">
-						<div class="header" style="height: 30%">
-							<div class="rabbit-common-align-left header-container" onclick="location.href='/'" style="cursor: pointer;">
+						<div class="header" style="height: 20%">
+							<div class="rabbit-common-align-left header-container"
+								onclick="location.href='/'" style="cursor: pointer;">
 								<p style="padding-left: 5px;">
 									<font color="#FFFFFF">Expense-<font color="orange"
 										size="4">Yes</font>-Managed<br /> <span class="tagline">Enable
@@ -61,20 +63,15 @@
 								</div>
 							</div>
 						</div>
-						<jsp:include page="/common/navigation.jsp"></jsp:include>
-						<div class="body" style="height: 70%" id="content">
-							<table class="form-background">
-								<tr>
-									<td>
-										<div class="header-text">
-											<decorator:title />
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td><decorator:body /></td>
-								</tr>
-							</table>
+						<div style="height: 70%" class="body">
+							<jsp:include page="/common/navigation.jsp"></jsp:include>
+							<div id="content">
+								<table class="form-background">
+									<tr>
+										<td><decorator:body /></td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

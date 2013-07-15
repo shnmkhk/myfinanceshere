@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rabbit.common.BaseTest;
+import org.rabbit.common.Constants;
 import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Sheet;
@@ -26,28 +27,28 @@ public class SheetServiceImplTest extends BaseTest {
 	public final void testAddNewSheetInvalidMonthNegative() throws SheetAlreadyExistsException {
 		final int MONTH = -6;
 		final int YEAR = 2013;
-		sheetService.addNewSheet(MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public final void testAddNewSheetInvalidMonthOutOfRange() throws SheetAlreadyExistsException {
 		final int MONTH = 16;
 		final int YEAR = 2013;
-		sheetService.addNewSheet(MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public final void testAddNewSheetInvalidYearNegative() throws SheetAlreadyExistsException {
 		final int MONTH = 16;
 		final int YEAR = -2013;
-		sheetService.addNewSheet(MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 	}
 
 	@Test
 	public final void testAddNewSheetSuccess() throws SheetAlreadyExistsException {
 		final int MONTH = 6;
 		final int YEAR = 2013;
-		Sheet sheet = sheetService.addNewSheet(MONTH, YEAR);
+		Sheet sheet = sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 		Assert.assertNotNull(sheet);
 		Assert.assertEquals(MONTH, sheet.getMonth());
 		Assert.assertEquals(YEAR, sheet.getYear());
@@ -57,12 +58,12 @@ public class SheetServiceImplTest extends BaseTest {
 	public final void testGetAllSheetsSuccess() throws SheetAlreadyExistsException {
 		int MONTH = 6;
 		final int YEAR = 2013;
-		sheetService.addNewSheet(MONTH, YEAR);
-		sheetService.addNewSheet(++MONTH, YEAR);
-		sheetService.addNewSheet(++MONTH, YEAR);
-		sheetService.addNewSheet(++MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, ++MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, ++MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, ++MONTH, YEAR);
 
-		List<Sheet> availableSheets = sheetService.getAllSheets();
+		List<Sheet> availableSheets = sheetService.getAllSheets(Constants.TEST_USER_ID);
 		Assert.assertNotNull(availableSheets);
 		Assert.assertEquals(availableSheets.size(), 4);
 	}
@@ -71,8 +72,8 @@ public class SheetServiceImplTest extends BaseTest {
 	public final void testGetSheetSuccess() throws SheetNotFoundException, SheetAlreadyExistsException {
 		int MONTH = 6;
 		final int YEAR = 2013;
-		sheetService.addNewSheet(MONTH, YEAR);
-		Sheet sheet = sheetService.getSheet(MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
+		Sheet sheet = sheetService.getSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 		Assert.assertNotNull(sheet);
 		Assert.assertEquals(MONTH, sheet.getMonth());
 		Assert.assertEquals(YEAR, sheet.getYear());
@@ -82,21 +83,21 @@ public class SheetServiceImplTest extends BaseTest {
 	public final void testGetSheetGetNonExistingSheet() throws SheetNotFoundException {
 		int MONTH = 6;
 		final int YEAR = 2013;
-		sheetService.getSheet(MONTH, YEAR);
+		sheetService.getSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 	}
 
 	@Test(expected = SheetNotFoundException.class)
 	public final void testDeleteSheetSuccess() throws SheetNotFoundException, SheetAlreadyExistsException {
 		int MONTH = 6;
 		final int YEAR = 2013;
-		sheetService.addNewSheet(MONTH, YEAR);
+		sheetService.addNewSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 
-		Sheet sheet = sheetService.getSheet(MONTH, YEAR);
+		Sheet sheet = sheetService.getSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 		Assert.assertNotNull(sheet);
 		Assert.assertEquals(MONTH, sheet.getMonth());
 		Assert.assertEquals(YEAR, sheet.getYear());
 
-		sheetService.deleteSheet(MONTH, YEAR);
-		sheet = sheetService.getSheet(MONTH, YEAR);
+		sheetService.deleteSheet(Constants.TEST_USER_ID, MONTH, YEAR);
+		sheet = sheetService.getSheet(Constants.TEST_USER_ID, MONTH, YEAR);
 	}
 }
