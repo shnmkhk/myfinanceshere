@@ -2,10 +2,10 @@
 <title>Add a sheet</title>
 <body>
 	<div>
-		<ul class="horizontal-list" style="padding: 2px; text-align: right;">
+		<ul class="horizontal-list" style="text-align: right; width: 100%;">
 			<li class="header-one">Add a </li><li class="header-two">sheet</li>
 		</ul>
-		<ul class="horizontal-list" style="text-align: left;">
+		<ul class="horizontal-list" style="text-align: left; width: 100%;">
 			<li><a href="<c:url value='/sa/#content'/>">Back to sheets</a></li>
 		</ul>
 	</div>
@@ -27,7 +27,7 @@
 			</tr>
 		</table>
 	</form>
-	<ul class="horizontal-list" style="float: left;">
+	<ul class="horizontal-list" style="text-align: left;">
 		<li><a href="<c:url value='/sa/#content'/>">Back to sheets</a></li>
 	</ul>
 </body>

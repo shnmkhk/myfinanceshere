@@ -2,16 +2,17 @@
 	import="java.util.List, org.rabbit.model.Sheet, com.google.appengine.api.users.UserService, com.google.appengine.api.users.UserServiceFactory"
 	errorPage="/error.jsp"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <title>Sheets list</title>
 <body>
 	<%@ include file="/common/header.jsp"%>
-	<div>
-		<ul class="horizontal-list" style="padding: 2px; text-align: right;">
+	<div style="width: 100%;">
+		<ul class="horizontal-list" style="text-align: right; width: 100%;">
 			<li class="header-one">Sheet Listing</li>
 			<li class="header-two">All</li>
 		</ul>
-		<ul class="horizontal-list" style="text-align: left;">
+		<ul class="horizontal-list" style="text-align: left; width: 100%;">
 			<li><a href="<c:url value='/sa/#content'/>">Reload sheets</a></li>
 			<li>&nbsp;|&nbsp;</li>
 			<li><a href="<c:url value='/as.jsp#content'/>">Add a sheet</a></li>
@@ -22,15 +23,17 @@
 	</c:if>
 	<c:if test="${not empty sessionScope.allSheetsMap}">
 		<hr />
-		<ul class="horizontal-list occupy-half-page-width">
+		<ul class="horizontal-list occupy-half-page-width"
+			style="width: 100%;">
 			<c:forEach var="sheetEntry" items="${sessionScope.allSheetsMap}">
 				<li class="header-two"><c:out value='${sheetEntry.key}' /></li>
 				<li>
-					<ul>
+					<ul
+						style="list-style-type: none; text-align: left; display: inline-block; word-wrap: break-word;">
 						<c:forEach var="sheetObj" items="${sheetEntry.value}">
-							<li><a class="no-underline"
+							<li style="display: inline-table; float: left; margin: 2px; width: 50px;"><a class="no-underline"
 								href='/ea/<c:out value="${sheetObj.keyStr }"/>#content'>
-									<div class="sheet-container">
+									<div class="sheet-container cursor-pointer">
 										<div class="sheet-container-month">
 											<c:out value="${sheetObj.shortMonthStr}" />
 										</div>
@@ -45,10 +48,12 @@
 				<hr />
 			</c:forEach>
 		</ul>
-		<ul class="horizontal-list" style="float: left;">
-			<li><a href="<c:url value='/sa/#content'/>">Reload sheets</a></li>
-			<li>&nbsp;|&nbsp;</li>
-			<li><a href="<c:url value='/as.jsp#content'/>">Add a sheet</a></li>
-		</ul>
+		<c:if test="${fn:length(sessionScope.allSheetsMap) > 5}">
+			<ul class="horizontal-list" style="text-align: left; width: 100%;">
+				<li><a href="<c:url value='/sa/#content'/>">Reload sheets</a></li>
+				<li>&nbsp;|&nbsp;</li>
+				<li><a href="<c:url value='/as.jsp#content'/>">Add a sheet</a></li>
+			</ul>
+		</c:if>
 	</c:if>
 </body>
