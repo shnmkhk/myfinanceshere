@@ -49,10 +49,10 @@
 		<div class="main-container transparent-black-background">
 			<div class="main-widget">
 				<div class="main-content">
-					<div style="height: 100%; margin: 0px">
-						<div class="header" style="height: 20%">
+					<div style="height: 100%; margin: 0px;">
+						<div class="header cursor-pointer" style="height: 20%">
 							<div class="rabbit-common-align-left header-container"
-								onclick="location.href='/'" style="cursor: pointer;">
+								onclick="location.href='/sa/#content'">
 								<p style="padding-left: 5px;">
 									<font color="#FFFFFF">Expense-<font color="orange"
 										size="4">Yes</font>-Managed<br /> <span class="tagline">Enable
@@ -64,14 +64,20 @@
 							</div>
 						</div>
 						<div style="height: 70%" class="body">
-							<jsp:include page="/common/navigation.jsp"></jsp:include>
 							<div id="content">
 								<table class="form-background">
-									<tr>
-										<td><decorator:body /></td>
-									</tr>
+									<tbody>
+										<tr>
+											<td>
+												<div class="body-enclosing-container">
+													<decorator:body />
+												</div>
+											</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
+							<jsp:include page="/common/navigation.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>

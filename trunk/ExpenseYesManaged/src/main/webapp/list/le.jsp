@@ -17,7 +17,7 @@
 	<%@ include file="/common/header.jsp"%>
 	<c:if test="${not empty sessionScope.SHEET_MONTH_YR_ARRAY}">
 		<div>
-			<ul class="horizontal-list" style="padding: 2px; text-align: right;">
+			<ul class="horizontal-list" style="text-align: right; width: 100%;">
 				<li class="header-one">Entries</li>
 				<c:if test="${not empty sessionScope.SHEET_MONTH_YR_ARRAY}">
 					<li class="header-two"><c:out
@@ -26,7 +26,7 @@
 							value="${sessionScope.SHEET_MONTH_YR_ARRAY[1]}" /></li>
 				</c:if>
 			</ul>
-			<ul class="horizontal-list" style="text-align: left;">
+			<ul class="horizontal-list" style="text-align: left; width: 100%;">
 				<li><a href="<c:url value='/sa/#content'/>">Back to sheets</a></li>
 				<li>&nbsp;|&nbsp;</li>
 				<li><a href="<c:url value='/ea/#content'/>">Reload entries</a></li>
@@ -58,14 +58,5 @@
 				</label>
 			</div>
 		</div>
-	</c:if>
-	<c:if test="${not empty sessionScope.entriesOfSelectedSheet}">
-		<ul class="horizontal-list" style="float: left;">
-			<li><a href="<c:url value='/sa/#content'/>">Back to sheets</a></li>
-			<li>&nbsp;|&nbsp;</li>
-			<li><a href="<c:url value='/ea/#content'/>">Reload entries</a></li>
-			<li>&nbsp;|&nbsp;</li>
-			<li><a href="<c:url value='/ae.jsp?sid=${sessionScope.SHEET_KEY_ID}#content'/>">Add an entry</a></li>
-		</ul>
 	</c:if>
 </body>

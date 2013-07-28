@@ -3,7 +3,7 @@
 <body>
 	<c:if test="${not empty sessionScope.SHEET_MONTH_YR_ARRAY}">
 		<div>
-			<ul class="horizontal-list" style="padding: 2px; text-align: right;">
+			<ul class="horizontal-list" style="text-align: right; width: 100%;">
 				<li class="header-one">Add an entry</li>
 				<c:if test="${not empty sessionScope.SHEET_MONTH_YR_ARRAY}">
 					<li class="header-two"><c:out
@@ -12,7 +12,7 @@
 							value="${sessionScope.SHEET_MONTH_YR_ARRAY[1]}" /></li>
 				</c:if>
 			</ul>
-			<ul class="horizontal-list" style="text-align: left;">
+			<ul class="horizontal-list" style="text-align: left; width: 100%;">
 				<li><a href="<c:url value='/ea/#content'/>">Back to entries</a></li>
 			</ul>
 		</div>
@@ -49,7 +49,7 @@
 					type="submit" name="submit" value="Cancel" /></td>
 			</tr>
 		</table>
-		<ul class="horizontal-list" style="float: left;">
+		<ul class="horizontal-list" style="text-align: left;">
 			<li><a href="<c:url value='/ea/#content'/>">Back to entries</a></li>
 		</ul>
 	</form>
