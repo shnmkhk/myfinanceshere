@@ -7,6 +7,11 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import org.rabbit.services.dwr.vo.BaseAbstractVO;
+import org.rabbit.services.dwr.vo.EntryVO;
+import org.rabbit.services.dwr.vo.TransactionVO;
+import org.rabbit.shared.TextUtil;
+
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
@@ -123,5 +128,26 @@ public class Transaction extends BaseEntity implements Serializable {
 				+ ", description=" + description + ", transactionAmount="
 				+ transactionAmount + ", sequenceIndex=" + sequenceIndex
 				+ ", entry=" + entry + "]";
+	}
+
+	private TransactionVO transactionVO = null;
+	
+	/* (non-Javadoc)
+	 * @see org.rabbit.model.BaseEntity#getVO()
+	 */
+	@Override
+	public BaseAbstractVO getVO() {
+		if (entry == null){
+			throw new RuntimeException("Entry is not set to this transaction");
+		}
+		
+		transactionVO = new TransactionVO();
+		transactionVO.setDescription(description);
+		transactionVO.setEntryVO((EntryVO) entry.getVO());
+		transactionVO.setOpeningBalStr(TextUtil.nf.format(openingBalance));
+		transactionVO.setSequenceIndexStr(String.valueOf(sequenceIndex));
+		transactionVO.setTransAmountStr(TextUtil.nf.format(transactionAmount));
+		
+		return transactionVO;
 	}
 }

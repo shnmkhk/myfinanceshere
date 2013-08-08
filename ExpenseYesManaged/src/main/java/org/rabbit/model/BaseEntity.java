@@ -11,75 +11,76 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.rabbit.services.dwr.vo.BaseAbstractVO;
+
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
+@PersistenceCapable(detachable = "true", identityType = IdentityType.APPLICATION)
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 public abstract class BaseEntity implements Serializable {
 
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	protected Key key;
 
-             @PrimaryKey
-             @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-             protected Key key;
+	@Persistent
+	protected Date createdOn;
 
-             @Persistent
-             protected Date createdOn;
+	@Persistent
+	protected Date lastUpdatedOn;
 
-             @Persistent
-             protected Date lastUpdatedOn;
+	@Persistent
+	protected String createdBy;
 
-             @Persistent
-             protected String createdBy;
+	@Persistent
+	protected String lastUpdatedBy;
 
-             @Persistent
-             protected String lastUpdatedBy;
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-             public Date getCreatedOn() {
-                             return createdOn;
-             }
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-             public void setCreatedOn(Date createdOn) {
-                             this.createdOn = createdOn;
-             }
+	public Date getLastUpdatedOn() {
+		return lastUpdatedOn;
+	}
 
-             public Date getLastUpdatedOn() {
-                             return lastUpdatedOn;
-             }
+	public void setLastUpdatedOn(Date lastUpdatedOn) {
+		this.lastUpdatedOn = lastUpdatedOn;
+	}
 
-             public void setLastUpdatedOn(Date lastUpdatedOn) {
-                             this.lastUpdatedOn = lastUpdatedOn;
-             }
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
-             public String getCreatedBy() {
-                             return createdBy;
-             }
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 
-             public void setCreatedBy(String createdBy) {
-                             this.createdBy = createdBy;
-             }
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
 
-             public String getLastUpdatedBy() {
-                             return lastUpdatedBy;
-             }
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
 
-             public void setLastUpdatedBy(String lastUpdatedBy) {
-                             this.lastUpdatedBy = lastUpdatedBy;
-             }
+	/**
+	 * @return the key
+	 */
+	public Key getKey() {
+		return key;
+	}
 
-			/**
-			 * @return the key
-			 */
-			public Key getKey() {
-				return key;
-			}
+	/**
+	 * @param key
+	 *            the key to set
+	 */
+	public void setKey(Key key) {
+		this.key = key;
+	}
 
-			/**
-			 * @param key the key to set
-			 */
-			public void setKey(Key key) {
-				this.key = key;
-			}
-
-             
-
+	public abstract BaseAbstractVO getVO();
 }

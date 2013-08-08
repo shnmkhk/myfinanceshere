@@ -7,6 +7,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
 import org.rabbit.common.Month;
+import org.rabbit.services.dwr.vo.BaseAbstractVO;
+import org.rabbit.services.dwr.vo.SheetVO;
 import org.rabbit.shared.ObjectUtils;
 
 import com.google.appengine.api.datastore.Key;
@@ -21,10 +23,10 @@ public class Sheet extends BaseEntity implements Serializable {
 
 	@Persistent
 	private int year;
-	
+
 	@Persistent
 	private String userId;
-	
+
 	public Sheet(Key key, int month, int year, String userId) {
 		super();
 		this.key = key;
@@ -32,7 +34,7 @@ public class Sheet extends BaseEntity implements Serializable {
 		this.year = year;
 		this.userId = userId;
 	}
-	
+
 	public Key getKey() {
 		return key;
 	}
@@ -70,7 +72,6 @@ public class Sheet extends BaseEntity implements Serializable {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	
 
 	/**
 	 * @return the userId
@@ -80,13 +81,16 @@ public class Sheet extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -101,5 +105,24 @@ public class Sheet extends BaseEntity implements Serializable {
 
 	public String getKeyStr() {
 		return ObjectUtils.getSheetKeyStrForView(month, year);
+	}
+
+	private SheetVO sheetVO = null;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.rabbit.model.BaseEntity#getVO()
+	 */
+	@Override
+	public BaseAbstractVO getVO() {
+		if (sheetVO == null) {
+			sheetVO = new SheetVO();
+		}
+
+		sheetVO.setMonth(String.valueOf(month));
+		sheetVO.setYear(String.valueOf(year));
+
+		return sheetVO;
 	}
 }

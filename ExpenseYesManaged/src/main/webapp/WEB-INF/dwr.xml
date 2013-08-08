@@ -1,0 +1,8 @@
+<dwr>
+	<allow>
+		<create creator="new" javascript="SheetService">
+			<param name="class" value="org.rabbit.services.dwr.impl.DWRSheetServiceImpl" />
+		</create>
+		<convert converter="bean" match="org.rabbit.services.dwr.vo.SheetVO" javascript="Sheet"/>
+	</allow>
+</dwr>
