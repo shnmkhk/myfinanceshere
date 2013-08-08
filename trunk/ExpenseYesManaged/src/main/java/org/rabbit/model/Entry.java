@@ -9,11 +9,15 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import org.rabbit.services.dwr.vo.BaseAbstractVO;
+import org.rabbit.services.dwr.vo.EntryVO;
+import org.rabbit.services.dwr.vo.SheetVO;
 import org.rabbit.shared.ObjectUtils;
+import org.rabbit.shared.TextUtil;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
+@PersistenceCapable(detachable = "true", identityType = IdentityType.APPLICATION)
 public class Entry extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1910736454574078429L;
@@ -35,12 +39,12 @@ public class Entry extends BaseEntity implements Serializable {
 
 	@Persistent
 	private char status;
-	
+
 	@ForeignKey
 	private Sheet sheet;
-	
+
 	public Entry(int sequenceIndex, char type, double amount, String shortCode,
-			String description, char status){
+			String description, char status) {
 		this.sequenceIndex = sequenceIndex;
 		this.type = type;
 		this.amount = amount;
@@ -48,8 +52,9 @@ public class Entry extends BaseEntity implements Serializable {
 		this.description = description;
 		this.status = status;
 	}
-	public Entry(Key key, int sequenceIndex, char type, double amount, String shortCode,
-			String description, char status) {
+
+	public Entry(Key key, int sequenceIndex, char type, double amount,
+			String shortCode, String description, char status) {
 		super();
 		this.key = key;
 		this.sequenceIndex = sequenceIndex;
@@ -61,8 +66,8 @@ public class Entry extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * The type of the transaction. Possible values are
-	 * 'E' [Expense] or 'I' [Income]
+	 * The type of the transaction. Possible values are 'E' [Expense] or 'I'
+	 * [Income]
 	 * 
 	 * @return the type
 	 */
@@ -153,7 +158,10 @@ public class Entry extends BaseEntity implements Serializable {
 	public void setSheet(Sheet sheet) {
 		this.sheet = sheet;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -163,38 +171,62 @@ public class Entry extends BaseEntity implements Serializable {
 				+ shortCode + ", description=" + description + ", status="
 				+ status + ", sheet=" + sheet + "]";
 	}
-	
-	public String getStyleClass(){
-		if (type == 'I'){
+
+	public String getStyleClass() {
+		if (type == 'I') {
 			return "style-class-income";
 		} else {
 			return "style-class-expense";
 		}
 	}
-	
+
 	public String getTypeStr() {
-		if (type == 'I'){
+		if (type == 'I') {
 			return "Income" + ObjectUtils.getSimpleDate(getCreatedOn());
 		} else {
 			return "Expense" + ObjectUtils.getSimpleDate(getCreatedOn());
 		}
 	}
-	
-	public double getSignedAmount(){
-		if (type == 'I'){
+
+	public double getSignedAmount() {
+		if (type == 'I') {
 			return amount;
 		} else {
 			return (-1) * amount;
 		}
 	}
-	
-	public String getViewFormatLabel(){
+
+	public String getViewFormatLabel() {
 		String sheetKeyStr = getSheet().getKeyStr();
 		int sequenceNumber = getSequenceIndex();
-		return getShortCode() + "&nbsp;<a href='/ea/" + sheetKeyStr + "/" + sequenceNumber + "/delete#content'>[Del]</a>&nbsp;<br/>" + getTypeStr();
+		return getShortCode() + "&nbsp;<a href='/ea/" + sheetKeyStr + "/"
+				+ sequenceNumber + "/delete#content'>[Del]</a>&nbsp;<br/>"
+				+ getTypeStr();
 	}
-	private static final NumberFormat nf = new DecimalFormat("###,###,###.00");
-	public String getViewFormatAmount(){
-		return nf.format(amount);
+
+	public String getViewFormatAmount() {
+		return TextUtil.nf.format(amount);
+	}
+
+	private EntryVO entryVO = null;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.rabbit.model.BaseEntity#getVO()
+	 */
+	@Override
+	public BaseAbstractVO getVO() {
+		if (entryVO == null) {
+			entryVO = new EntryVO();
+		}
+
+		entryVO.setAmount(TextUtil.nf.format(amount));
+		entryVO.setDescription(description);
+		entryVO.setParentSheetVO((SheetVO) sheet.getVO());
+		entryVO.setSeqIx(String.valueOf(sequenceIndex));
+		entryVO.setShortCode(shortCode);
+
+		return entryVO;
 	}
 }

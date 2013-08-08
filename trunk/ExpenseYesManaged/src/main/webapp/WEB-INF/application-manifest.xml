@@ -20,12 +20,12 @@
   <Extension id="navLink" type="link">
     <Name>ExpenseYesManaged</Name>
     <!-- Example URL. Replace it with your application url -->
-    <Url>http://myfinanceshere.appspot.com/openid?hd=${DOMAIN_NAME}</Url>
+    <Url>http://expense-yes-managed.appspot.com/openid?hd=${DOMAIN_NAME}</Url>
   </Extension>
 
   <!-- Declare our OpenID realm so our app is white listed -->
   <Extension id="realm" type="openIdRealm">
-    <Url>http://myfinanceshere.appspot.com/</Url>
+    <Url>http://expense-yes-managed.appspot.com/</Url>
   </Extension>
 
   <Edition id="free">
