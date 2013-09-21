@@ -10,22 +10,39 @@
 		</ul>
 	</div>
 	
-	<jsp:include page="/common/header.jsp"></jsp:include>
+	<%@ include file="/common/header.jsp" %>
 	<form action="/sa/#content" method="POST">
-		<table class="form-container">
+		<p>
+			<span>
+				<input type="text" id="month" name="month" maxlength="2" size="10" value="<c:out value='${INPUT_MONTH}'/>" placeholder="Month Eg. 12" alt="Month Eg. 12" title="Month Eg. 12"/>
+			</span>
+			<br/>
+			<br/>
+			<span>
+				<input type="text" id="year" name="year" maxlength="4" size="16" value="<c:out value='${INPUT_YEAR}'/>" placeholder="Year Eg. 2013"  alt="Year Eg. 2013" title="Year Eg. 2013"/>
+			</span>
+			<hr/>
+			<span style="float: right;">
+				<input type="submit" name="submit" value="Add" />
+				<input type="submit" name="submit" value="Cancel" />
+			</span>
+		</p>
+		<%-- <table class="form-container">
 			<tr>
-				<td><label for="month" class="required-field">Month *</label><br /> <input type="text"
-					id="month" name="month" maxlength="2" size="2" value="<c:out value='${INPUT_MONTH}'/>" /></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td><label for="year" class="required-field">Year *</label><br /> <input type="text"
-					id="year" name="year" maxlength="4" size="4" value="<c:out value='${INPUT_YEAR}'/>"/></td>
+					id="year" name="year" maxlength="4" size="8" value="<c:out value='${INPUT_YEAR}'/>" placeholder="Eg. 2013"/></td>
 			</tr>
 			<tr>
-				<td><input type="submit" name="submit" value="Add" /> <input
+				<td><hr/></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;"><input type="submit" name="submit" value="Add" /> <input
 					type="submit" name="submit" value="Cancel" /></td>
 			</tr>
-		</table>
+		</table> --%>
 	</form>
 	<ul class="horizontal-list" style="text-align: left;">
 		<li><a href="<c:url value='/sa/#content'/>">Back to sheets</a></li>

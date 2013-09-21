@@ -1,7 +1,10 @@
 package org.rabbit.services.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.rabbit.dao.EntryDAO;
 import org.rabbit.dao.SheetDAO;
 import org.rabbit.dao.impl.EntryDAOImpl;
@@ -12,6 +15,11 @@ import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Entry;
 import org.rabbit.model.Sheet;
 import org.rabbit.services.EntryService;
+import org.rabbit.wrappers.EntryStatusWrapper;
+import org.rabbit.services.SheetService;
+import org.rabbit.shared.ObjectUtils;
+import org.rabbit.shared.ValidationUtils;
+import org.rabbit.wrappers.EntryStatusWrapperFactory;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -19,80 +27,232 @@ import com.google.appengine.api.datastore.Key;
  * Service layer implementation for Entry model
  * 
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: 02-Jun-2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: 02-Jun-2013
  */
 public class EntryServiceImpl implements EntryService {
 
-	private EntryServiceImpl(){
+	private EntryServiceImpl() {
 		// Do nothing
 	}
-	
+
 	private static class EntryServiceImplHolder {
 		public static EntryServiceImpl ENTRY_SERVICE_IMPL_SINGLETON_INSTANCE = new EntryServiceImpl();
 	}
-	
-	public static EntryServiceImpl getInstance(){
+
+	public static EntryServiceImpl getInstance() {
 		return EntryServiceImplHolder.ENTRY_SERVICE_IMPL_SINGLETON_INSTANCE;
 	}
-	
+
 	private final EntryDAO entryDAO = EntryDAOImpl.getInstance();
 	private final SheetDAO sheetDAO = SheetDAOImpl.getInstance();
+	private final SheetService sheetService = SheetServiceImpl.getInstance();
 
-	/* (non-Javadoc)
-	 * @see org.rabbit.services.EntryService#addANewEntry(char, double, java.lang.String, java.lang.String, char, com.google.appengine.api.datastore.Key)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.rabbit.services.EntryService#addANewEntry(char, double,
+	 * java.lang.String, java.lang.String, char,
+	 * com.google.appengine.api.datastore.Key)
 	 */
-	
+
 	public Entry addANewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet sheet)
 			throws EntryAlreadyExistsException {
-		return entryDAO.createNewEntry(type, amount, shortCode, description, status, sheet);
+		return entryDAO.createNewEntry(type, amount, shortCode, description,
+				status, sheet);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.rabbit.services.EntryService#deleteEntry(com.google.appengine.api.datastore.Key, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rabbit.services.EntryService#deleteEntry(com.google.appengine.api
+	 * .datastore.Key, int)
 	 */
-	
+
 	public boolean deleteEntry(Key parentSheetKey, int sequenceIndex)
 			throws EntryNotFoundException, SheetNotFoundException {
 		Sheet parentSsheetForSpecifiedKey = sheetDAO.getSheet(parentSheetKey);
 		if (parentSsheetForSpecifiedKey == null) {
-			throw new SheetNotFoundException("Sheet doesn't exist for key: " + parentSheetKey);
+			throw new SheetNotFoundException("Sheet doesn't exist for key: "
+					+ parentSheetKey);
 		}
 		return entryDAO.deleteEntry(parentSsheetForSpecifiedKey, sequenceIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.rabbit.services.EntryService#getAllEntries()
 	 */
-	
+
 	public List<Entry> getAllEntries() {
 		return entryDAO.getAllEntries();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.rabbit.services.EntryService#getEntries(com.google.appengine.api.datastore.Key)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rabbit.services.EntryService#getEntries(com.google.appengine.api.
+	 * datastore.Key)
 	 */
-	
-	public List<Entry> getEntries(Key parentSheetKey) throws SheetNotFoundException {
+
+	public List<Entry> getEntries(Key parentSheetKey)
+			throws SheetNotFoundException {
 		return entryDAO.getEntriesBySheet(sheetDAO.getSheet(parentSheetKey));
 	}
 
-	/* (non-Javadoc)
-	 * @see org.rabbit.services.EntryService#getEntryBySheetAndIndex(com.google.appengine.api.datastore.Key, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rabbit.services.EntryService#getEntryBySheetAndIndex(com.google.appengine
+	 * .api.datastore.Key, int)
 	 */
-	
+
 	public Entry getEntryBySheetAndIndex(Key parentSheetKey, int sequenceIndex)
 			throws EntryNotFoundException, SheetNotFoundException {
-		return entryDAO.getEntryBySheetAndIndex(sheetDAO.getSheet(parentSheetKey), sequenceIndex);
+		return entryDAO.getEntryBySheetAndIndex(
+				sheetDAO.getSheet(parentSheetKey), sequenceIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.rabbit.services.EntryService#updateEntry(org.rabbit.model.Entry)
 	 */
-	
+
 	public Entry updateEntry(Entry entry) {
 		return entryDAO.updateEntry(entry);
 	}
 
+	public EntryStatusWrapper addMultipleEntries(String paramString,
+			HashMap paramMap) {
+		EntryStatusWrapper localEntryStatusWrapper = EntryStatusWrapperFactory
+				.getInstance().generateOne();
+		HashMap localHashMap = new HashMap();
+		String str1 = String.valueOf(paramMap.get("sid"));
+		Sheet localSheet = null;
+		char c = ' ';
+		String str2 = null;
+		String str3 = null;
+		double d = 0.0D;
+		try {
+			if (StringUtils.isEmpty(str1)) {
+				localEntryStatusWrapper.setErrorMessage(String.format(
+						"Invalid sheet identifier %s", new Object[] { str1 }));
+				localEntryStatusWrapper.setRedirectURI("/list/le.jsp#content");
+				localEntryStatusWrapper.setErrored(true);
+				return localEntryStatusWrapper;
+			}
+			localSheet = this.sheetService.getSheet(paramString, str1);
+			localEntryStatusWrapper.setAssociatedSheet(localSheet);
+			int i = ObjectUtils.getIntValue(paramMap.get("no-of-entries"), 0);
+			if (i == 0) {
+				localEntryStatusWrapper.setErrorMessage(String.format(
+						"Received %d number of entries for [%s %d]",
+						new Object[] { Integer.valueOf(i),
+								localSheet.getShortMonthStr(),
+								Integer.valueOf(localSheet.getYear()) }));
+				localEntryStatusWrapper.setRedirectURI(String.format(
+						"/mae.jsp?sid=%s#content", new Object[] { str1 }));
+				localEntryStatusWrapper.setErrored(true);
+				return localEntryStatusWrapper;
+			}
+			if (!(ValidationUtils.doesAnyEntryHasCompleteData(i, paramMap))) {
+				localEntryStatusWrapper
+						.setErrorMessage(String
+								.format("None of the %d entries has complete data given for [%s %d]. Both Label and Amount are required for an entry",
+										new Object[] {
+												Integer.valueOf(i),
+												localSheet.getShortMonthStr(),
+												Integer.valueOf(localSheet
+														.getYear()) }));
+				localEntryStatusWrapper.setRedirectURI(String.format(
+						"/mae.jsp?sid=%s#content", new Object[] { str1 }));
+				localEntryStatusWrapper.setErrored(true);
+				return localEntryStatusWrapper;
+			}
+			StringBuffer localStringBuffer = new StringBuffer();
+			for (int j = 1; j <= i; ++j) {
+				str2 = ObjectUtils.getStrValue(paramMap.get("shortCode_" + j));
+				str3 = ObjectUtils
+						.getStrValue(paramMap.get("description_" + j));
+				d = ObjectUtils.getDoubleValue(paramMap.get("amount_" + j),
+						-1.0D);
+				c = ObjectUtils.getStrValue(paramMap.get("type_" + j))
+						.charAt(0);
+				if ((ObjectUtils.isNullOrEmpty(str2)) && (-1.0D == d))
+					continue;
+				if (((ObjectUtils.isNotNullAndNotEmpty(str2)) && (-1.0D == d))
+						|| ((ObjectUtils.isNullOrEmpty(str2)) && (-1.0D != d))) {
+					localStringBuffer
+							.append(String
+									.format("<br/>Entry index %d is skipped due to incomplete inputs [shortCode='%s', amount='%f']",
+											new Object[] { Integer.valueOf(j),
+													str2, Double.valueOf(d) }));
+				} else {
+					if ((ObjectUtils.isNullOrEmpty(str1))
+							&& (ObjectUtils.isNotNullAndNotEmpty(localHashMap
+									.get("SHEET_KEY_ID"))))
+						str1 = ObjectUtils.getStrValue(localHashMap
+								.get("SHEET_KEY_ID"));
+					else if ((ObjectUtils.isNotNullAndNotEmpty(str1))
+							&& (ObjectUtils.isNullOrEmpty(localHashMap
+									.get("SHEET_KEY_ID"))))
+						localHashMap.put("SHEET_KEY_ID", str1);
+					addANewEntry(c, d, str2, str3, 'A', localSheet);
+				}
+			}
+			localStringBuffer
+					.insert(0,
+							String.format(
+									"New entries have been added to the sheet [%s %d]; details below",
+									new Object[] {
+											localSheet.getShortMonthStr(),
+											Integer.valueOf(localSheet
+													.getYear()) }));
+			localEntryStatusWrapper.setStatusMessage(localStringBuffer
+					.toString());
+			localEntryStatusWrapper.setRedirectURI(String.format(
+					"/list/le.jsp?sid=%s#content", new Object[] { str1 }));
+			return localEntryStatusWrapper;
+		} catch (ClassCastException localClassCastException) {
+			localClassCastException.printStackTrace();
+			localEntryStatusWrapper
+					.setErrorMessage(String
+							.format("Entry already exists with [%s %d] and other given details",
+									new Object[] {
+											localSheet.getShortMonthStr(),
+											Integer.valueOf(localSheet
+													.getYear()) }));
+			localEntryStatusWrapper.setErrored(true);
+		} catch (EntryAlreadyExistsException localEntryAlreadyExistsException) {
+			localEntryAlreadyExistsException.printStackTrace();
+			localEntryStatusWrapper
+					.setErrorMessage(String
+							.format("Entry already exists with [%s %d] and other given details",
+									new Object[] {
+											localSheet.getShortMonthStr(),
+											Integer.valueOf(localSheet
+													.getYear()) }));
+			localEntryStatusWrapper.setErrored(true);
+		} catch (IllegalArgumentException localIllegalArgumentException) {
+			localIllegalArgumentException.printStackTrace();
+			localEntryStatusWrapper
+					.setErrorMessage(localIllegalArgumentException.getMessage());
+			localEntryStatusWrapper.setErrored(true);
+		} catch (SheetNotFoundException localSheetNotFoundException) {
+			localSheetNotFoundException.printStackTrace();
+			localEntryStatusWrapper.setErrorMessage(localSheetNotFoundException
+					.getMessage());
+			localEntryStatusWrapper.setErrored(true);
+		}
+		localEntryStatusWrapper.setRedirectURI(String.format(
+				"/mae.jsp?sid=%s#content", new Object[] { str1 }));
+		return localEntryStatusWrapper;
+	}
 }

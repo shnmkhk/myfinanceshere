@@ -14,6 +14,5 @@
 				.getAttribute("transactionResults");
 		out.println(transactions);
 	%>
-
 </body>
 </html>

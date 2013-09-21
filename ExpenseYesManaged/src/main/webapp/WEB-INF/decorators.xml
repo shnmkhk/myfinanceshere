@@ -4,6 +4,8 @@
     <!-- Any urls that are excluded will never be decorated by Sitemesh -->
     <excludes>
         <pattern>/_ah/*</pattern>
+        <pattern>/aj/*</pattern>
+        <pattern>/private/*</pattern>
     </excludes>
 
     <decorator name="baseTemplate" page="ExpenseYesManaged-base.jsp">
