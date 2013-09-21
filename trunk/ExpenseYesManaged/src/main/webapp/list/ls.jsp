@@ -4,20 +4,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <title>Sheets list</title>
 <body>
-	<%@ include file="/common/header.jsp"%>
-	<div style="width: 100%;">
+	<%@ include file="../common/header.jsp"%>
+	<div style="width: 100%;  padding-bottom: 3px;">
 		<ul class="horizontal-list" style="text-align: right; width: 100%;">
 			<li class="header-one">Sheet Listing</li>
 			<li class="header-two">All</li>
 		</ul>
 		<ul class="horizontal-list" style="text-align: left; width: 100%;">
-			<li><a href="<c:url value='/sa/#content'/>" onclick="loadSheets();return false;">Reload sheets</a></li>
+			<li><a href="<c:url value='/sa/#content'/>" onclick="loadSheets(true);return false;">Reload sheets</a></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a href="<c:url value='/as.jsp#content'/>">Add a sheet</a></li>
+			<li><a href="<c:url value='/as.jsp#content'/>" class="submit">Add a new sheet</a></li>
 		</ul>
 	</div>
 	<c:if test="${empty sessionScope.allSheetsMap}">
-		<div style="float: right">No sheets found to display</div>
+		<div style="float: right; padding-bottom: 5px; margin-bottom: 3px;">No sheets found to display</div>
 	</c:if>
 	<c:if test="${not empty sessionScope.allSheetsMap}">
 		<hr />
@@ -46,16 +46,21 @@
 			</c:forEach>
 		</ul>
 		<c:if test="${fn:length(sessionScope.allSheetsMap) > 5}">
-			<ul class="horizontal-list" style="text-align: left; width: 100%;">
-				<li><a href="<c:url value='/sa/#content'/>">Reload sheets</a></li>
+			<ul class="horizontal-list" style="text-align: left; width: 100%; padding-top: 3px;">
+				<li><a href="<c:url value='/sa/#content'/>" onclick="loadSheets(true);return false;">Reload sheets</a></li>
 				<li>&nbsp;|&nbsp;</li>
-				<li><a href="<c:url value='/as.jsp#content'/>">Add a sheet</a></li>
+				<li><a href="<c:url value='/as.jsp#content'/>" class="submit">Add a new sheet</a></li>
 			</ul>
 		</c:if>
 	</c:if>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="<c:url value='/scripts/jquery-1.6.4.min.js'/>"></script>
 	<script type="text/javascript">
-		function loadSheets() {
+	<!--
+		function loadSheets(removeMsg) {
+			if (removeMsg) {
+				$(".message").remove();
+			}
+			
 			$("body").addClass("loading");
 			SheetService.getAllSheetMapHTML({
 				callback : function(response) {
@@ -69,18 +74,21 @@
 					}
 					$("body").removeClass("loading");
 				},
-				timeout : 10000,
-				errorHandler : function(message) {
-					alert("Oops: " + message);
-				}
+				timeout : 10000
 			})
 		}
-		// a crossbrowser solution
-		$(document).ready(function(){ 
-		    $(".main-container").css('opacity','.98');
-		    loadSheets();
-		});
 		
+		try {
+			// a crossbrowser solution
+			$(document).ready(function(){ 
+				dwr.engine.setErrorHandler(function(message) {
+					$("body").removeClass("loading");
+				});
+			    loadSheets();
+			});
+		} catch (error){
+		}
+		//-->
 	</script>
 	<div class="modal"><!-- Place at bottom of page --></div>
 </body>

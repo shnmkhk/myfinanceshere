@@ -10,7 +10,6 @@
 <c:if test="${not empty param.sid}">
 	<c:set var="SHEET_KEY_ID" value="${param.sid}" scope="session" />
 </c:if>
-
 <div class="body" style="width: 100%">
 	<table class="form-background">
 		<tr>
@@ -22,25 +21,13 @@
 						%>
 						<li><label>Logged in as <b><%=request.getUserPrincipal().getName()%></b></label></li>
 						<li>&nbsp;|&nbsp;</li>
-						<li><a href="<%=userService.createLogoutURL("/")%>">Logout</a></li>
-<%-- 						<li>&nbsp;|&nbsp;</li>
-						<li><a href="/sa/#content" title="Navigate to 'Sheets list' screen">Reload sheets</a></li>
+						<li><a href="<c:url value='/sa/'/>#content">Home</a></li>
 						<li>&nbsp;|&nbsp;</li>
-						<li><a href="/as.jsp#content"
-							title="Navigate to 'Add a sheet' screen">Add a Sheet</a></li>
-						<c:if
-							test="${fn:contains(pageContext.request.requestURI, '/le.jsp') || fn:contains(pageContext.request.requestURI, '/ae.jsp')}">
-							<li>&nbsp;|&nbsp;</li>
-							<li><a href="/ea/<c:out value="${sessionScope.SHEET_KEY_ID}"/>#content" title="Navigate to 'Entries list of current sheet' screen">Reload entries</a></li>
-							<li>&nbsp;|&nbsp;</li>
-							<li><a
-								href="/ae.jsp?sid=<c:out value='${sessionScope.SHEET_KEY_ID}'/>#content"
-								title="Navigate to 'Add an entry to the current sheet' screen">Add an Entry</a></li>
-						</c:if> --%>
+						<li><a href="<%=userService.createLogoutURL("/")%>">Logout</a></li>
 						<%
 							} else {
 								out.println("<li><a href=\""
-										+ userService.createLoginURL("/sa/#content")
+										+ userService.createLoginURL("/sa/")
 										+ "\"><img src='/css/images/sign-in-with-google.png'/></a></li>");
 							}
 						%>

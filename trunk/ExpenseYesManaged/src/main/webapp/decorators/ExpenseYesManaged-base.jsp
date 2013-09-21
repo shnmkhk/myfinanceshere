@@ -18,8 +18,7 @@
 <link type="text/css" rel="stylesheet" href="/css/displaytag.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/print.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/site.css"></link>
-<link type="text/css" rel="stylesheet"
-	href="/css/jquery-ui-1.10.3.custom.css"></link>
+<link type="text/css" rel="stylesheet" href="/css/jquery-ui-1.10.3.custom.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css"></link>
 <!--                                           -->
 <!-- Any title is fine                         -->
@@ -68,7 +67,10 @@
 								<table class="form-background">
 									<tbody>
 										<tr>
-											<td>
+											<td style="width: 99%">
+												<div class="body-enclosing-container" style="display: none; height: 15%; border: 1px solid gray">
+													<p style="padding: 2px 0 0 5px;">Reserved for ads</p>
+												</div>
 												<div class="body-enclosing-container">
 													<decorator:body />
 												</div>

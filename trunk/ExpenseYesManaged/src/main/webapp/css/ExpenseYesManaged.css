@@ -100,9 +100,9 @@ table.form-background tbody {
 	zoom:1; /* required for the filters */
 	
 	/* For IE 5.5 - 7*/
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#77FFFFFF, endColorstr=#77FFFFFF);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000, endColorstr=#77000000);
 	/* For IE 8*/
-	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#77FFFFFF, endColorstr=#77FFFFFF)";
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000, endColorstr=#77000000)";
 }
 
 .rabbit-common-align-left {
@@ -159,7 +159,7 @@ span.tagline {
 }
 
 table.form-container {
-	border: 1px solid gray;
+	border: none;
 	width: 100%;
 }
 
@@ -171,12 +171,43 @@ table.form-container td {
 	text-align: left;
 }
 
-table.form-container input[type="submit"] {
+input[type="submit"] {
 	border: 1px solid gray;
 	background-color: orange;
-	color: #FFFFFF;
+	color: #000000;
 	padding: 3px;
+	border-radius: 2px;
+	font-weight: bold;
 }
+
+input[type="text"] {
+	border: 2px solid gray;
+	border-radius: 5px;
+	size: 2.5em;
+	height: 2.5em;
+	padding: 5px;
+	vertical-align: middle;
+	text-align: left;
+}
+
+input[type="text"]:focus {
+	border: 2px solid orange;
+	border-radius: 0px;
+}
+p {
+	line-height: normal;
+}
+p span {
+	padding: 5px 0px;
+	margin: 5px 0px;
+}
+
+p span.separator {
+	font-size: 2.5em;
+	font-style: normal;
+	color: gray;
+}
+
 
 body {
 	/*font-family: Tahoma, Geneva, sans-serif;*/
@@ -185,6 +216,7 @@ body {
 
 ul.horizontal-list li {
 	display: inline-table;
+	margin: 3px;
 }
 
 ul.horizontal-list {
@@ -238,6 +270,7 @@ div.info-message {
 	background-color: yellow;
 	color: #000000;
 	padding: 3px 5px;
+	line-height: 1.2em;
 }
 
 div.error-message {
@@ -245,6 +278,7 @@ div.error-message {
 	background-color: yellow;
 	color: red;
 	padding: 3px 5px;
+	line-height: 1.2em;
 }
 
 div.header-text {
@@ -253,7 +287,7 @@ div.header-text {
 }
 
 span.pagebanner,span.pagelinks {
-	width: inherit;
+	width: auto;
 }
 
 div.sheet-container {
@@ -263,6 +297,7 @@ div.sheet-container {
 	text-align: center;
 	vertical-align: middle;
 	max-width: 4em;
+	border-radius: 2px;
 }
 
 div.sheet-container div.optional-title {
@@ -349,7 +384,6 @@ label.required-field {
 }
 
 div.body-enclosing-container {
-	width: 99%;
 	padding: 0px;
 	margin: 10px;
 }
@@ -395,4 +429,14 @@ div.body-enclosing-container {
    modal element will be visible */
 .loading .modal {
     display: block;
+}
+
+li a.submit {
+	border: 1px solid gray;
+	background-color: orange;
+	color: #000000;
+	padding: 5px;
+	border-radius: 2px;
+	font-weight: bold;
+	text-decoration: none;	
 }

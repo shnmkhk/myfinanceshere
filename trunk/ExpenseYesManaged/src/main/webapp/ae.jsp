@@ -17,7 +17,7 @@
 			</ul>
 		</div>
 	</c:if>
-	<jsp:include page="/common/header.jsp"></jsp:include>
+	<%@ include file="/common/header.jsp" %>
 	<form action="/ea/#content" method="POST">
 		<input type="hidden" name="sid" value="${param.sid}"/>
 		<table class="form-container">

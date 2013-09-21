@@ -4,6 +4,7 @@
 package org.rabbit.services;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.rabbit.exception.EntryAlreadyExistsException;
@@ -11,6 +12,7 @@ import org.rabbit.exception.EntryNotFoundException;
 import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Entry;
 import org.rabbit.model.Sheet;
+import org.rabbit.wrappers.EntryStatusWrapper;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -87,4 +89,6 @@ public interface EntryService {
 	 * @return
 	 */
 	public Entry updateEntry(Entry entry);
+
+	public EntryStatusWrapper addMultipleEntries(String name, HashMap localHashMap);
 }
