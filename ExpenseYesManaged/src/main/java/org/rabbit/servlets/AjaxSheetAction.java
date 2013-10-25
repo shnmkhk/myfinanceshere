@@ -11,7 +11,7 @@ import org.rabbit.shared.NumUtil;
 import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.RequestUtil;
 
-public class SheetAction extends BaseServlet {
+public class AjaxSheetAction extends BaseServlet {
 	
 	private static final long serialVersionUID = -8801600974223631863L;
 	
@@ -26,14 +26,11 @@ public class SheetAction extends BaseServlet {
 		if (!doAuthCheck(request, response)){
 			return;
 		}
-		retrieveSheetsList(request, response);
-	}
-
-	private void retrieveSheetsList(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+		System.out.println("=================================");
+		System.out.println("in ajaxsheetaction...");
 		RequestUtil.refreshAllSheetsIntoSession(request);
 		String baseHref = handleCancelAndReturnBaseHref(request, response);
-		response.sendRedirect(baseHref + "/list/ls.jsp#content");
+		response.sendRedirect(baseHref + "/ajax/list/ls.jsp#content");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,15 +41,10 @@ public class SheetAction extends BaseServlet {
 		String baseHref = handleCancelAndReturnBaseHref(request, response);
 		String submit = RequestUtil.getStringValue(request, "submit");
 		if (RequestUtil.EMPTY_STR.equals(submit) || RequestUtil.CANCEL_STR.equalsIgnoreCase(submit)) {
-			response.sendRedirect(baseHref + "/sa#content");
+			response.sendRedirect(baseHref + "/ajax/sa/#content");
 			return;
 		}
 
-		addASheet(request, response, baseHref);
-	}
-
-	private void addASheet(HttpServletRequest request,
-			HttpServletResponse response, String baseHref) throws IOException {
 		int month = RequestUtil.getIntValue(request, "month", NumUtil.MINUS_ONE);
 		int year = RequestUtil.getIntValue(request, "year", NumUtil.MINUS_ONE);
 		
@@ -62,7 +54,7 @@ public class SheetAction extends BaseServlet {
 			request.getSession().setAttribute("SHEET_KEY_ID", ObjectUtils.getSheetKeyId(request.getUserPrincipal().getName(),month, year));
 			
 			RequestUtil.refreshAllSheetsIntoSession(request);
-			response.sendRedirect(baseHref + "/list/ls.jsp");
+			response.sendRedirect(baseHref + "/ajax/list/ls.jsp");
 			return;
 		} catch (SheetAlreadyExistsException e) {
 			System.err.println(e.getMessage());
@@ -80,6 +72,6 @@ public class SheetAction extends BaseServlet {
 			request.getSession().setAttribute("INPUT_YEAR", year);
 		}
 		
-		response.sendRedirect(baseHref + "/as.jsp");
+		response.sendRedirect(baseHref + "/ajax/as.jsp");
 	}
 }

@@ -22,7 +22,7 @@ import org.rabbit.wrappers.EntryStatusWrapper;
 
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class EntryAction extends BaseServlet {
+public class AjaxEntryAction extends BaseServlet {
 
 	private static final long serialVersionUID = -9092072935123090022L;
 
@@ -33,12 +33,13 @@ public class EntryAction extends BaseServlet {
 		}
 		String baseHref = handleCancelAndReturnBaseHref(request, response);
 		String[] uriFragments = request.getRequestURI().substring(1).split("/");
-		if (uriFragments.length == 1) {
+		System.out.println("uriFragments.length: " + uriFragments.length);
+		if (uriFragments.length == 2) {
 			retrieveEntriesBasedOnSheetKeyInSession(request, response, baseHref);
-		} else if (uriFragments.length == 2) {
+		} else if (uriFragments.length == 3) {
 			retrieveEntriesBasedOnGivenSheetKey(request, response, baseHref,
 					uriFragments);
-		} else if (uriFragments.length > 2) {
+		} else if (uriFragments.length > 3) {
 			deleteSpecificEntryBasedOnGivenSheetKeyAndEntrySeqNumber(request,
 					response, baseHref, uriFragments);
 
@@ -53,12 +54,12 @@ public class EntryAction extends BaseServlet {
 			HttpServletRequest request, HttpServletResponse response,
 			String baseHref, String[] uriFragments) throws IOException {
 		// Delete specific entry
-		String monthYrFragment = ObjectUtils.getStrValue(uriFragments[1]);
+		String monthYrFragment = ObjectUtils.getStrValue(uriFragments[2]);
 		String fullSheetKey = request.getUserPrincipal().getName() + "_"
 				+ monthYrFragment;
 		int[] monthYrFragmentsIntArr = ObjectUtils
-				.getMonthYr(uriFragments[1]);
-		int entrySequence = ObjectUtils.getIntValue(uriFragments[2],
+				.getMonthYr(uriFragments[2]);
+		int entrySequence = ObjectUtils.getIntValue(uriFragments[3],
 				NumUtil.MINUS_ONE);
 		if (entrySequence != NumUtil.MINUS_ONE) {
 			try {
@@ -88,7 +89,7 @@ public class EntryAction extends BaseServlet {
 											monthYrFragmentsIntArr[1],
 											entrySequence));
 				}
-				response.sendRedirect(baseHref + "/list/le.jsp#content");
+				response.sendRedirect(baseHref + "/ajax/list/le.jsp#content");
 			} catch (EntryNotFoundException e) {
 				request.getSession()
 						.setAttribute(
@@ -120,10 +121,10 @@ public class EntryAction extends BaseServlet {
 		List<Entry> listOfEntries;
 		// Listing entries
 		// It is only sheet key.
-		String monthYrKeyFragment = uriFragments[1];
+		String monthYrKeyFragment = uriFragments[2];
 		String fullSheetKeyId = request.getUserPrincipal().getName() + "_"
-				+ uriFragments[1];
-		int[] monthYr = ObjectUtils.getMonthYr(uriFragments[1]);
+				+ uriFragments[2];
+		int[] monthYr = ObjectUtils.getMonthYr(uriFragments[2]);
 		try {
 			listOfEntries = entryService.getEntries(KeyFactory.createKey(
 					Sheet.class.getSimpleName(), fullSheetKeyId));
@@ -155,7 +156,7 @@ public class EntryAction extends BaseServlet {
 		} catch (SheetNotFoundException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect(baseHref + "/list/le.jsp#content");
+		response.sendRedirect(baseHref + "/ajax/list/le.jsp#content");
 	}
 
 	private void retrieveEntriesBasedOnSheetKeyInSession(
@@ -172,7 +173,7 @@ public class EntryAction extends BaseServlet {
 			} catch (SheetNotFoundException e) {
 				e.printStackTrace();
 			}
-			response.sendRedirect(baseHref + "/list/le.jsp#content");
+			response.sendRedirect(baseHref + "/ajax/list/le.jsp#content");
 		} else {
 			// No sheet key id found in the session, so redirecting it to
 			// list sheets
@@ -192,7 +193,7 @@ public class EntryAction extends BaseServlet {
 				"submit");
 		if (("".equals(str2)) || ("Cancel".equalsIgnoreCase(str2))) {
 			response
-					.sendRedirect(str1 + "/list/le.jsp#content");
+					.sendRedirect(str1 + "/ajax/list/le.jsp#content");
 			return;
 		}
 		HashMap localHashMap = new HashMap();
@@ -215,7 +216,7 @@ public class EntryAction extends BaseServlet {
 					request,
 					((EntryStatusWrapper) localObject).getAssociatedSheet());
 			response.sendRedirect(String.format(
-					"%s/list/le.jsp?sid=%s#content", new Object[] {
+					"%s/ajax/list/le.jsp?sid=%s#content", new Object[] {
 							str1,
 							((EntryStatusWrapper) localObject)
 									.getAssociatedSheet().getKeyStr() }));

@@ -19,9 +19,6 @@ import org.rabbit.services.impl.TransactionServiceImpl;
 import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.RequestUtil;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-
 /**
  * @author shanmukha.k@gmail.com <br/>
  * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
@@ -29,7 +26,11 @@ import com.google.appengine.api.users.UserServiceFactory;
  */
 public class BaseServlet extends HttpServlet {
 	
-    protected TransactionService transactionService = TransactionServiceImpl.getInstance();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6793891460811213736L;
+	protected TransactionService transactionService = TransactionServiceImpl.getInstance();
     protected EntryService entryService = EntryServiceImpl.getInstance();
     protected SheetService sheetService = SheetServiceImpl.getInstance();
 
@@ -40,8 +41,6 @@ public class BaseServlet extends HttpServlet {
 	
 	public boolean doAuthCheck(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		UserService userService = UserServiceFactory.getUserService();
-        String thisURL = request.getRequestURI();
         response.setContentType("text/html");
         if (request.getUserPrincipal() != null) {            
             return true;
