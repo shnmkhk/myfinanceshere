@@ -3,12 +3,9 @@
  */
 package org.rabbit.services.dwr;
 
-import java.util.List;
-import java.util.Map;
-
 import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
-import org.rabbit.services.dwr.vo.SheetVO;
+import org.rabbit.services.dwr.vo.SheetResponseWrapper;
 
 
 /**
@@ -19,53 +16,47 @@ import org.rabbit.services.dwr.vo.SheetVO;
 public interface DWRSheetService {
 
 	/**
-	 * @param userId
 	 * @param month
 	 * @param year
 	 * @throws SheetNotFoundException
 	 */
-	void deleteSheet(String userId, int month, int year)
+	SheetResponseWrapper deleteSheet(int month, int year)
 			throws SheetNotFoundException;
 
 	/**
-	 * @param userId
 	 * @param sheetKeyStr
 	 * @return
 	 * @throws SheetNotFoundException
 	 */
-	SheetVO getSheet(String userId, String sheetKeyStr)
+	SheetResponseWrapper getSheet(String sheetKeyStr)
 			throws SheetNotFoundException;
 
 	/**
-	 * @param userId
 	 * @param month
 	 * @param year
 	 * @return
 	 * @throws SheetNotFoundException
 	 */
-	SheetVO getSheet(String userId, int month, int year)
+	SheetResponseWrapper getSheet(int month, int year)
 			throws SheetNotFoundException;
 
 	/**
-	 * @param userId
 	 * @return
 	 */
-	Map<String, List<SheetVO>> getAllSheetsMap(String userId);
+	SheetResponseWrapper getAllSheetsMap();
 
 	/**
-	 * @param userId
 	 * @return
 	 */
-	List<SheetVO> fetchAll(String userId);
+	SheetResponseWrapper fetchAll();
 
 	/**
-	 * @param userId
 	 * @param month
 	 * @param year
 	 * @return
 	 * @throws SheetAlreadyExistsException
 	 */
-	SheetVO createNew(String userId, int month, int year)
+	SheetResponseWrapper createNew(int month, int year)
 			throws SheetAlreadyExistsException;
 
 	/**
@@ -73,5 +64,5 @@ public interface DWRSheetService {
 	 * away.
 	 * @return
 	 */
-	String getAllSheetMapHTML();
+	SheetResponseWrapper getAllSheetMapHTML(int interfaceId);
 }
