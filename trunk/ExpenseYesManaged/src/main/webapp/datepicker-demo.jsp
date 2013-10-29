@@ -8,7 +8,7 @@
 <body>
 
 <input type="date" name="date-field" id="date-field" value="" size="20" />
-<script src="/scripts/jquery-1.9.1.js"></script>
+<script src="/scripts/jquery-1.10.2.min.js"></script>
 <script src="/scripts/jquery-ui.js"></script>
 <script>
    (function() {

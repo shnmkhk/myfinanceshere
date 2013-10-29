@@ -4,5 +4,6 @@
 			<param name="class" value="org.rabbit.services.dwr.impl.DWRSheetServiceImpl" />
 		</create>
 		<convert converter="bean" match="org.rabbit.services.dwr.vo.SheetVO" javascript="Sheet"/>
+		<convert converter="bean" match="org.rabbit.services.dwr.vo.SheetResponseWrapper" javascript="SheetResponseWrapper"/>
 	</allow>
 </dwr>

@@ -15,7 +15,7 @@ function changeLinks()
     changeUsingSelector(selector);
 }
 
-var current_page_uri = "/private/display.le.jsp";
+var current_page_uri = "/ajax/display.le.jsp";
 function changeUsingSelector(selector)
 {
     $(selector).each(function()
