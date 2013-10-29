@@ -32,7 +32,7 @@
 							} else {
 								out.println("<li><a href=\""
 										+ userService.createLoginURL("/sa/")
-										+ "\"><img src='/css/images/sign-in-with-google.png'/></a></li>");
+										+ "\"><img alt='Sign-in with Google' src='/css/images/sign-in-with-google.png'/></a></li>");
 							}
 						%>
 					</ul>

@@ -3,6 +3,7 @@
  */
 package org.rabbit.services.dwr.impl;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.rabbit.services.dwr.DWRSheetService;
 import org.rabbit.services.dwr.vo.SheetResponseWrapper;
 import org.rabbit.services.dwr.vo.SheetVO;
 import org.rabbit.services.impl.SheetServiceImpl;
+
 
 /**
  * @author shanmukha.k@gmail.com <br/>
@@ -104,8 +106,12 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 	public SheetResponseWrapper getAllSheetMapHTML(int interfaceId) {
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
-		String userId = request.getUserPrincipal().getName();
+		Principal userPrincipal = request.getUserPrincipal();
 		SheetResponseWrapper sheetResponseWrapper = new SheetResponseWrapper();
+		if (userPrincipal == null) { 
+			return sheetResponseWrapper;
+		}
+		String userId = userPrincipal.getName();
 		try {
 			Map<Integer, List<Sheet>> allSheetsMap = sheetService
 					.getAllSheetsMap(userId);

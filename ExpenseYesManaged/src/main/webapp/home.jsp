@@ -30,7 +30,7 @@
 				$("#list_sheets").show();
 			} else {
 				$("body").addClass("loading");
-				$("#list_sheets").load("/ajax/sa/#content", function() {
+				$("#list_sheets").load("/ajax/sa/?ref=Home#content", function() {
 					hideAll();
 					$("#list_sheets").show();
 					listSheetsLoaded = true;
