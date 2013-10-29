@@ -178,6 +178,7 @@ input[type="submit"] {
 	padding: 3px;
 	border-radius: 2px;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 input[type="text"] {
@@ -439,4 +440,15 @@ li a.submit {
 	border-radius: 2px;
 	font-weight: bold;
 	text-decoration: none;	
+	cursor: pointer;
+}
+
+input[type="submit"].cancel {
+	background-color: #FFFFFF;
+	color: #000000;
+	border: 1px solid #000000;
+}
+
+form div {
+	padding: 3px;	
 }

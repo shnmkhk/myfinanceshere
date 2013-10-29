@@ -4,12 +4,15 @@
 <!-- "Standards Mode". Replacing this declaration   -->
 <!-- with a "Quirks Mode" doctype is not supported. -->
 
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
-	prefix="decorator"%>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
-<%@ page errorPage="/error.jsp"%>
 <html>
 <head>
+<%@ taglib prefix="decorator"
+	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="page"
+	uri="http://www.opensymphony.com/sitemesh/page"%>
+
+<%@ page errorPage="/error.jsp"%>
+
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--                                                               -->
@@ -29,6 +32,7 @@
 <!-- be added before this line.                -->
 <!--                                           -->
 <title><decorator:title /> - Expense (Yes) Managed</title>
+<decorator:head />
 </head>
 
 <!--                                           -->
@@ -68,7 +72,8 @@
 									<tbody>
 										<tr>
 											<td style="width: 99%">
-												<div class="body-enclosing-container" style="display: none; height: 15%; border: 1px solid gray">
+												<div class="body-enclosing-container"
+													style="display: none; height: 15%; border: 1px solid gray">
 													<p style="padding: 2px 0 0 5px;">Reserved for ads</p>
 												</div>
 												<div class="body-enclosing-container">

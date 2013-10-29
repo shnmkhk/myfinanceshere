@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    
+    <meta name='description' content='Serkan Karaarslan is a software engineer &amp; architect, experienced in web technologies, client-server distributed architecture.'/>
+    <meta name='keywords' content='Serkan Karaarslan, software architecture, software engineer, togaf, css, html, css3, html5, javascript, client-server, web technologies, http'/>
+<script type="text/javascript">
+    $(document).ready(function() {
+        monthYearCalendar.init("boxMonthYear",show);
+    });
+    function show() {
+    	alert(monthYearCalendar.monthNames);
+        $("#result").html("Result : " + monthYearCalendar.monthNames[monthYearCalendar.selectedMonth - 1] + "," + monthYearCalendar.selectedYear+
+        " or " + monthYearCalendar.selectedMonth + ", " + monthYearCalendar.selectedYear
+        );
+    }
+</script>
+
+</head>
+
+<body>
+<div id="content">
+	<div style="position:relative;">
+	    <div id="result">Result : </div>
+	    <div id="boxMonthYear"></div>
+	</div>  
+</div>
+
+</body>
+
+</html>

@@ -16,6 +16,10 @@
 			<td>
 				<div>
 					<ul class="horizontal-list">
+						<li>[&nbsp;<a href="<c:url value='/home.jsp'/>#content">Standard
+								view</a></li>
+						<li>|</li>
+						<li><a href="<c:url value='/sa/'/>#content">Basic view</a>&nbsp;]</li>
 						<%
 							if (request.getUserPrincipal() != null) {
 						%>

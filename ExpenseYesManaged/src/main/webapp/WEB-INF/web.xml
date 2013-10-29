@@ -21,7 +21,25 @@
 		<servlet-name>SheetAction</servlet-name>
 		<url-pattern>/sa/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AjaxSheetAction</servlet-name>
+		<servlet-class>org.rabbit.servlets.AjaxSheetAction</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>AjaxSheetAction</servlet-name>
+		<url-pattern>/ajax/sa/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AjaxEntryAction</servlet-name>
+		<servlet-class>org.rabbit.servlets.AjaxEntryAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AjaxEntryAction</servlet-name>
+		<url-pattern>/ajax/ea/*</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>EntryAction</servlet-name>

@@ -1,8 +1,4 @@
 <%@ page errorPage="/error.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script type='text/javascript' src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
-<script type='text/javascript' src="<c:url value='/dwr/engine.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/jquery-1.6.4.min.js'/>"></script>
 <style>
 p {
 	position: relative; 
