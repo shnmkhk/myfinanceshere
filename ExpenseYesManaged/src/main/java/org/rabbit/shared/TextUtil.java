@@ -27,6 +27,14 @@ public class TextUtil {
 		return parentKey.getName() + "_" + sequenceIndex;
 	}
 	
+	public static final String getStringValue(Object obj) {
+		if (obj == null) {
+			return "";
+		}
+		
+		return obj.toString();
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(getNumbersAlone("abcd1234efgh~!@#$%^&*()_+\\|=-{}[];;\'\"<,.>/?"));
 	}

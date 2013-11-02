@@ -171,7 +171,13 @@ table.form-container td {
 	text-align: left;
 }
 
-input[type="submit"] {
+input[type="button"].cancel, input[type="submit"].cancel {
+	background-color: #FFFFFF;
+	color: #000000;
+	border: 1px solid #000000;
+}
+
+input[type="button"].submit, input[type="submit"], li a.submit {
 	border: 1px solid gray;
 	background-color: orange;
 	color: #000000;
@@ -179,6 +185,7 @@ input[type="submit"] {
 	border-radius: 2px;
 	font-weight: bold;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 input[type="text"] {
@@ -274,7 +281,6 @@ div.info-message {
 	border: 1px solid #000000;
 	background-color: yellow;
 	color: #000000;
-	padding: 3px 5px;
 	line-height: 1.2em;
 }
 
@@ -282,8 +288,11 @@ div.error-message {
 	border: 1px solid #000000;
 	background-color: yellow;
 	color: red;
-	padding: 3px 5px;
 	line-height: 1.2em;
+}
+
+p.message-content {
+	padding: 3px 10px;
 }
 
 div.header-text {
@@ -436,22 +445,6 @@ div.body-enclosing-container {
     display: block;
 }
 
-li a.submit {
-	border: 1px solid gray;
-	background-color: orange;
-	color: #000000;
-	padding: 5px;
-	border-radius: 2px;
-	font-weight: bold;
-	text-decoration: none;	
-	cursor: pointer;
-}
-
-input[type="submit"].cancel {
-	background-color: #FFFFFF;
-	color: #000000;
-	border: 1px solid #000000;
-}
 
 form div {
 	padding: 3px;	

@@ -50,6 +50,10 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 			sheetResponseWrapper.setErrored(true);
 			sheetResponseWrapper.setErrorMessage(sheetAlreadyExistsException
 					.getMessage());
+		} catch (IllegalArgumentException argumentException) {
+			sheetResponseWrapper.setErrored(true);
+			sheetResponseWrapper.setErrorMessage(argumentException
+					.getMessage());
 		}
 		return sheetResponseWrapper;
 	}

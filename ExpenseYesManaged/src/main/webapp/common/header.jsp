@@ -31,22 +31,22 @@ p span a {
 	}
 %>
 
-<c:if test="${not empty sessionScope.INFO_MESSAGE}">
-	<div class="message info-message" id="info_message">
-		<p>
-			<span><a href="javascript:void()" onclick="$('#info_message').remove()">X</a></span>
-		</p>
+<div class="message info-message" id="info_message" <c:if test="${empty sessionScope.INFO_MESSAGE}">style="display: none"</c:if>>
+	<p>
+		<span><a href="javascript:void()" onclick="$('#info_message').hide()">X</a></span>
+	</p>
+	<p id="info_message_content" class="message-content">
 		<c:out value="${sessionScope.INFO_MESSAGE}" escapeXml="false" />
-		<c:remove var="INFO_MESSAGE" scope="session" />
-	</div>
-</c:if>
+	</p>
+	<c:remove var="INFO_MESSAGE" scope="session" />
+</div>
 
-<c:if test="${not empty sessionScope.ERROR_MESSAGE}">
-	<div class="message error-message" id="error_message">
-		<p>
-			<span><a href="javascript:void(0)" onclick="$('#error_message').remove()">X</a></span>
-		</p>
-		<c:out value="${sessionScope.ERROR_MESSAGE}" escapeXml="false" />
-		<c:remove var="ERROR_MESSAGE" scope="session" />
-	</div>
-</c:if>
+<div class="message error-message" id="error_message"  <c:if test="${empty sessionScope.ERROR_MESSAGE}">style="display: none"</c:if>>
+	<p>
+		<span><a href="javascript:void(0)" onclick="$('#error_message').hide()">X</a></span>
+	</p>
+	<p id="error_message_content" class="message-content">
+		<c:out value="${sessionScope.ERROR_MESSAGE}" escapeXml="false" />		
+	</p>
+	<c:remove var="ERROR_MESSAGE" scope="session" />
+</div>
