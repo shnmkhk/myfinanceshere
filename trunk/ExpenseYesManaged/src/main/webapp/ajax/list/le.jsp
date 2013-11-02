@@ -37,7 +37,7 @@
 				<li>&nbsp;|&nbsp;</li>
 				<li><a href="javascript:void(0);" onclick="doAjax(current_page_uri);return false;">Reload entries</a></li>
 				<li>&nbsp;|&nbsp;</li>
-				<li><a href="javascript:void(0);" class="submit" onclick="showAddEntriesPage();return false;">Add entries </a></li>
+				<li><a href="javascript:void(0);" class="submit" onclick="showAddEntriesPage(true);return false;">Add entries </a></li>
 			</ul>
 		</div>
 	</c:if>

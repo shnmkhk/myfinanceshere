@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class SheetResponseWrapper implements Serializable {
+public class SheetResponseWrapper extends BaseResponseWrapper implements Serializable {
 
 	/**
 	 * 
@@ -17,37 +17,12 @@ public class SheetResponseWrapper implements Serializable {
 	
 	private List<SheetVO> sheetList;
 	
-	private String errorMessage = "";
-	
-	private boolean errored = false;
-	
-	private int recordsChanged = 0;
-	
-	private String responseAsString = "";
-	
-	
 	public Map<String, List<SheetVO>> getSheetListMap() {
 		return sheetListMap;
 	}
 
 	public void setSheetListMap(Map<String, List<SheetVO>> sheetListMap) {
 		this.sheetListMap = sheetListMap;
-	}
-
-	public String getResponseAsString() {
-		return responseAsString;
-	}
-
-	public void setResponseAsString(String responseAsString) {
-		this.responseAsString = responseAsString;
-	}
-
-	public int getRecordsChanged() {
-		return recordsChanged;
-	}
-
-	public void setRecordsChanged(int recordsChanged) {
-		this.recordsChanged = recordsChanged;
 	}
 
 	public SheetVO getUniqueSheet() {
@@ -64,21 +39,5 @@ public class SheetResponseWrapper implements Serializable {
 
 	public void setSheetList(List<SheetVO> sheetList) {
 		this.sheetList = sheetList;
-	}
-
-	public String getErrorMessage() {
-		return errorMessage;
-	}
-
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
-
-	public boolean isErrored() {
-		return errored;
-	}
-
-	public void setErrored(boolean errored) {
-		this.errored = errored;
 	}
 }

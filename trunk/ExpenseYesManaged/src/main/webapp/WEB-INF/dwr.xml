@@ -3,7 +3,11 @@
 		<create creator="new" javascript="SheetService">
 			<param name="class" value="org.rabbit.services.dwr.impl.DWRSheetServiceImpl" />
 		</create>
+		<create creator="new" javascript="EntryService">
+			<param name="class" value="org.rabbit.services.dwr.impl.DWREntryServiceImpl" />
+		</create>
 		<convert converter="bean" match="org.rabbit.services.dwr.vo.SheetVO" javascript="Sheet"/>
 		<convert converter="bean" match="org.rabbit.services.dwr.vo.SheetResponseWrapper" javascript="SheetResponseWrapper"/>
+		<convert converter="bean" match="org.rabbit.services.dwr.vo.EntryResponseWrapper" javascript="EntryResponseWrapper"/>
 	</allow>
 </dwr>

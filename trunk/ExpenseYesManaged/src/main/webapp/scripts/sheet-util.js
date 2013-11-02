@@ -22,6 +22,7 @@ function loadSheets(interfaceId, removeMsg) {
 
 // Default interface is Plain
 var currentInterfaceId = 0;
+var loadedPrevSheetURI = ""; 
 
 try {
 	// a crossbrowser solution
@@ -33,3 +34,27 @@ try {
 	});
 } catch (error) {
 }
+
+
+var ENTRY_PROP_AMOUNT = "amount";
+var ENTRY_PROP_SHORTCODE = "shortCode";
+var ENTRY_PROP_DESCR = "descr";
+var ENTRY_PROP_TYPE = "type";
+
+function Entry(type, descr, shortCode, amount) {
+	  this.type = type;
+	  this.descr = descr;
+	  this.shortCode = shortCode;
+	  this.amount = amount;
+	  
+}
+
+Entry.prototype.toString = function()
+{
+  return "{" +
+  		"\""+ENTRY_PROP_TYPE+"\":\""+this.type+"\"," +
+  		"\""+ENTRY_PROP_SHORTCODE+"\":\""+this.shortCode+"\"," +
+  		"\""+ENTRY_PROP_DESCR+"\":\""+this.descr+"\"," +
+  		"\""+ENTRY_PROP_AMOUNT+"\":\""+this.amount+"\"" +
+  				"}";
+};
