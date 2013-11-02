@@ -1,5 +1,5 @@
 <project name="Expense (Yes) Managed" default="datanucleusenhance">
-	<property name="sdk.dir" location="/Users/shanmukhak/Documents/Development/appengine-java-sdk-1.7.4" />
+	<property name="sdk.dir" location="/home/shanmukha/Documents/appengine-java-sdk-1.8.4" />
 
 	<import file="${sdk.dir}/config/user/ant-macros.xml" />
 
@@ -10,6 +10,7 @@
 		</fileset>
 		<fileset dir="${sdk.dir}/lib">
 			<include name="shared/**/*.jar" />
+			<include name="opt/user/**/*.jar" />
 		</fileset>
 		<fileset dir="lib">
 			<include name="**/*.jar" />
@@ -25,6 +26,7 @@
 			<fileset dir="${sdk.dir}/lib/opt/user">
 				<include name="jsr107/v1/*.jar" />
 				<include name="datanucleus/v2/*.jar" />
+				<include name="appengine-api-labs/v1/*.jar" />
 			</fileset>
 			<fileset dir="lib">
 				<include name="**/*.jar" />
@@ -108,6 +110,4 @@
 			</args>
 		</appcfg>
 	</target>
-
 </project>
-
