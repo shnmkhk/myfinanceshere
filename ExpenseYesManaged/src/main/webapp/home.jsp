@@ -58,7 +58,7 @@
 		}
 
 		function showListEntriesPage(urlToLoad){
-			if (listEntriesLoaded) {
+			if (listEntriesLoaded && !urlToLoad) {
 				hideAll();
 				$("#list_entries").show();
 				return;

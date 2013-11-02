@@ -47,7 +47,7 @@
 		</c:forEach>
 		<span style="float: right">
 			<input type="submit" name="submit" value="Add" /> 
-			<input type="submit" name="submit" value="Cancel" class="cancel"/>
+			<input type="submit" name="submit" value="Cancel" class="cancel" onclick="showListEntriesPage(); return false;"/>
 		</span>
 	</form>
 	<ul class="horizontal-list" style="text-align: left;">
