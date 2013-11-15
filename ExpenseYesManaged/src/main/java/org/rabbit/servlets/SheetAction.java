@@ -33,7 +33,14 @@ public class SheetAction extends BaseServlet {
 			HttpServletResponse response) throws IOException {
 		RequestUtil.refreshAllSheetsIntoSession(request);
 		String baseHref = handleCancelAndReturnBaseHref(request, response);
-		response.sendRedirect(baseHref + "/list/ls.jsp#content");
+		String continueUrl = request.getParameter("c");
+		if (ObjectUtils.isNullOrEmpty(continueUrl)) {
+			response.sendRedirect(baseHref + "/home.jsp#content");
+			return;
+		} else {
+			response.sendRedirect(baseHref + "/" + continueUrl + "/#content");
+			return;
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
