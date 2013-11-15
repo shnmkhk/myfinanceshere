@@ -9,6 +9,7 @@
 <script type='text/javascript' src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
 </head>
 <body>
 	<%@ include file="common/header.jsp" %>

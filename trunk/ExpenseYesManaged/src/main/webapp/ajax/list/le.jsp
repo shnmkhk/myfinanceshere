@@ -7,7 +7,6 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
-	<script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
 </head>
 <body>
 	<c:if test="${empty sessionScope.SHEET_MONTH_YR_ARRAY}">
