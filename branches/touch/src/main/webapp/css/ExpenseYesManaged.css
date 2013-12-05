@@ -1,0 +1,451 @@
+/** Add css rules here for your application. */
+/** Example rules used by the template application (remove for your app) */
+h1 {
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
+}
+
+.actionButton {
+	display: block;
+	font-size: 16pt;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400px;
+}
+
+.dialogVPanel {
+	margin: 5px;
+}
+
+.serverResponseLabelError {
+	color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+	margin: 15px 6px 6px;
+}
+
+.body {
+	width: 99%;
+	height: 100%;
+	margin: 5px auto;
+}
+
+.random-image-background {
+	background-image: url('images/finances2.jpg');
+	background-repeat: repeat;
+	background-color: #FFFEFE;
+}
+
+table.form-background tbody {
+	background: rgb(255, 255, 255); /* The Fallback */
+	padding: 10px;
+	margin: 5px auto;
+	width: 100%;
+	border: 1px solid gray;
+}
+
+.header {
+	font-size: medium;
+	font-weight: bold;
+	text-align: center;
+	background-color: rgba(0, 0, 0);
+	padding: 0px;
+	margin: 5px auto;
+	width: 99%;
+	height: 30%;
+	text-align: center;
+}
+
+.header-container {
+	background: #2F2F2F; /* The Fallback */
+	padding: 10px;
+	border: 1px solid white;
+	margin-top: 10px;
+	color: #FFFFFF;
+}
+
+/*
+.logo {
+	background-image: url("images/ExpenseYesManaged_small.gif");
+	width: 32px;
+	height: 39px;
+}
+*/
+.main-body {
+	margin: 1px auto;
+	width: 99%;
+	height: 100%;
+	text-align: left;
+	vertical-align: top;
+	border: 1px solid gray;
+}
+
+.main-container {
+	margin: 5px auto;
+	border: 1px solid gray;
+	width: 99%;
+	height: 100%;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.6);
+	border: 1px solid gray;
+	
+	background: transparent\9; /* clear current background for ie */
+	zoom:1; /* required for the filters */
+	
+	/* For IE 5.5 - 7*/
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000, endColorstr=#77000000);
+	/* For IE 8*/
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000, endColorstr=#77000000)";
+}
+
+.rabbit-common-align-left {
+	text-align: left;
+	float: none;
+}
+
+.rabbit-common-align-right {
+	text-align: right;
+	float: none;
+}
+
+.rabbit-common-float-right {
+	clear: none;
+	float: right;
+}
+
+.rabbit-common-float-left {
+	clear: none;
+	float: left;
+}
+
+.rabbit-common-least-padded {
+	padding: 3px;
+}
+
+.rabbit-common-medium-padded {
+	padding: 5px;
+}
+
+.rabbit-common-highly-padded {
+	padding: 10px;
+}
+
+.rabbit-table {
+	border: 1px solid gray;
+	border-collapse: collapse;
+}
+
+.rabbit-table td {
+	border: 1px solid gray;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+.rabbit-default-invisible {
+	display: none;
+	visibility: hidden;
+}
+
+span.tagline {
+	font-size: x-small;
+	font-weight: normal;
+}
+
+table.form-container {
+	border: none;
+	width: 100%;
+}
+
+table.form-container,table.form-container td {
+	padding: 5px;
+}
+
+table.form-container td {
+	text-align: left;
+}
+
+input[type="button"].cancel, input[type="submit"].cancel {
+	background-color: #FFFFFF;
+	color: #000000;
+	border: 1px solid #000000;
+}
+
+input[type="button"].submit, input[type="submit"], li a.submit {
+	border: 1px solid gray;
+	background-color: orange;
+	color: #000000;
+	padding: 3px;
+	border-radius: 2px;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+input[type="text"] {
+	border: 2px solid gray;
+	border-radius: 5px;
+	size: 2.5em;
+	height: 2.5em;
+	padding: 5px;
+	vertical-align: middle;
+	text-align: left;
+}
+
+input[type="text"]:focus {
+	border: 2px solid orange;
+	border-radius: 0px;
+}
+p {
+	line-height: normal;
+}
+p span {
+	padding: 5px 0px;
+	margin: 5px 0px;
+}
+
+p span.separator {
+	font-size: 2.5em;
+	font-style: normal;
+	color: gray;
+}
+
+
+body {
+	/*font-family: Tahoma, Geneva, sans-serif;*/
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+}
+
+ul.horizontal-list li {
+	display: inline-table;
+	margin: 3px;
+	vertical-align: top;
+	height: 100%;
+}
+
+ul.horizontal-list {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: left;
+	display: inline-block;
+	word-wrap: break-word;
+	vertical-align: top;
+	height: 100%;
+}
+
+* html ul.horizontal-list li {
+	display: inline;
+} /* for IE 6 */
+*+html ul.horizontal-list li {
+	display: inline;
+} /* for IE 7 */
+
+ul.horizontal-list li.header-one {
+	color: orange;
+	background-color: #FFFFFF;
+	font-weight: bold;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
+ul.horizontal-list li.header-two {
+	color: #FFFFFF;
+	background-color: orange;
+	font-weight: bold;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
+ul.horizontal-list li.header-three {
+	color: orange;
+	background-color: #FFFFFF;
+	font-weight: bold;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
+div.info-message {
+	border: 1px solid #000000;
+	background-color: yellow;
+	color: #000000;
+	line-height: 1.2em;
+}
+
+div.error-message {
+	border: 1px solid #000000;
+	background-color: yellow;
+	color: red;
+	line-height: 1.2em;
+}
+
+p.message-content {
+	padding: 3px 10px;
+}
+
+div.header-text {
+	font-size: large;
+	font-weight: bold;
+}
+
+span.pagebanner,span.pagelinks {
+	width: auto;
+}
+
+div.sheet-container {
+	min-width: 4em;
+	background-color: #FFFFFF;
+	border: 1px solid black;
+	text-align: center;
+	vertical-align: middle;
+	max-width: 4em;
+	border-radius: 2px;
+}
+
+div.sheet-container div.optional-title {
+	color: #FFFFFF;
+	background-color: #000000;
+	font-weight: bold;
+	width: auto;
+	height: auto;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	padding: 2px;
+}
+
+div.sheet-container div.sheet-container-month {
+	color: orange;
+	background-color: #FFFFFF;
+	font-weight: bold;
+	width: auto;
+	font-size: 1.3em;
+	line-height: 2em;
+	vertical-align: top;
+	height: 70%;
+}
+
+div.sheet-container div.sheet-container-year {
+	background-color: orange;
+	color: #FFFFFF;
+	font-weight: normal;
+	width: auto;
+	line-height: 1.5em;
+	vertical-align: middle;
+	height: 30%;
+	border-top: 1px solid #666666;
+	font-weight: bold;
+}
+
+a.no-underline {
+	text-decoration: none;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.style-class-income {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.style-class-expense {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.sum-of-entries-amounts {
+	padding-right: 5px;
+}
+
+.sum-of-entries-amounts label {
+	font-weight: bold;
+}
+
+.sign-in-with-google {
+	background-image: url('images/google_icon.png'); /* 16px x 16px */
+	background-color: transparent; /* make the button transparent */
+	background-repeat: no-repeat;
+	/* make the background image appear only once */
+	background-position: 0px 0px; /* equivalent to 'top left' */
+	border: none; /* assuming we don't want any borders */
+	cursor: pointer;
+	/* make the cursor like hovering over an <a> element */
+	height: 16px; /* make this the size of your image */
+	padding-left: 16px; /* make text start to the right of the image */
+	vertical-align: middle; /* align the text vertically centered */
+}
+
+label.required-field {
+	font-weight: bold;
+}
+
+div.body-enclosing-container {
+	padding: 0px;
+	margin: 10px;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.calendar-icon-li {
+	display: inline-table; float: left; margin: 2px; width: 50px;
+}
+
+.calendar-icon-ul {
+	list-style-type: none; text-align: left; display: inline-block; word-wrap: break-word;
+}
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   speak for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('/images/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+.loading .modal {
+    display: block;
+}
+
+
+form div {
+	padding: 3px;	
+}
