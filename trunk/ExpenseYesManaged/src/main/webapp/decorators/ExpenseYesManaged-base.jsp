@@ -1,15 +1,14 @@
-<!doctype html>
+<!DOCTYPE html> 
 <!-- The DOCTYPE declaration above will set the     -->
 <!-- browser's rendering engine into                -->
 <!-- "Standards Mode". Replacing this declaration   -->
 <!-- with a "Quirks Mode" doctype is not supported. -->
-
 <html>
 <head>
-<%@ taglib prefix="decorator"
-	uri="http://www.opensymphony.com/sitemesh/decorator"%>
-<%@ taglib prefix="page"
-	uri="http://www.opensymphony.com/sitemesh/page"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ page errorPage="/error.jsp"%>
 
@@ -20,9 +19,17 @@
 <!--                                                               -->
 <link type="text/css" rel="stylesheet" href="/css/displaytag.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/print.css"></link>
-<link type="text/css" rel="stylesheet" href="/css/site.css"></link>
-<link type="text/css" rel="stylesheet" href="/css/jquery-ui-1.10.3.custom.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css"></link>
+<link type="text/css" rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css"></link>
+
+<script type="text/javascript" src="<c:url value='/scripts/jquery-1.10.2.min.js'/>"></script>
+<script type='text/javascript' src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
+<script type='text/javascript' src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
+<script type='text/javascript' src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/jquery.mobile-1.4.2.min.js'/>"></script>
+
 <!--                                           -->
 <!-- Any title is fine                         -->
 <!--                                           -->
