@@ -200,7 +200,7 @@ input[type="text"] {
 
 input[type="text"]:focus {
 	border: 2px solid orange;
-	border-radius: 0px;
+	border-radius: 5px;
 }
 p {
 	line-height: normal;

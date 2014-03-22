@@ -4,12 +4,6 @@
 <head>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script type="text/javascript" src="<c:url value='/scripts/jquery-1.10.2.min.js'/>"></script>
-<script type='text/javascript' src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
-<script type='text/javascript' src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
-<script type='text/javascript' src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
 </head>
 <body>
 	<%@ include file="common/header.jsp" %>
@@ -141,7 +135,7 @@
 			var entriesArr = "{\"entries\":[";
 			for (var i = 1; i <= noOfEntries; i++)
 			{
-				var type = $("[name=\"type_income_" + i + "\"]").val();
+				var type = $("[name=\"type_" + i + "\"]").val();
 				var shortCode = $("#short_code_" + i).val();
 				var amount = $("#amount_" + i).val();
 								

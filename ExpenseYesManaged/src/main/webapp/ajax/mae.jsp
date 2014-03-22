@@ -26,16 +26,16 @@
 	<hr />
 	<c:forEach var="index" begin="1" end="${noOfEntries}" step="1">
 		<div>
-			<ul class="horizontal-list">
-				<li>
-					<input type="radio" id="type_income_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="I"> 
-					<label for="type_income_<c:out value='${index}'/>">Income</label> 
-				</li>
-				<li>
-					<input type="radio" id="type_expense_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="E" checked  class="entry_field_checked"> 
-					<label for="type_expense_<c:out value='${index}'/>">Expense</label>
-				</li>
-			</ul>
+			<form>
+				<fieldset data-role="controlgroup" data-type="horizontal" data-theme="b">
+			        <label for="type_income_<c:out value='${index}'/>">
+			        <input id="type_income_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="I" checked="checked" type="radio">
+			        Income</label>
+			        <label for="type_expense_<c:out value='${index}'/>">
+			        <input id="type_expense_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="E" type="radio">
+			        Expense</label>
+		    	</fieldset>
+	    	</form>
 			<span> 
 				<input type="text" id="short_code_<c:out value='${index}'/>" name="shortCode_<c:out value='${index}'/>" maxlength="32" size="10" value="<c:out value='${sessionScope.INPUT_SHORT_CODE}'/>" placeholder="Eg. Grocery" alt="Label Eg. Grocery" title="Label Eg. Grocery"  class="entry_field"/>
 				<span class="separator" style="vertical-align: middle;">&nbsp;|&nbsp;</span> 

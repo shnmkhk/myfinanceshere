@@ -6,38 +6,42 @@
 <%
 	UserService userService = UserServiceFactory.getUserService();
 	String thisURL = request.getRequestURI();
+	String loginUrl = userService.createLoginURL(response.encodeRedirectURL("/home.jsp#content"));
 %>
 <c:if test="${not empty param.sid}">
 	<c:set var="SHEET_KEY_ID" value="${param.sid}" scope="session" />
 </c:if>
 <div class="body" style="width: 100%">
-	<table class="form-background">
-		<tr>
-			<td>
-				<div>
-					<ul class="horizontal-list">
-						<li>[&nbsp;<a href="<c:url value='/home.jsp'/>#content">Standard
-								view</a></li>
-						<li>|</li>
-						<li><a href="<c:url value='/sa/'/>#content">Basic view</a>&nbsp;]</li>
-						<%
-							if (request.getUserPrincipal() != null) {
-						%>
-						<li><label>Logged in as <b><%=request.getUserPrincipal().getName()%></b></label></li>
-						<li>&nbsp;|&nbsp;</li>
-						<li><a href="<c:url value='/sa/'/>#content">Home</a></li>
-						<li>&nbsp;|&nbsp;</li>
-						<li><a href="<%=userService.createLogoutURL("/")%>">Logout</a></li>
-						<%
-							} else {
-								out.println("<li><a href=\""
-										+ userService.createLoginURL("/sa/")
-										+ "\"><img alt='Sign-in with Google' src='/css/images/sign-in-with-google.png'/></a></li>");
-							}
-						%>
-					</ul>
-				</div>
-			</td>
-		</tr>
-	</table>
+	<div data-role="footer" data-theme="a"  style="padding: 5px 10px;">
+		<%
+			if (request.getUserPrincipal() != null) {
+		%><h1 align="left">
+			Logged in as <b><%=request.getUserPrincipal().getName()%></b>
+		</h1>
+		<%
+			}
+		%>
+
+		<div data-role="navbar">
+			<ul style="padding: 5px 10px;">
+				<%
+					if (request.getUserPrincipal() != null) {
+				%>
+				<li><a href="<c:url value='/home.jsp'/>#content"
+					class="ui-btn-active">Home</a></li>
+				<li><a href="<%=userService.createLogoutURL("/")%>">Logout</a></li>
+				<%
+					} else {
+				%>
+				<li><a href="<%=loginUrl%>"> <img alt="Sign-in with Google"
+						src="/css/images/sign-in-with-google.png" />
+				</a></li>
+				<%
+					}
+				%>
+			</ul>
+		</div>
+		<!-- /navbar -->
+	</div>
+	<!-- /header -->
 </div>
