@@ -58,3 +58,19 @@ Entry.prototype.toString = function()
   		"\""+ENTRY_PROP_AMOUNT+"\":\""+this.amount+"\"" +
   				"}";
 };
+
+var ENTRY_PROP_SHEET_KEY_STR = "sheet_key_str";
+var ENTRY_PROP_SEQUENCE_IX = "seq_ix";
+
+
+function ToDeleteEntry(sheetKeyStr, sequenceIx) {
+	  this.sheetKeyStr = sheetKeyStr;
+	  this.sequenceIx = sequenceIx;
+}
+
+ToDeleteEntry.prototype.toString = function()
+{
+  return "{" +
+  		"\""+ENTRY_PROP_SHEET_KEY_STR+"\":\""+this.sheetKeyStr+"\"," +
+  		"\""+ENTRY_PROP_SEQUENCE_IX+"\":\""+this.sequenceIx+"\"}";
+};

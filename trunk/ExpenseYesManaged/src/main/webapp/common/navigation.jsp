@@ -12,7 +12,7 @@
 	<c:set var="SHEET_KEY_ID" value="${param.sid}" scope="session" />
 </c:if>
 <div class="body" style="width: 100%">
-	<div data-role="footer" data-theme="a"  style="padding: 5px 10px;">
+	<div data-role="footer" data-theme="a" style="padding: 5px 10px;">
 		<%
 			if (request.getUserPrincipal() != null) {
 		%><h1 align="left">
@@ -28,12 +28,12 @@
 					if (request.getUserPrincipal() != null) {
 				%>
 				<li><a href="<c:url value='/home.jsp'/>#content"
-					class="ui-btn-active">Home</a></li>
-				<li><a href="<%=userService.createLogoutURL("/")%>">Logout</a></li>
+					class="ui-btn-active" data-ajax="false">Home</a></li>
+				<li><a href="<%=userService.createLogoutURL("/home.jsp#content")%>">Logout</a></li>
 				<%
 					} else {
 				%>
-				<li><a href="<%=loginUrl%>"> <img alt="Sign-in with Google"
+				<li><a href="<%=loginUrl%>" data-ajax="false"> <img alt="Sign-in with Google"
 						src="/css/images/sign-in-with-google.png" />
 				</a></li>
 				<%
