@@ -31,6 +31,7 @@ function changeUsingSelector(selector)
         $(this).attr("href",newStr);
         $(this).attr("onMouseOver","window.status='Pagination Links have been Ajaxified!!';return false;");
         $(this).attr("onMouseOut","window.status='';return false;");
+        $(this).attr("data-ajax", "false");
         current_page_uri = action;
     });    
 

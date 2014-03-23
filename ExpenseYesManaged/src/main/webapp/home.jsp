@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 </head>
-<body>
+<body class="loading">
 	<%@ include file="common/header.jsp" %>
 	<script type="text/javascript">
 		var listSheetsLoaded = false;
@@ -26,8 +26,8 @@
 			if (listSheetsLoaded) {
 				hideAll();
 				$("#list_sheets").show();
+				$("body").removeClass("loading");
 			} else {
-				$("body").addClass("loading");
 				$("#list_sheets").load("/ajax/sa/?ref=Home#content", function() {
 					hideAll();
 					$("#list_sheets").show();
@@ -71,6 +71,8 @@
 					$("#list_entries").show();
 					listEntriesLoaded = true;
 					$("body").removeClass("loading");
+					$("span.pagelinks a").attr('data-ajax', 'false');
+					$("table#entryRow a").attr('data-ajax', 'false');
 				});
 			}
 		}
@@ -135,11 +137,14 @@
 			var entriesArr = "{\"entries\":[";
 			for (var i = 1; i <= noOfEntries; i++)
 			{
-				var type = $("[name=\"type_" + i + "\"]").val();
+				var incomeSelected = ($("#type_income_" + i).prop('checked') == true);
+				var expenseSelected = ($("#type_expense_" + i).prop('checked') == true);
+				
+				var derivedType = incomeSelected ? 'I' :  'E';
 				var shortCode = $("#short_code_" + i).val();
 				var amount = $("#amount_" + i).val();
 								
-				var entry = new Entry(type, shortCode, shortCode, amount);
+				var entry = new Entry(derivedType, shortCode, shortCode, amount);
 				entriesArr += entry.toString();
 				if (i != noOfEntries) {
 					entriesArr += ",";	
@@ -155,6 +160,23 @@
 					showListEntriesPage(loadedPrevSheetURI);					
 				}
 			});
+		}
+		
+		function deleteEntry(sheetKeyStr, sequenceIndex) {
+			var entriesArr = "{\"sheet_key_str\":\"" + sheetKeyStr + "\", \"entries\":[";
+			var toDeleteEntry = new ToDeleteEntry(sheetKeyStr, sequenceIndex);
+			entriesArr += toDeleteEntry.toString();
+			entriesArr += "]}";
+			
+			$("body").addClass("loading");
+			EntryService.deleteSelectedEntries(entriesArr, function(response){
+				$("body").removeClass("loading");
+				var noIssues = processResponse(response);
+				if (noIssues) {
+					showListEntriesPage(loadedPrevSheetURI);					
+				}
+			});
+
 		}
 	</script>
 	
