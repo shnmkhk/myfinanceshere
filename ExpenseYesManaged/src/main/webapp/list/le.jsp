@@ -47,10 +47,6 @@
 		</div>
 	</c:if>
 	<jsp:include page="../ajax/display.le.jsp"></jsp:include>
-	<div class="modal">
-		<!-- Place at bottom of page -->
-	</div>
-
 	<script type="text/javascript">
 	<!--
 		try {

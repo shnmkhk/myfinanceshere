@@ -73,9 +73,6 @@
 			</ul>
 		</c:if>
 	</c:if>
-	<div class="modal">
-		<!-- Place at bottom of page -->
-	</div>
 	<script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
 	<script type="text/javascript">
 		currentInterfaceId = 0;

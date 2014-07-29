@@ -1,19 +1,17 @@
-<! DOCTYPE HTML>
-<html>
 <title>Home</title>
 <head>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 </head>
-<body class="loading">
-	<%@ include file="common/header.jsp" %>
+<body>
+	<%@ include file="common/header.jsp"%>
 	<script type="text/javascript">
 		var listSheetsLoaded = false;
 		var addASheetLoaded = false;
 		var listEntriesLoaded = false;
 		var addAnEntryLoaded = false;
 
-		function hideAll(){
+		function hideAll() {
 			$("#list_sheets").hide();
 			$("#add_a_sheet").hide();
 			$("#list_entries").hide();
@@ -21,23 +19,24 @@
 			$("#error_message").hide();
 			$("#status_message").hide();
 		}
-		
-		function showSheetListPage(loadAgain){
+
+		function showSheetListPage(loadAgain) {
 			if (listSheetsLoaded) {
 				hideAll();
 				$("#list_sheets").show();
 				$("body").removeClass("loading");
 			} else {
-				$("#list_sheets").load("/ajax/sa/?ref=Home#content", function() {
-					hideAll();
-					$("#list_sheets").show();
-					listSheetsLoaded = true;
-					$("body").removeClass("loading");
-				});
+				$("#list_sheets").load("/ajax/sa/?ref=Home#content",
+						function() {
+							hideAll();
+							$("#list_sheets").show();
+							listSheetsLoaded = true;
+							$("body").removeClass("loading");
+						});
 			}
 		}
 
-		function showAddASheetPage(){
+		function showAddASheetPage() {
 			if (addASheetLoaded) {
 				hideAll();
 				$("#add_a_sheet").show();
@@ -55,7 +54,7 @@
 			}
 		}
 
-		function showListEntriesPage(urlToLoad, successMsg){
+		function showListEntriesPage(urlToLoad, successMsg) {
 			if (listEntriesLoaded && !urlToLoad) {
 				hideAll();
 				$("#list_entries").show();
@@ -63,7 +62,10 @@
 			} else {
 				loadedPrevSheetURI = urlToLoad;
 				if (successMsg) {
-					$("#info_message").html("<p><span><a href=\"javascript:void()\" onclick=\"$('#info_message').remove()\">X</a></span></p>" + successMsg);
+					$("#info_message")
+							.html(
+									"<p><span><a href=\"javascript:void()\" onclick=\"$('#info_message').remove()\">X</a></span></p>"
+											+ successMsg);
 				}
 				$("body").addClass("loading");
 				$("#list_entries").load(urlToLoad, function() {
@@ -78,11 +80,11 @@
 		}
 
 		function resetAddEntriesFields() {
-			$(".entry_field").val("");	
+			$(".entry_field").val("");
 			$(".entry_field_checked").prop("checked", true);
 		}
-		
-		function showAddEntriesPage(loadAgain){
+
+		function showAddEntriesPage(loadAgain) {
 			if (addAnEntryLoaded && !loadAgain) {
 				hideAll();
 				resetAddEntriesFields();
@@ -99,7 +101,7 @@
 				});
 			}
 		}
-		
+
 		function processResponse(response) {
 			var noIssues = eval(response.errored) == true ? false : true;
 			if (noIssues) {
@@ -107,22 +109,21 @@
 				$("#error_message").hide();
 			} else {
 				$("#error_message").show();
-				$("#error_message_content").html(response.errorMessage);	
-			} 
+				$("#error_message_content").html(response.errorMessage);
+			}
 			return noIssues;
 		}
-		
-		
+
 		function addSheet() {
 			var givenMonth = $("#month").val();
 			var givenYear = $("#year").val();
 			$("body").addClass("loading");
-			SheetService.createNew(givenMonth, givenYear, function(response){
+			SheetService.createNew(givenMonth, givenYear, function(response) {
 				listSheetsLoaded = false;
 				$("body").removeClass("loading");
 				var noIssues = processResponse(response);
 				if (noIssues) {
-					showSheetListPage();					
+					showSheetListPage();
 				}
 			});
 		}
@@ -131,67 +132,62 @@
 		var ENTRY_PROP_SHORTCODE = "shortCode";
 		var ENTRY_PROP_DESCR = "descr";
 		var ENTRY_PROP_TYPE = "type";
-		
+
 		function addMultipleEntries() {
 			var noOfEntries = eval($("#no-of-entries").val());
 			var entriesArr = "{\"entries\":[";
-			for (var i = 1; i <= noOfEntries; i++)
+			for (var i = 1; i <= noOfEntries; i++) 
 			{
 				var incomeSelected = ($("#type_income_" + i).prop('checked') == true);
 				var expenseSelected = ($("#type_expense_" + i).prop('checked') == true);
-				
-				var derivedType = incomeSelected ? 'I' :  'E';
+
+				var derivedType = incomeSelected ? 'I' : 'E';
 				var shortCode = $("#short_code_" + i).val();
 				var amount = $("#amount_" + i).val();
-								
+
 				var entry = new Entry(derivedType, shortCode, shortCode, amount);
 				entriesArr += entry.toString();
 				if (i != noOfEntries) {
-					entriesArr += ",";	
+					entriesArr += ",";
 				}
 			}
 			entriesArr += "]}";
-			
+
 			$("body").addClass("loading");
-			EntryService.addMultipleEntries(entriesArr, function(response){
+			EntryService.addMultipleEntries(entriesArr, function(response) {
 				$("body").removeClass("loading");
 				var noIssues = processResponse(response);
 				if (noIssues) {
-					showListEntriesPage(loadedPrevSheetURI);					
+					showListEntriesPage(loadedPrevSheetURI);
 				}
 			});
 		}
-		
+
 		function deleteEntry(sheetKeyStr, sequenceIndex) {
 			var entriesArr = "{\"sheet_key_str\":\"" + sheetKeyStr + "\", \"entries\":[";
 			var toDeleteEntry = new ToDeleteEntry(sheetKeyStr, sequenceIndex);
 			entriesArr += toDeleteEntry.toString();
 			entriesArr += "]}";
-			
+
 			$("body").addClass("loading");
-			EntryService.deleteSelectedEntries(entriesArr, function(response){
+			EntryService.deleteSelectedEntries(entriesArr, function(response) {
 				$("body").removeClass("loading");
 				var noIssues = processResponse(response);
 				if (noIssues) {
-					showListEntriesPage(loadedPrevSheetURI);					
+					showListEntriesPage(loadedPrevSheetURI);
 				}
 			});
 
 		}
 	</script>
-	
-	
+
+
 	<div>
-		<div id="list_sheets"></div>
+		<div id="list_sheets">
+			<b>Loading available sheets....</b>
+		</div>
 		<div id="add_a_sheet"></div>
 		<div id="list_entries"></div>
 		<div id="add_entries"></div>
 	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			showSheetListPage();
-		});
-	</script>
 </body>
-</html>

@@ -2,6 +2,8 @@ package org.rabbit.shared;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -33,6 +35,31 @@ public class TextUtil {
 		}
 		
 		return obj.toString();
+	}
+	
+	private static StringBuffer sb = new StringBuffer();
+	private static String getCorrectedString(String s) {
+		sb.setLength(0);
+		while (s.length() > 10) {
+			sb.append(s.substring(0, 10));
+			s = s.substring(10);
+			sb.append(" ");
+		}
+		sb.append(s);
+		return sb.toString();
+	}
+	
+	public static final String formatStr(String commentDescription) {
+		commentDescription = TextUtil.getStringValue(commentDescription);
+		String[] splitComments = commentDescription.split("[ ,.;:]");
+		Map<String, String> cache = new LinkedHashMap<String, String>();
+		for (String splitComment: splitComments) {
+			cache.put(splitComment, getCorrectedString(splitComment));
+		}
+		for (Map.Entry<String, String> commentEntry: cache.entrySet()) {
+			commentDescription =  commentDescription.replaceAll(commentEntry.getKey(), commentEntry.getValue());
+		}
+		return commentDescription;
 	}
 	
 	public static void main(String[] args) {
