@@ -41,7 +41,6 @@
 		</div>
 	</c:if>
 	<jsp:include page="../display.le.jsp"></jsp:include>
-	<div class="modal"></div>
 	
 	<script type="text/javascript">
 		<!--

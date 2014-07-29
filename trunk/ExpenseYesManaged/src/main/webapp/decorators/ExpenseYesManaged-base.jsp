@@ -1,34 +1,55 @@
-<!DOCTYPE html> 
-<!-- The DOCTYPE declaration above will set the     -->
-<!-- browser's rendering engine into                -->
-<!-- "Standards Mode". Replacing this declaration   -->
-<!-- with a "Quirks Mode" doctype is not supported. -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<%@ taglib prefix="decorator"
+	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ page errorPage="/error.jsp"%>
 
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!--                                                               -->
 <!-- Consider inlining CSS to reduce the number of requested files -->
 <!--                                                               -->
 <link type="text/css" rel="stylesheet" href="/css/displaytag.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/print.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css"></link>
-<link type="text/css" rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css"></link>
+<link type="text/css" rel="stylesheet"
+	href="/css/jquery.mobile-1.4.2.min.css"></link>
 
-<script type="text/javascript" src="<c:url value='/scripts/jquery-1.10.2.min.js'/>"></script>
-<script type='text/javascript' src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
-<script type='text/javascript' src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
-<script type='text/javascript' src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/jquery.mobile-1.4.2.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/scripts/jquery-1.10.2.min.js'/>"></script>
+<script type='text/javascript'
+	src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
+<script type='text/javascript'
+	src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
+<script type='text/javascript'
+	src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/scripts/sheet-util.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/scripts/jquery.mobile-1.4.2.min.js'/>"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="scripts/bootstrap.min.js"></script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="scripts/html5shiv.min.js"></script>
+  <script src="scripts/respond.min.js"></script>
+<![endif]-->
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
 
 <!--                                           -->
 <!-- Any title is fine                         -->
@@ -47,7 +68,7 @@
 <!-- you can leave the body empty if you want  -->
 <!-- to create a completely dynamic UI.        -->
 <!--                                           -->
-<body>
+<body class="loading">
 	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
 	<!-- <noscript>
 		<div
@@ -98,5 +119,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal"></div>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("body").addClass("loading");
+		showSheetListPage();
+	});
+</script>
+
 </html>

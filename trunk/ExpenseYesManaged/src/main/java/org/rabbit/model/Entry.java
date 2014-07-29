@@ -102,7 +102,7 @@ public class Entry extends BaseEntity implements Serializable {
 	 * @return the shortCode
 	 */
 	public String getShortCode() {
-		return shortCode;
+		return TextUtil.formatStr(shortCode);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class Entry extends BaseEntity implements Serializable {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
+		return TextUtil.formatStr(description);
 	}
 
 	/**
@@ -182,9 +182,9 @@ public class Entry extends BaseEntity implements Serializable {
 
 	public String getTypeStr() {
 		if (type == 'I') {
-			return "Income" + ObjectUtils.getSimpleDate(getCreatedOn());
+			return "<span style='color: #74b042; font-weight: bold;'><small>Income</small></span>" + ObjectUtils.getSimpleDate(getCreatedOn());
 		} else {
-			return "Expense" + ObjectUtils.getSimpleDate(getCreatedOn());
+			return "<span style='color: #3373a5; font-weight: bold;'><small>Expense</small></span>" + ObjectUtils.getSimpleDate(getCreatedOn());
 		}
 	}
 

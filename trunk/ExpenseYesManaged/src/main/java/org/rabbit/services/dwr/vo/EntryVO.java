@@ -3,6 +3,8 @@
  */
 package org.rabbit.services.dwr.vo;
 
+import org.rabbit.shared.TextUtil;
+
 /**
  * @author shanmukha.k@gmail.com <br/>
  *         for <b>Rabbit Computing, Inc.</b> <br/>
@@ -42,7 +44,7 @@ public class EntryVO extends BaseAbstractVO {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
+		return TextUtil.formatStr(description);
 	}
 
 	/**
@@ -72,7 +74,7 @@ public class EntryVO extends BaseAbstractVO {
 	 * @return the shortCode
 	 */
 	public String getShortCode() {
-		return shortCode;
+		return TextUtil.formatStr(shortCode);
 	}
 
 	/**

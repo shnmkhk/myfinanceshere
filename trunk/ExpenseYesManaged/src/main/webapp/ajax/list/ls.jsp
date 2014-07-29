@@ -66,9 +66,6 @@
 			</ul>
 		</c:if>
 	</c:if>
-	<div class="modal">
-		<!-- Place at bottom of page -->
-	</div>
 	<script type="text/javascript">
 		currentInterfaceId = 1;
 	</script>

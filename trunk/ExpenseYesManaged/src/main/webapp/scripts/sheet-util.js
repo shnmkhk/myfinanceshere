@@ -74,3 +74,8 @@ ToDeleteEntry.prototype.toString = function()
   		"\""+ENTRY_PROP_SHEET_KEY_STR+"\":\""+this.sheetKeyStr+"\"," +
   		"\""+ENTRY_PROP_SEQUENCE_IX+"\":\""+this.sequenceIx+"\"}";
 };
+
+function showLoader(linkObj, msg) {
+	msg = (msg == undefined || msg == null) ? "" : msg;
+	linkObj.innerHTML = "Loading" + msg + "..";
+}

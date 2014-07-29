@@ -42,8 +42,7 @@ function doAjax(url, data)
 	$(".message").remove();
 	$("body").addClass("loading");
     //if you need additional params to be passed - add to the data variable
-    $.ajax
-    ({
+    $.ajax ({
         url: url,
         data:  data,
         async: false,
@@ -53,6 +52,5 @@ function doAjax(url, data)
             changeLinks();
             $("body").removeClass("loading");
         }
-
     });
 }
