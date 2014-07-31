@@ -1,5 +1,5 @@
 <project name="Expense (Yes) Managed" default="datanucleusenhance">
-	<property name="sdk.dir" location="/home/shnmkhktr/Documents/appengine-java-sdk-1.8.7" />
+	<property name="sdk.dir" location="/home/shnmkhktr/Documents/appengine-java-sdk-1.9.7" />
 
 	<import file="${sdk.dir}/config/user/ant-macros.xml" />
 

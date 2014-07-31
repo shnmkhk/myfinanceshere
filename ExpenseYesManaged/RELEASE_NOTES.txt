@@ -1,3 +1,5 @@
+V1.2
+- Fixed issue while accepting amounts with commas and dots. 
 V1.1
 - Fixed entry description against respnsive web design view
 - Decorated Income/ Expense label in the entries list.

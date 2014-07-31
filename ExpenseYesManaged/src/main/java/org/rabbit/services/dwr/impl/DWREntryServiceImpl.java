@@ -1,5 +1,7 @@
 package org.rabbit.services.dwr.impl;
 
+import java.text.ParseException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContext;
@@ -103,21 +105,19 @@ public class DWREntryServiceImpl implements DWREntryService {
 			int recordsChanged = 0;
 			for (int i = 0; i < entriesJsonArr.length(); i++) {
 				JSONObject entryJson = entriesJsonArr.getJSONObject(i);
-				Double amount = NumUtil.getDoubleValue(
-						(String) entryJson.get(ENTRY_PROP_AMOUNT), -1);
-				String shortCode = ObjectUtils.getStrValue(entryJson
-						.get(ENTRY_PROP_SHORTCODE));
-				String descr = ObjectUtils.getStrValue(entryJson
-						.get(ENTRY_PROP_DESCR));
-				String typeStr = ObjectUtils.getStrValue(entryJson
-						.get(ENTRY_PROP_TYPE));
+				double amount = -1;
+				try {
+					amount = TextUtil.nf.parse((String)entryJson.get(ENTRY_PROP_AMOUNT)).doubleValue();
+				} catch (ParseException e) {
+				}
+				String shortCode = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_SHORTCODE));
+				String descr = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_DESCR));
+				String typeStr = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_TYPE));
 				char type = (typeStr.length() == 0) ? 'I' : typeStr.charAt(0);
-				if (ObjectUtils.isNullOrEmpty(shortCode)
-						|| ObjectUtils.isNullOrEmpty(descr) || amount <= -1) {
+				if (ObjectUtils.isNullOrEmpty(shortCode) || ObjectUtils.isNullOrEmpty(descr) || amount <= -1) {
 					continue;
 				}
-				entryService.addANewEntry(type, amount, shortCode, descr, 'A',
-						sheet);
+				entryService.addANewEntry(type, amount, shortCode, descr, 'A', sheet);
 				entryResponseWrapper.setRecordsChanged(++recordsChanged);
 			}
 			if (recordsChanged == 0) {
