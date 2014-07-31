@@ -65,5 +65,4 @@ public class TextUtil {
 	public static void main(String[] args) {
 		System.out.println(getNumbersAlone("abcd1234efgh~!@#$%^&*()_+\\|=-{}[];;\'\"<,.>/?"));
 	}
-
 }
