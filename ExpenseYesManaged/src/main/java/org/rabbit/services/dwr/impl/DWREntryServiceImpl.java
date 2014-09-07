@@ -16,7 +16,6 @@ import org.rabbit.services.dwr.DWREntryService;
 import org.rabbit.services.dwr.vo.EntryResponseWrapper;
 import org.rabbit.services.impl.EntryServiceImpl;
 import org.rabbit.services.impl.SheetServiceImpl;
-import org.rabbit.shared.NumUtil;
 import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.TextUtil;
 
@@ -32,6 +31,7 @@ public class DWREntryServiceImpl implements DWREntryService {
 	public static final String ENTRY_PROP_SHORTCODE = "shortCode";
 	public static final String ENTRY_PROP_DESCR = "descr";
 	public static final String ENTRY_PROP_TYPE = "type";
+	public static final String ENTRY_PROP_CATEGORY = "category";
 	public static final String ENTRY_PROP_SEQ_IX = "seq_ix";
 	public static final String ENTRY_PROP_SHEET_KEY_STR = "sheet_key_str";
 
@@ -114,10 +114,12 @@ public class DWREntryServiceImpl implements DWREntryService {
 				String descr = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_DESCR));
 				String typeStr = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_TYPE));
 				char type = (typeStr.length() == 0) ? 'I' : typeStr.charAt(0);
-				if (ObjectUtils.isNullOrEmpty(shortCode) || ObjectUtils.isNullOrEmpty(descr) || amount <= -1) {
+				String category = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_CATEGORY));
+				if (ObjectUtils.isNullOrEmpty(shortCode) || ObjectUtils.isNullOrEmpty(descr) || amount <= -1 || 
+						ObjectUtils.isNullOrEmpty(category)) {
 					continue;
 				}
-				entryService.addANewEntry(type, amount, shortCode, descr, 'A', sheet);
+				entryService.addANewEntry(type, amount, shortCode, descr, 'A', sheet, category);
 				entryResponseWrapper.setRecordsChanged(++recordsChanged);
 			}
 			if (recordsChanged == 0) {

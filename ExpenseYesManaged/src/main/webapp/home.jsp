@@ -19,6 +19,11 @@
 			$("#error_message").hide();
 			$("#status_message").hide();
 		}
+		
+		function failureHandler(data) {
+			$("body").removeClass("loading");
+			alert("Failed to fetch data, please check your network connection");
+		}
 
 		function showSheetListPage(loadAgain) {
 			if (listSheetsLoaded) {
@@ -26,13 +31,18 @@
 				$("#list_sheets").show();
 				$("body").removeClass("loading");
 			} else {
-				$("#list_sheets").load("/ajax/sa/?ref=Home#content",
-						function() {
+				$.ajax({
+						url:"/ajax/sa/?ref=Home#content",
+						timeout: 5000,
+						success: function(data) {
 							hideAll();
+							$("#list_sheets").html(data);
 							$("#list_sheets").show();
 							listSheetsLoaded = true;
 							$("body").removeClass("loading");
-						});
+						},
+						fail: failureHandler
+				});
 			}
 		}
 
@@ -44,12 +54,18 @@
 				return;
 			} else {
 				$("body").addClass("loading");
-				$("#add_a_sheet").load("/ajax/as.jsp#content", function() {
-					hideAll();
-					$("#add_a_sheet").show();
-					addASheetLoaded = true;
-					$("body").removeClass("loading");
-					clearAddASheetInputs();
+				$.ajax({
+					url: "/ajax/as.jsp#content", 
+					timeout: 5000,
+					success: function(data) {
+						hideAll();
+						$("#add_a_sheet").html(data);
+						$("#add_a_sheet").show();
+						addASheetLoaded = true;
+						$("body").removeClass("loading");
+						clearAddASheetInputs();
+					},
+					fail: failureHandler
 				});
 			}
 		}
@@ -68,13 +84,19 @@
 											+ successMsg);
 				}
 				$("body").addClass("loading");
-				$("#list_entries").load(urlToLoad, function() {
-					hideAll();
-					$("#list_entries").show();
-					listEntriesLoaded = true;
-					$("body").removeClass("loading");
-					$("span.pagelinks a").attr('data-ajax', 'false');
-					$("table#entryRow a").attr('data-ajax', 'false');
+				$.ajax({
+					url: urlToLoad, 
+					timeout: 5000,
+					success: function(data) {
+						hideAll();
+						$("#list_entries").html(data);
+						$("#list_entries").show();
+						listEntriesLoaded = true;
+						$("body").removeClass("loading");
+						$("span.pagelinks a").attr('data-ajax', 'false');
+						$("table#entryRow a").attr('data-ajax', 'false');
+					},
+					fail: failureHandler
 				});
 			}
 		}
@@ -92,12 +114,18 @@
 				return;
 			} else {
 				$("body").addClass("loading");
-				$("#add_entries").load("/ajax/mae.jsp#content", function() {
-					hideAll();
-					resetAddEntriesFields();
-					$("#add_entries").show();
-					addAnEntryLoaded = true;
-					$("body").removeClass("loading");
+				$.ajax({
+					url: "/ajax/mae.jsp#content",
+					timeout: 5000,
+					success: function(data) {
+						hideAll();
+						resetAddEntriesFields();
+						$("#add_entries").html(data);
+						$("#add_entries").show();
+						addAnEntryLoaded = true;
+						$("body").removeClass("loading");
+					},
+					fail: failureHandler
 				});
 			}
 		}
@@ -136,16 +164,16 @@
 		function addMultipleEntries() {
 			var noOfEntries = eval($("#no-of-entries").val());
 			var entriesArr = "{\"entries\":[";
-			for (var i = 1; i <= noOfEntries; i++) 
-			{
+			for (var i = 1; i <= noOfEntries; i++) {
 				var incomeSelected = ($("#type_income_" + i).prop('checked') == true);
 				var expenseSelected = ($("#type_expense_" + i).prop('checked') == true);
 
 				var derivedType = incomeSelected ? 'I' : 'E';
 				var shortCode = $("#short_code_" + i).val();
 				var amount = $("#amount_" + i).val();
+				var category = $("#category_" + i).val();
 
-				var entry = new Entry(derivedType, shortCode, shortCode, amount);
+				var entry = new Entry(derivedType, shortCode, shortCode, amount, category);
 				entriesArr += entry.toString();
 				if (i != noOfEntries) {
 					entriesArr += ",";
@@ -164,20 +192,23 @@
 		}
 
 		function deleteEntry(sheetKeyStr, sequenceIndex) {
-			var entriesArr = "{\"sheet_key_str\":\"" + sheetKeyStr + "\", \"entries\":[";
-			var toDeleteEntry = new ToDeleteEntry(sheetKeyStr, sequenceIndex);
-			entriesArr += toDeleteEntry.toString();
-			entriesArr += "]}";
-
-			$("body").addClass("loading");
-			EntryService.deleteSelectedEntries(entriesArr, function(response) {
-				$("body").removeClass("loading");
-				var noIssues = processResponse(response);
-				if (noIssues) {
-					showListEntriesPage(loadedPrevSheetURI);
-				}
-			});
-
+			var r = confirm("Are you sure you want to delete this entry ?");
+			if (r == true) {
+				var entriesArr = "{\"sheet_key_str\":\"" + sheetKeyStr
+				+ "\", \"entries\":[";
+				var toDeleteEntry = new ToDeleteEntry(sheetKeyStr, sequenceIndex);
+				entriesArr += toDeleteEntry.toString();
+				entriesArr += "]}";
+		
+				$("body").addClass("loading");
+				EntryService.deleteSelectedEntries(entriesArr, function(response) {
+					$("body").removeClass("loading");
+					var noIssues = processResponse(response);
+					if (noIssues) {
+						showListEntriesPage(loadedPrevSheetURI);
+					}
+				});
+			} 
 		}
 	</script>
 

@@ -23,10 +23,10 @@
 	<c:if test="${not empty sessionScope.SHEET_MONTH_YR_ARRAY}">
 		<div style="padding-bottom: 3px;">
 			<ul class="horizontal-list" style="text-align: right; width: 100%;">
-				<li class="header-one">Entries</li>
+				<li class="header-one">Entries Listing of </li>
 				<c:if test="${not empty sessionScope.SHEET_MONTH_YR_ARRAY}">
-					<li class="header-two"><c:out
-							value="${sessionScope.SHEET_MONTH_YR_ARRAY[0]}" /></li>
+					<li class="header-two"><div style="padding: 0px 3px;"><c:out
+							value="${sessionScope.SHEET_MONTH_YR_ARRAY[0]}" /></div></li>
 					<li class="header-three"><c:out
 							value="${sessionScope.SHEET_MONTH_YR_ARRAY[1]}" /></li>
 				</c:if>

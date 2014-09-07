@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.rabbit.common.EntryCategory;
 import org.rabbit.dao.EntryDAO;
 import org.rabbit.dao.SheetDAO;
 import org.rabbit.dao.impl.EntryDAOImpl;
@@ -15,10 +16,10 @@ import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Entry;
 import org.rabbit.model.Sheet;
 import org.rabbit.services.EntryService;
-import org.rabbit.wrappers.EntryStatusWrapper;
 import org.rabbit.services.SheetService;
 import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.ValidationUtils;
+import org.rabbit.wrappers.EntryStatusWrapper;
 import org.rabbit.wrappers.EntryStatusWrapperFactory;
 
 import com.google.appengine.api.datastore.Key;
@@ -58,10 +59,10 @@ public class EntryServiceImpl implements EntryService {
 	 */
 
 	public Entry addANewEntry(char type, double amount, String shortCode,
-			String description, char status, Sheet sheet)
+			String description, char status, Sheet sheet, String categoryLabel)
 			throws EntryAlreadyExistsException {
 		return entryDAO.createNewEntry(type, amount, shortCode, description,
-				status, sheet);
+				status, sheet, EntryCategory.getCategory(categoryLabel));
 	}
 
 	/*
@@ -130,16 +131,17 @@ public class EntryServiceImpl implements EntryService {
 	}
 
 	public EntryStatusWrapper addMultipleEntries(String paramString,
-			HashMap paramMap) {
+			Map<String, String> paramMap) {
 		EntryStatusWrapper localEntryStatusWrapper = EntryStatusWrapperFactory
 				.getInstance().generateOne();
-		HashMap localHashMap = new HashMap();
+		Map<String, String> localHashMap = new HashMap<String, String>();
 		String str1 = String.valueOf(paramMap.get("sid"));
 		Sheet localSheet = null;
-		char c = ' ';
-		String str2 = null;
-		String str3 = null;
-		double d = 0.0D;
+		char entryType = ' ';
+		String entryCategory = EntryCategory.OTHERS_MISCELANEOUS.getLabel();
+		String shortCode = null;
+		String description = null;
+		double amount = 0.0D;
 		try {
 			if (StringUtils.isEmpty(str1)) {
 				localEntryStatusWrapper.setErrorMessage(String.format(
@@ -178,22 +180,20 @@ public class EntryServiceImpl implements EntryService {
 			}
 			StringBuffer localStringBuffer = new StringBuffer();
 			for (int j = 1; j <= i; ++j) {
-				str2 = ObjectUtils.getStrValue(paramMap.get("shortCode_" + j));
-				str3 = ObjectUtils
-						.getStrValue(paramMap.get("description_" + j));
-				d = ObjectUtils.getDoubleValue(paramMap.get("amount_" + j),
-						-1.0D);
-				c = ObjectUtils.getStrValue(paramMap.get("type_" + j))
-						.charAt(0);
-				if ((ObjectUtils.isNullOrEmpty(str2)) && (-1.0D == d))
+				shortCode = ObjectUtils.getStrValue(paramMap.get("shortCode_" + j));
+				description = ObjectUtils.getStrValue(paramMap.get("description_" + j));
+				amount = ObjectUtils.getDoubleValue(paramMap.get("amount_" + j), -1.0D);
+				entryType = ObjectUtils.getStrValue(paramMap.get("type_" + j)).charAt(0);
+				String tempCategory = ObjectUtils.getStrValue(paramMap.get("category_" + j));
+				entryCategory = (tempCategory.length() > 0) ? tempCategory : entryCategory;
+				if ((ObjectUtils.isNullOrEmpty(shortCode)) && (-1.0D == amount))
 					continue;
-				if (((ObjectUtils.isNotNullAndNotEmpty(str2)) && (-1.0D == d))
-						|| ((ObjectUtils.isNullOrEmpty(str2)) && (-1.0D != d))) {
-					localStringBuffer
-							.append(String
-									.format("<br/>Entry index %d is skipped due to incomplete inputs [shortCode='%s', amount='%f']",
+				if (((ObjectUtils.isNotNullAndNotEmpty(shortCode)) && (-1.0D == amount))
+						|| ((ObjectUtils.isNullOrEmpty(shortCode)) && (-1.0D != amount))) {
+					localStringBuffer.append(
+							String.format("<br/>Entry index %d is skipped due to incomplete inputs [shortCode='%s', amount='%f']",
 											new Object[] { Integer.valueOf(j),
-													str2, Double.valueOf(d) }));
+													shortCode, Double.valueOf(amount) }));
 				} else {
 					if ((ObjectUtils.isNullOrEmpty(str1))
 							&& (ObjectUtils.isNotNullAndNotEmpty(localHashMap
@@ -204,7 +204,7 @@ public class EntryServiceImpl implements EntryService {
 							&& (ObjectUtils.isNullOrEmpty(localHashMap
 									.get("SHEET_KEY_ID"))))
 						localHashMap.put("SHEET_KEY_ID", str1);
-					addANewEntry(c, d, str2, str3, 'A', localSheet);
+					addANewEntry(entryType, amount, shortCode, description, 'A', localSheet, entryCategory);
 				}
 			}
 			localStringBuffer
@@ -254,5 +254,12 @@ public class EntryServiceImpl implements EntryService {
 		localEntryStatusWrapper.setRedirectURI(String.format(
 				"/mae.jsp?sid=%s#content", new Object[] { str1 }));
 		return localEntryStatusWrapper;
+	}
+
+	@Override
+	public Entry addANewEntry(char type, double amount, String shortCode,
+			String description, char status, Sheet parentSheet)
+			throws EntryAlreadyExistsException {
+		return addANewEntry(type, amount, shortCode, description, status, parentSheet, EntryCategory.OTHERS_MISCELANEOUS.getLabel());
 	}
 }

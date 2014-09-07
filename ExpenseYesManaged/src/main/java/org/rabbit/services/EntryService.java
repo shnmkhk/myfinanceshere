@@ -4,8 +4,8 @@
 package org.rabbit.services;
 
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.rabbit.exception.EntryAlreadyExistsException;
 import org.rabbit.exception.EntryNotFoundException;
@@ -24,7 +24,7 @@ import com.google.appengine.api.datastore.Key;
  * Date created: 02-Jun-2013
  */
 public interface EntryService {
-
+	
 	/**
 	 * Adds a new entry object into db for the specified 
 	 * 
@@ -38,6 +38,21 @@ public interface EntryService {
 	 */
 	public Entry addANewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet parentSheet) throws EntryAlreadyExistsException;
+
+	/**
+	 * Adds a new entry object into db for the specified 
+	 * 
+	 * @param type
+	 * @param amount
+	 * @param shortCode
+	 * @param description
+	 * @param status
+	 * @param categoryLabel
+	 * @return
+	 * @throws EntryAlreadyExistsException
+	 */
+	public Entry addANewEntry(char type, double amount, String shortCode,
+			String description, char status, Sheet parentSheet, String categoryLabel) throws EntryAlreadyExistsException;
 	
 	/**
 	 * Deletes entry object matched for the given associated sheet key and 
@@ -90,5 +105,12 @@ public interface EntryService {
 	 */
 	public Entry updateEntry(Entry entry);
 
-	public EntryStatusWrapper addMultipleEntries(String name, HashMap localHashMap);
+	/**
+	 * Adds multiple entries in one-go
+	 * 
+	 * @param name
+	 * @param parameterMap
+	 * @return
+	 */
+	public EntryStatusWrapper addMultipleEntries(String name, Map<String, String> parameterMap);
 }

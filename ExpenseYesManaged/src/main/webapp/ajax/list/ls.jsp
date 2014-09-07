@@ -14,7 +14,7 @@
 	<div style="width: 100%; padding-bottom: 3px;">
 		<ul class="horizontal-list" style="text-align: right; width: 100%;">
 			<li class="header-one">Sheet Listing</li>
-			<li class="header-two">All</li>
+			<li class="header-two"><div style="padding: 0px 3px;">All</div></li>
 		</ul>
 		<ul class="horizontal-list" style="text-align: left; width: 100%;">
 			<li><a href="javascript:void(0);"
@@ -34,7 +34,7 @@
 		<ul class="horizontal-list occupy-half-page-width"
 			style="width: 100%;" id="sheet-list-container">
 			<c:forEach var="sheetEntry" items="${sessionScope.allSheetsMap}">
-				<li class="header-two"><c:out value='${sheetEntry.key}' /></li>
+				<li class="header-two"><div style="padding: 5px;"><c:out value='${sheetEntry.key}' /></div></li>
 				<li>
 					<ul class="calendar-icon-ul">
 						<c:forEach var="sheetObj" items="${sheetEntry.value}">

@@ -9,7 +9,7 @@
 	<div>
 		<ul class="horizontal-list" style="text-align: right; width: 100%;">
 			<li class="header-one">Add a</li>
-			<li class="header-two">sheet</li>
+			<li class="header-two"><div style="padding: 0px 3px;">sheet</div></li>
 		</ul>
 		<ul class="horizontal-list" style="text-align: left; width: 100%;">
 			<li><a href="javascript:void(0)" onclick="showSheetListPage();return false;">Back to sheets</a></li>
