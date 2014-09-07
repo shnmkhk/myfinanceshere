@@ -18,6 +18,11 @@ public class EntryDecorator extends TableDecorator {
 		Entry entry = (Entry) getCurrentRowObject();
 		String sheetKeyStr = entry.getSheet().getKeyStr();
 		int sequenceNumber = entry.getSequenceIndex();
-		return entry.getShortCode() + "&nbsp;<a href=\"javascript:void(0);\" onclick=\"deleteEntry('"+sheetKeyStr+"', '"+sequenceNumber+"')\" data-ajax=\"false'\">[Del]</a>&nbsp;<br/>" + entry.getTypeStr();
+		return "<div class=\"entry-label-full\"><big>"
+				+ entry.getShortCode()
+				+ "</big>&nbsp;<a href=\"javascript:void(0);\" onclick=\"deleteEntry('"
+				+ sheetKeyStr + "', '" + sequenceNumber
+				+ "')\" data-ajax=\"false'\">[Del]</a>&nbsp;<br/>"
+				+ entry.getTypeStr() + "</div>";
 	}
 }

@@ -3,7 +3,7 @@ package org.rabbit.shared;
 import java.util.Map;
 
 public class ValidationUtils {
-	public static boolean doesAnyEntryHasCompleteData(int paramInt, Map<String, Object> paramMap)
+	public static boolean doesAnyEntryHasCompleteData(int paramInt, Map<String, String> paramMap)
   {
     boolean doesAnyEntryHasCompleteData = false;
     for (int j = 0; j < paramInt; ++j)

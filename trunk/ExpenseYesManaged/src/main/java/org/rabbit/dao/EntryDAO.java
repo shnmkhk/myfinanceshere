@@ -2,6 +2,7 @@ package org.rabbit.dao;
 
 import java.util.List;
 
+import org.rabbit.common.EntryCategory;
 import org.rabbit.exception.EntryAlreadyExistsException;
 import org.rabbit.exception.EntryNotFoundException;
 import org.rabbit.model.Entry;
@@ -16,6 +17,20 @@ import org.rabbit.model.Sheet;
  */
 public interface EntryDAO {
 
+	/**
+	 * Creates a new entry with given type, amount, short code and description
+	 * 
+	 * @param type 'E' for expenditure and 'I' for income
+	 * @param amount in current locale currency
+	 * @param shortCode
+	 * @param description
+	 * @param status
+	 * @param sheet
+	 * @return
+	 */
+	public Entry createNewEntry(char type, double amount, String shortCode,
+			String description, char status, Sheet sheet, EntryCategory entryCategory) throws EntryAlreadyExistsException;
+	
 	/**
 	 * Creates a new entry with given type, amount, short code and description
 	 * 
@@ -70,4 +85,12 @@ public interface EntryDAO {
 	 * @throws EntryNotFoundException 
 	 */
 	public Entry getEntryBySheetAndIndex(Sheet sheet, int sequenceIndex) throws EntryNotFoundException;
+	
+	/**
+	 * Sets the given entry category to the given entry.
+	 * 
+	 * @param entry
+	 * @param entryCategory
+	 */
+	public void setEntryCategory(Entry entry, EntryCategory entryCategory);
 }

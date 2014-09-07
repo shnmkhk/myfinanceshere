@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.rabbit.common.Constants;
+import org.rabbit.common.EntryCategory;
 import org.rabbit.common.Month;
 import org.rabbit.exception.EntryNotFoundException;
 import org.rabbit.exception.SheetNotFoundException;
@@ -42,7 +43,6 @@ public class AjaxEntryAction extends BaseServlet {
 		} else if (uriFragments.length > 3) {
 			deleteSpecificEntryBasedOnGivenSheetKeyAndEntrySeqNumber(request,
 					response, baseHref, uriFragments);
-
 		} else {
 			request.getSession().setAttribute("ERROR_MESSAGE", String.format("Invalid number of arguments in the RequestedURI %s",request.getRequestURI()));
 			response.sendRedirect(baseHref + "/error.jsp#content");

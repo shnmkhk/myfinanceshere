@@ -3,6 +3,8 @@
  */
 package org.rabbit.services.dwr.vo;
 
+import org.rabbit.common.EntryCategory;
+import org.rabbit.shared.ObjectUtils;
 import org.rabbit.shared.TextUtil;
 
 /**
@@ -24,6 +26,19 @@ public class EntryVO extends BaseAbstractVO {
 	private String description;
 	
 	private String seqIxStr;
+	
+	private String entryCategory;
+	
+	public void setEntryCategory(String entryCategory) {
+		this.entryCategory = entryCategory;
+	}
+
+	public String getEntryCategory() {
+		if (ObjectUtils.isNullOrEmpty(entryCategory)) {
+			return EntryCategory.OTHERS_MISCELANEOUS.getLabel();
+		}
+		return entryCategory;
+	}
 
 	/**
 	 * @return the amount

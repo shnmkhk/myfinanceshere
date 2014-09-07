@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 
+import org.rabbit.common.EntryCategory;
 import org.rabbit.dao.EntryDAO;
 import org.rabbit.dao.SheetDAO;
 import org.rabbit.exception.EntryAlreadyExistsException;
@@ -23,7 +24,6 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
@@ -49,9 +49,14 @@ public class EntryDAOImpl implements EntryDAO {
 		return EntryDAOImplHandler.entryDAOImpl;
 	}
 
-	
 	public Entry createNewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet sheet)
+			throws EntryAlreadyExistsException {
+		 return createNewEntry(type, amount, shortCode, description, status, sheet, EntryCategory.OTHERS_MISCELANEOUS);
+	}
+			
+	public Entry createNewEntry(char type, double amount, String shortCode,
+			String description, char status, Sheet sheet, EntryCategory entryCategory)
 			throws EntryAlreadyExistsException {
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -71,7 +76,7 @@ public class EntryDAOImpl implements EntryDAO {
 				ObjectUtils.getEntryKeyId(sheet.getKey(), ++maxSeqIx));
 
 		Entry entry = new Entry(key, maxSeqIx, type, amount, shortCode,
-				description, status);
+				description, status, (entryCategory == null) ? EntryCategory.OTHERS_MISCELANEOUS.getLabel(): entryCategory.getLabel());
 
 		entry.setCreatedOn(Calendar.getInstance().getTime());
 		pm.makePersistent(entry);
@@ -139,8 +144,7 @@ public class EntryDAOImpl implements EntryDAO {
 
 		if (uniqueEntity == null) {
 			throw new EntryNotFoundException(
-					String.format(
-							"Entry not found in the database with sheet %s and sequence index %d",
+					String.format("Entry not found in the database with sheet %s and sequence index %d",
 							sheet.getKey().getName(), sequenceIndex));
 		}
 		return prepareEntry(uniqueEntity);
@@ -162,6 +166,10 @@ public class EntryDAOImpl implements EntryDAO {
 			if (ObjectUtils.isNotNullAndNotEmpty(entity.getProperty("lastUpdatedOn"))) {
 				entry.setLastUpdatedOn((java.util.Date)entity.getProperty("lastUpdatedOn"));
 			}
+			if (ObjectUtils.isNullOrEmpty(entity.getProperty("category"))) {
+				entry.setCategory(EntryCategory.OTHERS_MISCELANEOUS.getLabel());
+			}
+			
 			entriesList.add(entry);
 		}
 		return entriesList;
@@ -177,13 +185,23 @@ public class EntryDAOImpl implements EntryDAO {
 				NumUtil.getDoubleValue(String.valueOf(entity.getProperty("amount")),
 						-1), String.valueOf(entity.getProperty("shortCode")), String.valueOf(entity
 						.getProperty("description")), Character.valueOf((char)NumUtil.getIntValue(entity
-						.getProperty("status"), -1)));
+						.getProperty("status"), -1)), String.valueOf(entity.getProperty("category")));
 		try {
 			entry.setSheet(sheetDAO.getSheet(entity.getKey().getParent()));
 		} catch (SheetNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if (ObjectUtils.isNullOrEmpty(entity.getProperty("category"))) {
+			entry.setCategory(EntryCategory.OTHERS_MISCELANEOUS.getLabel());
+		}
 		return entry;
+	}
+
+
+	@Override
+	public void setEntryCategory(Entry entry, EntryCategory entryCategory) {
+		entry.setCategory(entryCategory.getLabel());
+		updateEntry(entry);
 	}
 }

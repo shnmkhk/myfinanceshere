@@ -264,7 +264,7 @@ ul.horizontal-list li.header-two {
 	font-size: 1.3em;
 	line-height: 2em;
 	vertical-align: top;
-	padding: 2px;
+	padding: 3px 5px;
 }
 
 ul.horizontal-list li.header-three {
@@ -361,6 +361,10 @@ a.no-underline {
 	text-align: left;
 }
 
+.style-class-income, .style-class-expense {
+	vertical-align: middle;	
+}
+	
 .style-class-income {
 	font-weight: bold;
 	font-style: italic;
@@ -448,4 +452,38 @@ div.body-enclosing-container {
 
 form div {
 	padding: 3px;	
+}
+
+span.expense-label span.category, span.income-label span.category{
+	font-weight: bold;
+	color: #FFFFFF; 
+	padding: 3px; 
+	border-radius: 5px; 
+}
+
+span.expense-label span.category
+{
+	background-color: #3373a5;
+	font-size: small;
+}
+
+span.income-label span.category
+{
+	background-color: #74b042;
+	font-size: small; 
+}
+
+div.entry-label-full {
+	vertical-align: middle;
+	padding: 3px 0px; 
+}
+
+select {
+	height: 30px;
+	background-color: #FFFFFF;
+	border: 2px solid gray;
+}
+
+select.rounded-corners {
+	border-radius: 5px;
 }

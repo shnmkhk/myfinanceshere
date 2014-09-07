@@ -40,13 +40,14 @@ var ENTRY_PROP_AMOUNT = "amount";
 var ENTRY_PROP_SHORTCODE = "shortCode";
 var ENTRY_PROP_DESCR = "descr";
 var ENTRY_PROP_TYPE = "type";
+var ENTRY_PROP_CATEGORY = "category";
 
-function Entry(type, descr, shortCode, amount) {
+function Entry(type, descr, shortCode, amount, category) {
 	  this.type = type;
 	  this.descr = descr;
 	  this.shortCode = shortCode;
 	  this.amount = amount;
-	  
+	  this.category = category;
 }
 
 Entry.prototype.toString = function()
@@ -55,8 +56,9 @@ Entry.prototype.toString = function()
   		"\""+ENTRY_PROP_TYPE+"\":\""+this.type+"\"," +
   		"\""+ENTRY_PROP_SHORTCODE+"\":\""+this.shortCode+"\"," +
   		"\""+ENTRY_PROP_DESCR+"\":\""+this.descr+"\"," +
-  		"\""+ENTRY_PROP_AMOUNT+"\":\""+this.amount+"\"" +
-  				"}";
+  		"\""+ENTRY_PROP_AMOUNT+"\":\""+this.amount+"\"," +
+  		"\""+ENTRY_PROP_CATEGORY+"\":\""+this.category+"\"" +
+  		"}";
 };
 
 var ENTRY_PROP_SHEET_KEY_STR = "sheet_key_str";

@@ -1,14 +1,13 @@
 package org.rabbit.model;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 import javax.jdo.annotations.ForeignKey;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import org.rabbit.common.EntryCategory;
 import org.rabbit.services.dwr.vo.BaseAbstractVO;
 import org.rabbit.services.dwr.vo.EntryVO;
 import org.rabbit.services.dwr.vo.SheetVO;
@@ -42,19 +41,23 @@ public class Entry extends BaseEntity implements Serializable {
 
 	@ForeignKey
 	private Sheet sheet;
+	
+	@Persistent 
+	private String category;
 
 	public Entry(int sequenceIndex, char type, double amount, String shortCode,
-			String description, char status) {
+			String description, char status, String category) {
 		this.sequenceIndex = sequenceIndex;
 		this.type = type;
 		this.amount = amount;
 		this.shortCode = shortCode;
 		this.description = description;
 		this.status = status;
+		this.category = category;
 	}
 
 	public Entry(Key key, int sequenceIndex, char type, double amount,
-			String shortCode, String description, char status) {
+			String shortCode, String description, char status, String category) {
 		super();
 		this.key = key;
 		this.sequenceIndex = sequenceIndex;
@@ -63,6 +66,7 @@ public class Entry extends BaseEntity implements Serializable {
 		this.shortCode = shortCode;
 		this.description = description;
 		this.status = status;
+		this.category = category;
 	}
 
 	/**
@@ -181,11 +185,19 @@ public class Entry extends BaseEntity implements Serializable {
 	}
 
 	public String getTypeStr() {
+		final StringBuffer sb = new StringBuffer();
+		sb.append("&nbsp;<span ");
 		if (type == 'I') {
-			return "<span style='color: #74b042; font-weight: bold;'><small>Income</small></span>" + ObjectUtils.getSimpleDate(getCreatedOn());
+			sb.append("class=\"income-label\"");
 		} else {
-			return "<span style='color: #3373a5; font-weight: bold;'><small>Expense</small></span>" + ObjectUtils.getSimpleDate(getCreatedOn());
+			sb.append("class=\"expense-label\"");
 		}
+		sb.append(">");
+		sb.append("<span class=\"category\">").append(getCategory()).append("</span>");
+		sb.append("<br/>&nbsp;");
+		sb.append(ObjectUtils.getSimpleDate(getCreatedOn()));
+		sb.append("</span>");
+		return sb.toString();
 	}
 
 	public double getSignedAmount() {
@@ -207,6 +219,14 @@ public class Entry extends BaseEntity implements Serializable {
 	public String getViewFormatAmount() {
 		return TextUtil.nf.format(amount);
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	private EntryVO entryVO = null;
 
@@ -226,7 +246,8 @@ public class Entry extends BaseEntity implements Serializable {
 		entryVO.setParentSheetVO((SheetVO) sheet.getVO());
 		entryVO.setSeqIx(String.valueOf(sequenceIndex));
 		entryVO.setShortCode(shortCode);
-
+		entryVO.setEntryCategory(category);
+		
 		return entryVO;
 	}
 }
