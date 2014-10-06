@@ -33,7 +33,6 @@
 			} else {
 				$.ajax({
 						url:"/ajax/sa/?ref=Home#content",
-						timeout: 5000,
 						success: function(data) {
 							hideAll();
 							$("#list_sheets").html(data);
@@ -56,7 +55,6 @@
 				$("body").addClass("loading");
 				$.ajax({
 					url: "/ajax/as.jsp#content", 
-					timeout: 5000,
 					success: function(data) {
 						hideAll();
 						$("#add_a_sheet").html(data);
@@ -86,7 +84,6 @@
 				$("body").addClass("loading");
 				$.ajax({
 					url: urlToLoad, 
-					timeout: 5000,
 					success: function(data) {
 						hideAll();
 						$("#list_entries").html(data);
@@ -116,7 +113,6 @@
 				$("body").addClass("loading");
 				$.ajax({
 					url: "/ajax/mae.jsp#content",
-					timeout: 5000,
 					success: function(data) {
 						hideAll();
 						resetAddEntriesFields();
