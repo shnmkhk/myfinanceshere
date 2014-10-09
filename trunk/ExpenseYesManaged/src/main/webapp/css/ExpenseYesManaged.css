@@ -95,14 +95,14 @@ table.form-background tbody {
 	text-align: center;
 	background: rgba(0, 0, 0, 0.6);
 	border: 1px solid gray;
-	
 	background: transparent\9; /* clear current background for ie */
-	zoom:1; /* required for the filters */
-	
+	zoom: 1; /* required for the filters */
 	/* For IE 5.5 - 7*/
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000, endColorstr=#77000000);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000,
+		endColorstr=#77000000);
 	/* For IE 8*/
-	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000, endColorstr=#77000000)";
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#77000000, endColorstr=#77000000)";
 }
 
 .rabbit-common-align-left {
@@ -163,7 +163,7 @@ table.form-container {
 	width: 100%;
 }
 
-table.form-container,table.form-container td {
+table.form-container, table.form-container td {
 	padding: 5px;
 }
 
@@ -202,9 +202,11 @@ input[type="text"]:focus {
 	border: 2px solid orange;
 	border-radius: 5px;
 }
+
 p {
 	line-height: normal;
 }
+
 p span {
 	padding: 5px 0px;
 	margin: 5px 0px;
@@ -215,7 +217,6 @@ p span.separator {
 	font-style: normal;
 	color: gray;
 }
-
 
 body {
 	/*font-family: Tahoma, Geneva, sans-serif;*/
@@ -246,7 +247,6 @@ ul.horizontal-list {
 *+html ul.horizontal-list li {
 	display: inline;
 } /* for IE 7 */
-
 ul.horizontal-list li.header-one {
 	color: orange;
 	background-color: #FFFFFF;
@@ -300,7 +300,7 @@ div.header-text {
 	font-weight: bold;
 }
 
-span.pagebanner,span.pagelinks {
+span.pagebanner, span.pagelinks {
 	width: auto;
 }
 
@@ -312,6 +312,8 @@ div.sheet-container {
 	vertical-align: middle;
 	max-width: 4em;
 	border-radius: 2px;
+	z-index: 9999;
+	float: left;
 }
 
 div.sheet-container div.optional-title {
@@ -362,9 +364,9 @@ a.no-underline {
 }
 
 .style-class-income, .style-class-expense {
-	vertical-align: middle;	
+	vertical-align: middle;
 }
-	
+
 .style-class-income {
 	font-weight: bold;
 	font-style: italic;
@@ -411,11 +413,17 @@ div.body-enclosing-container {
 }
 
 .calendar-icon-li {
-	display: inline-table; float: left; margin: 2px; width: 50px;
+	display: inline-table;
+	float: left;
+	margin: 2px;
+	width: 50px;
 }
 
 .calendar-icon-ul {
-	list-style-type: none; text-align: left; display: inline-block; word-wrap: break-word;
+	list-style-type: none;
+	text-align: left;
+	display: inline-block;
+	word-wrap: break-word;
 }
 
 /* Start by setting display:none to make this hidden.
@@ -424,58 +432,53 @@ div.body-enclosing-container {
    speak for themselves. Background we set to 80% white with
    our animation centered, and no-repeating */
 .modal {
-    display:    none;
-    position:   fixed;
-    z-index:    1000;
-    top:        0;
-    left:       0;
-    height:     100%;
-    width:      100%;
-    background: rgba( 255, 255, 255, .8 ) 
-                url('/images/FhHRx.gif') 
-                50% 50% 
-                no-repeat;
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(255, 255, 255, .8) url('/images/FhHRx.gif') 50% 50%
+		no-repeat;
 }
 
 /* When the body has the loading class, we turn
    the scrollbar off with overflow:hidden */
 .loading {
-    overflow: hidden;   
+	overflow: hidden;
 }
 
 /* Anytime the body has the loading class, our
    modal element will be visible */
 .loading .modal {
-    display: block;
+	display: block;
 }
-
 
 form div {
-	padding: 3px;	
+	padding: 3px;
 }
 
-span.expense-label span.category, span.income-label span.category{
+span.expense-label span.category, span.income-label span.category {
 	font-weight: bold;
-	color: #FFFFFF; 
-	padding: 3px; 
-	border-radius: 5px; 
+	color: #FFFFFF;
+	padding: 3px;
+	border-radius: 5px;
 }
 
-span.expense-label span.category
-{
+span.expense-label span.category {
 	background-color: #3373a5;
 	font-size: small;
 }
 
-span.income-label span.category
-{
+span.income-label span.category {
 	background-color: #74b042;
-	font-size: small; 
+	font-size: small;
 }
 
 div.entry-label-full {
 	vertical-align: middle;
-	padding: 3px 0px; 
+	padding: 3px 0px;
 }
 
 select {
@@ -486,4 +489,23 @@ select {
 
 select.rounded-corners {
 	border-radius: 5px;
+}
+
+span.entry-counter {
+	width: 30px;
+	height: 20px;
+	text-align: center;
+	-moz-border-radius: 70px;
+	-webkit-border-radius: 70px;
+	border-radius: 70px;
+	padding: 0px;
+	position: relative;
+	right: -10px;
+	top: 10px;
+	float: right;
+	z-index: 10;
+	background-color: rgba(47,47,47,0.7);
+	color: white;
+	margin: 0px;
+	
 }
