@@ -22,15 +22,15 @@
 <link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css"></link>
 
-<script type="text/javascript" src="<c:url value='/scripts/jquery-1.10.2.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/jquery.min.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/jquery.mobile-1.4.2.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/jquery.mobile-1.4.3.min.js'/>"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="<c:url value='/scripts/bootstrap.min.js'/>"></script>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -113,12 +113,4 @@
 	</div>
 	<div class="modal"></div>
 </body>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("body").addClass("loading");
-		showSheetListPage();
-	});
-</script>
-
 </html>
