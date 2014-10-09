@@ -33,6 +33,7 @@
 			} else {
 				$.ajax({
 						url:"/ajax/sa/?ref=Home#content",
+						timeout: 15000,
 						success: function(data) {
 							hideAll();
 							$("#list_sheets").html(data);
@@ -40,7 +41,7 @@
 							listSheetsLoaded = true;
 							$("body").removeClass("loading");
 						},
-						fail: failureHandler
+						timeout: failureHandler
 				});
 			}
 		}
@@ -55,6 +56,7 @@
 				$("body").addClass("loading");
 				$.ajax({
 					url: "/ajax/as.jsp#content", 
+					timeout: 15000,
 					success: function(data) {
 						hideAll();
 						$("#add_a_sheet").html(data);
@@ -63,7 +65,7 @@
 						$("body").removeClass("loading");
 						clearAddASheetInputs();
 					},
-					fail: failureHandler
+					timeout: failureHandler
 				});
 			}
 		}
@@ -84,6 +86,7 @@
 				$("body").addClass("loading");
 				$.ajax({
 					url: urlToLoad, 
+					timeout: 15000,
 					success: function(data) {
 						hideAll();
 						$("#list_entries").html(data);
@@ -93,7 +96,7 @@
 						$("span.pagelinks a").attr('data-ajax', 'false');
 						$("table#entryRow a").attr('data-ajax', 'false');
 					},
-					fail: failureHandler
+					timeout: failureHandler
 				});
 			}
 		}
@@ -113,6 +116,7 @@
 				$("body").addClass("loading");
 				$.ajax({
 					url: "/ajax/mae.jsp#content",
+					timeout: 15000,
 					success: function(data) {
 						hideAll();
 						resetAddEntriesFields();
@@ -121,7 +125,7 @@
 						addAnEntryLoaded = true;
 						$("body").removeClass("loading");
 					},
-					fail: failureHandler
+					timeout: failureHandler
 				});
 			}
 		}
@@ -147,7 +151,7 @@
 				$("body").removeClass("loading");
 				var noIssues = processResponse(response);
 				if (noIssues) {
-					showSheetListPage();
+					if (showSheetListPage != undefined) showSheetListPage();
 				}
 			});
 		}
@@ -217,4 +221,13 @@
 		<div id="list_entries"></div>
 		<div id="add_entries"></div>
 	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("body").addClass("loading");
+			if (showSheetListPage) {
+				showSheetListPage();
+			}
+		});
+	</script>	
 </body>
