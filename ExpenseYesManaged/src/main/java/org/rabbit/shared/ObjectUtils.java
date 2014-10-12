@@ -142,7 +142,7 @@ public class ObjectUtils {
 		if (isNullOrEmpty(date)){
 			return RequestUtil.EMPTY_STR;
 		}
-		return " (" + simplestDf.format(date) + ")";
+		return "(" + simplestDf.format(date) + ")";
 	}
 	private static final DateFormat simplestDf = new SimpleDateFormat("MMM dd, yyyy");
 	/**
