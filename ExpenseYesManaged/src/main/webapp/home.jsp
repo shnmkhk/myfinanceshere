@@ -191,8 +191,8 @@
 			});
 		}
 
-		function deleteEntry(sheetKeyStr, sequenceIndex) {
-			var r = confirm("Are you sure you want to delete this entry ?");
+		function deleteEntry(arg1, arg2, arg3, arg4, sheetKeyStr, sequenceIndex) {
+			var r = confirm("Are you sure you want to delete this entry ?\n\n\t" + arg1 + "\n\t" + arg2 + "\n\t" + arg3 + "\n\t" + arg4);
 			if (r == true) {
 				var entriesArr = "{\"sheet_key_str\":\"" + sheetKeyStr
 				+ "\", \"entries\":[";
