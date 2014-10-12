@@ -23,6 +23,10 @@
 	<input type="hidden" id="sid" name="sid" value="${param.sid}" />
 	<input type="hidden" id="multi" name="form-type" value="multi"/>
 	<input type="hidden" id="no-of-entries" name="no-of-entries" value="${noOfEntries}"/>
+	<div style="width: 100%; text-align: right; ">
+		<input type="submit" class="submit" name="submit" value="Add" onclick="addMultipleEntries();return false;"/> 
+		<input type="submit" class="cancel" name="submit" value="Cancel" class="cancel" onclick="showListEntriesPage(); return false;"/>
+	</div>
 	<hr />
 	<c:forEach var="index" begin="1" end="${noOfEntries}" step="1">
 		<div>
