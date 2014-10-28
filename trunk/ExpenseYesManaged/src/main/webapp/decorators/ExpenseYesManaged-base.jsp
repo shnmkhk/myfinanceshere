@@ -26,6 +26,7 @@
 <script type='text/javascript' src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
+<script type='text/javascript' src="<c:url value='/dwr/util.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/jquery.mobile-1.4.3.min.js'/>"></script>

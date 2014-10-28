@@ -1,8 +1,7 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
-	prefix="decorator"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 	
 <div style="text-align: right; float: right; width: 100%; padding: 5px 0px 10px;" id="ajxDspId">
 	<display:table name="${sessionScope.entriesOfSelectedSheet}"
