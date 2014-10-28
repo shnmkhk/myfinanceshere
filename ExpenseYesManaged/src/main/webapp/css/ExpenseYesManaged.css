@@ -247,6 +247,7 @@ ul.horizontal-list {
 *+html ul.horizontal-list li {
 	display: inline;
 } /* for IE 7 */
+
 ul.horizontal-list li.header-one {
 	color: orange;
 	background-color: #FFFFFF;
@@ -265,6 +266,9 @@ ul.horizontal-list li.header-two {
 	line-height: 2em;
 	vertical-align: top;
 	padding: 3px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 ul.horizontal-list li.header-three {
@@ -307,13 +311,17 @@ span.pagebanner, span.pagelinks {
 div.sheet-container {
 	min-width: 4em;
 	background-color: #FFFFFF;
-	border: 1px solid black;
+	border: 2px solid gray;
 	text-align: center;
 	vertical-align: middle;
 	max-width: 4em;
 	border-radius: 2px;
 	z-index: 9999;
 	float: left;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
 }
 
 div.sheet-container div.optional-title {
@@ -328,6 +336,14 @@ div.sheet-container div.optional-title {
 	padding: 2px;
 }
 
+div.sheet-container div.sheet-container-month, div.sheet-container div.sheet-container-year {
+	-webkit-border-bottom-right-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+} 
 div.sheet-container div.sheet-container-month {
 	color: orange;
 	background-color: #FFFFFF;
@@ -337,6 +353,13 @@ div.sheet-container div.sheet-container-month {
 	line-height: 2em;
 	vertical-align: top;
 	height: 70%;
+	
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
 }
 
 div.sheet-container div.sheet-container-year {
@@ -347,7 +370,7 @@ div.sheet-container div.sheet-container-year {
 	line-height: 1.5em;
 	vertical-align: middle;
 	height: 30%;
-	border-top: 1px solid #666666;
+	border-top: 2px solid gray;
 	font-weight: bold;
 }
 
@@ -508,4 +531,10 @@ span.entry-counter {
 	color: white;
 	margin: 0px;
 	
+}
+
+#chartdiv {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
 }
