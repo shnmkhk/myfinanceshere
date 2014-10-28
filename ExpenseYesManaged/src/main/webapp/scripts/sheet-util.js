@@ -81,3 +81,59 @@ function showLoader(linkObj, msg) {
 	msg = (msg == undefined || msg == null) ? "" : msg;
 	linkObj.innerHTML = "Loading" + msg + "..";
 }
+
+
+var ENTRY_TYPE_INCOME = 'I';
+var ENTRY_TYPE_EXPENSE = 'E';
+
+function EntryCategory (type, text, value) {
+	this.type = type;
+	this.text = text;
+	this.value = value;	
+}
+
+EntryCategory.prototype.isIncome = function () {
+	if (this.type == ENTRY_TYPE_INCOME) {
+		return true;
+	} 
+	return false;
+}
+
+EntryCategory.prototype.isExpense = function () {
+	if (this.type == ENTRY_TYPE_EXPENSE) {
+		return true;
+	} 
+	return false;
+}
+
+
+var EntryCategoryList = [];
+
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "Salary", "Salary"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "House Rent", "House Rent"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "Other/ Miscelaneous", "Other/ Miscelaneous"));
+
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Food", "Food"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "House Rent", "House Rent"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Clothing", "Clothing"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Entertainment", "Entertainment"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Household Goods", "Household Goods"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Groceries", "Groceries"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Travel", "Travel"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Electricity", "Electricity"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Internet", "Internet"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Mobile Phone Recharges/ Bills", "Mobile Phone Recharges/ Bills"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Facilities", "Facilities"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "House Renovation", "House Renovation"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Others/ Miscelaneous", "Others/ Miscelaneous"));
+
+function loadEntryCategories (select_id, entry_type) {
+	DWRUtil.removeAllOptions(select_id);
+	var optionsArr = [];
+	for (var entryCategory in EntryCategoryList) {
+		if (entry_type === EntryCategoryList[entryCategory].type) {
+			optionsArr.push(EntryCategoryList[entryCategory].text);
+		}
+	}
+	DWRUtil.addOptions(select_id, optionsArr);
+}

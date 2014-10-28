@@ -124,6 +124,9 @@
 						$("#add_entries").show();
 						addAnEntryLoaded = true;
 						$("body").removeClass("loading");
+						loadEntryCategories('category_1', 'I');
+						loadEntryCategories('category_2', 'I');
+						loadEntryCategories('category_3', 'I');
 					},
 					timeout: failureHandler
 				});
