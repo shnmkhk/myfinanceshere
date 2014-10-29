@@ -8,9 +8,12 @@
 		class="Mars" requestURI="/ajax/display.le.jsp#content"
 		id="entryRow" decorator="org.rabbit.decorators.EntryDecorator"
 		style="text-align: right;" pagesize="5" requestURIcontext="true">
+		<display:column property="icons" title="#"
+			class="align-right"
+			style="width: 10%"/>
 		<display:column property="hyperlink" title="Label"
 			class="align-right"
-			style="width: 85%"/>
+			style="width: 75%"/>
 		<display:column property="amount" title="Amount"
 			class="align-right ${entryRow.styleClass}"
 			format="{0,number,#,###.00}" style="width: 15%"/>
