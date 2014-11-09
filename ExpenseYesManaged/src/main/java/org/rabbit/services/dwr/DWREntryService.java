@@ -11,4 +11,5 @@ import org.rabbit.services.dwr.vo.EntryResponseWrapper;
 public interface DWREntryService {
 	EntryResponseWrapper addMultipleEntries(String entriesInJSON);
 	EntryResponseWrapper deleteSelectedEntries(String entriesInJSON);
+	EntryResponseWrapper getPiChartDataForGivenSheet(String sheetIdJSON);
 }

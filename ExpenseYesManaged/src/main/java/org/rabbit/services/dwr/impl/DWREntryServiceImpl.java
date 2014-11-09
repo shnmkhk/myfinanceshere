@@ -146,4 +146,9 @@ public class DWREntryServiceImpl implements DWREntryService {
 
 		return entryResponseWrapper;
 	}
+
+	public EntryResponseWrapper getPiChartDataForGivenSheet(String sheetIdJSON) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

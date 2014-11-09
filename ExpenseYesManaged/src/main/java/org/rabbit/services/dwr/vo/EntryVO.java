@@ -35,7 +35,7 @@ public class EntryVO extends BaseAbstractVO {
 
 	public String getEntryCategory() {
 		if (ObjectUtils.isNullOrEmpty(entryCategory)) {
-			return EntryCategory.OTHERS_MISCELANEOUS.getLabel();
+			return EntryCategory.DEFAULT_CATEGORY;
 		}
 		return entryCategory;
 	}

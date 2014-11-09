@@ -10,10 +10,10 @@
 		style="text-align: right;" pagesize="5" requestURIcontext="true">
 		<display:column property="icons" title="#"
 			class="align-right"
-			style="width: 10%"/>
+			style="width: 5%"/>
 		<display:column property="hyperlink" title="Label"
 			class="align-right"
-			style="width: 75%"/>
+			style="width: 80%"/>
 		<display:column property="amount" title="Amount"
 			class="align-right ${entryRow.styleClass}"
 			format="{0,number,#,###.00}" style="width: 15%"/>
