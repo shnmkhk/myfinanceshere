@@ -18,24 +18,49 @@ import com.google.appengine.labs.repackaged.org.json.JSONException;
 public class EntryDecorator extends TableDecorator {
 
 	private static StringBuffer sb = new StringBuffer();
+
 	public String getHyperlink() throws JSONException {
 		sb.setLength(0);
 		Entry entry = (Entry) getCurrentRowObject();
-		String sheetKeyStr = entry.getSheet().getKeyStr();
-		int sequenceNumber = entry.getSequenceIndex();
-		return "<div class=\"entry-label-full\"><big>"
-				+ entry.getShortCode()
-				+ "</big>&nbsp;<a href=\"javascript:void(0);\" onclick=\"deleteEntry('"+esc(entry.getShortCode())+"', '"+entry.getAmount()+"', '"+esc(entry.getCategory())+"', '"+esc(ObjectUtils.getSimpleDate(entry.getCreatedOn()))+"', '"
-				+ sheetKeyStr + "', '" + sequenceNumber
-				+ "')\" data-ajax=\"false'\">[Del]</a>&nbsp;<br/>"
-				+ entry.getTypeStr() + "</div>";
+
+		sb.append("<div class=\"entry-label-full\">");
+		sb.append("<big>");
+		sb.append(entry.getShortCode());
+		sb.append("</big>&nbsp;<br/>");
+		sb.append(entry.getTypeStr());
+		sb.append("</div>");
+		
+		return sb.toString();
 	}
 
 	public String esc(String inputStr) {
 		inputStr = inputStr.replaceAll("'", "\\\\'");
 		inputStr = inputStr.replaceAll("\"", "\\\\\"");
-	    
+
 		return inputStr;
 	}
 	
+	public String getIcons() {
+		sb.setLength(0);
+		Entry entry = (Entry) getCurrentRowObject();
+		String sheetKeyStr = entry.getSheet().getKeyStr();
+		int sequenceNumber = entry.getSequenceIndex();
+
+		sb.append("<a href=\"javascript:void(0);\" onclick=\"deleteEntry('");
+		sb.append(esc(entry.getShortCode()));
+		sb.append("', '");
+		sb.append(entry.getAmount());
+		sb.append("', '");
+		sb.append(esc(entry.getCategory()));
+		sb.append("', '");
+		sb.append(esc(ObjectUtils.getSimpleDate(entry.getCreatedOn())));
+		sb.append("', '");
+		sb.append(sheetKeyStr);
+		sb.append("', '");
+		sb.append(sequenceNumber);
+		sb.append("')\" data-ajax=\"false'\"><img src=\"/images/delete-icon.png\" width=\"16\" height=\"16\"/></a>&nbsp;<br/>");
+
+		return sb.toString();
+	}
+
 }

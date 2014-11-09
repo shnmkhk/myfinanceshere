@@ -78,10 +78,7 @@
 			} else {
 				loadedPrevSheetURI = urlToLoad;
 				if (successMsg) {
-					$("#info_message")
-							.html(
-									"<p><span><a href=\"javascript:void()\" onclick=\"$('#info_message').remove()\">X</a></span></p>"
-											+ successMsg);
+					$("#info_message").html("<p><span><a href=\"javascript:void()\" onclick=\"$('#info_message').remove()\">X</a></span></p>" + successMsg);
 				}
 				$("body").addClass("loading");
 				$.ajax({

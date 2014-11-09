@@ -1,16 +1,11 @@
 package org.rabbit.common;
 
-import org.rabbit.shared.TextUtil;
+import org.apache.commons.lang.StringUtils;
 
-public enum EntryCategory {
 
-	SALARY("Salary"), FOOD("Food"), TRANSPORT("Transport"), CLOTHING("Clothing"), ENTERTAINMENT(
-			"Entertainment"), HOUSE_RENT("House Rent"), HOUSEHOLD_GOODS(
-			"Household Goods"), GROCERIES("Groceries"), TRAVEL("Travel"), ELECTRICITY(
-			"Electricity"), INTERNET("Internet"), MOBILE_PHONE_RECHARGES_AND_BILLS(
-			"Mobile Phone Recharges/ Bills"), FACILITIES("Facilities"), HOUSE_RENOVATION(
-			"House Renovation"), OTHERS_MISCELANEOUS ("Others/ Miscelaneous");
+public class EntryCategory {
 
+	public static final String DEFAULT_CATEGORY = "Other/ Miscelaneous"; 
 	private String label;
 	
 	public String getLabel() {
@@ -21,15 +16,10 @@ public enum EntryCategory {
 		this.label = label;
 	}
 	
-	public static EntryCategory getCategory (String label) {
-		if (TextUtil.getStringValue(label).length() == 0) {
-			return EntryCategory.OTHERS_MISCELANEOUS;
+	public static EntryCategory getCategory(String label) {
+		if (StringUtils.isEmpty(label)) { 
+			return new EntryCategory(DEFAULT_CATEGORY);
 		}
-		for (EntryCategory category: values()) {
-			if  (label.equals(category.label)) {
-				return category;
-			}
-		}
-		return EntryCategory.OTHERS_MISCELANEOUS;
+		return new EntryCategory(label);
 	}
 }

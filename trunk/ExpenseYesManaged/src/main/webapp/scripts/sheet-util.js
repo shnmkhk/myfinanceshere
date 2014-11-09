@@ -111,7 +111,7 @@ var EntryCategoryList = [];
 
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "Salary", "Salary"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "House Rent", "House Rent"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "Other/ Miscelaneous", "Other/ Miscelaneous"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "Other Sources", "Other Sources"));
 
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Food", "Food"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "House Rent", "House Rent"));
@@ -119,12 +119,18 @@ EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Clothing", "Clothi
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Entertainment", "Entertainment"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Household Goods", "Household Goods"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Groceries", "Groceries"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Travel", "Travel"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Commuting", "Commuting"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Electricity", "Electricity"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Internet", "Internet"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Mobile Phone Recharges/ Bills", "Mobile Phone Recharges/ Bills"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Facilities", "Facilities"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "House Renovation", "House Renovation"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Medicines", "Medicines"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Newspaper Subscription", "Newspaper Subscription"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Cable/ DTH ", "Cable/ DTH"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Vegetables", "Vegetables"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Eggs/ Meat", "Eggs/ Meat"));
+EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Emergency/ Travel", "Emergency/ Travel"));
 EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Others/ Miscelaneous", "Others/ Miscelaneous"));
 
 function loadEntryCategories (select_id, entry_type) {

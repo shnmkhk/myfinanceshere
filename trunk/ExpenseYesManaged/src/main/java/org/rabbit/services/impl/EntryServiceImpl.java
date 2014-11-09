@@ -138,7 +138,7 @@ public class EntryServiceImpl implements EntryService {
 		String str1 = String.valueOf(paramMap.get("sid"));
 		Sheet localSheet = null;
 		char entryType = ' ';
-		String entryCategory = EntryCategory.OTHERS_MISCELANEOUS.getLabel();
+		String entryCategory = EntryCategory.DEFAULT_CATEGORY;
 		String shortCode = null;
 		String description = null;
 		double amount = 0.0D;
@@ -260,6 +260,6 @@ public class EntryServiceImpl implements EntryService {
 	public Entry addANewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet parentSheet)
 			throws EntryAlreadyExistsException {
-		return addANewEntry(type, amount, shortCode, description, status, parentSheet, EntryCategory.OTHERS_MISCELANEOUS.getLabel());
+		return addANewEntry(type, amount, shortCode, description, status, parentSheet, EntryCategory.DEFAULT_CATEGORY);
 	}
 }

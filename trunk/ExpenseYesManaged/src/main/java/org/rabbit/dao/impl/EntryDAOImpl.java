@@ -52,7 +52,7 @@ public class EntryDAOImpl implements EntryDAO {
 	public Entry createNewEntry(char type, double amount, String shortCode,
 			String description, char status, Sheet sheet)
 			throws EntryAlreadyExistsException {
-		 return createNewEntry(type, amount, shortCode, description, status, sheet, EntryCategory.OTHERS_MISCELANEOUS);
+		 return createNewEntry(type, amount, shortCode, description, status, sheet, EntryCategory.getCategory(null));
 	}
 			
 	public Entry createNewEntry(char type, double amount, String shortCode,
@@ -76,7 +76,7 @@ public class EntryDAOImpl implements EntryDAO {
 				ObjectUtils.getEntryKeyId(sheet.getKey(), ++maxSeqIx));
 
 		Entry entry = new Entry(key, maxSeqIx, type, amount, shortCode,
-				description, status, (entryCategory == null) ? EntryCategory.OTHERS_MISCELANEOUS.getLabel(): entryCategory.getLabel());
+				description, status, (entryCategory == null) ? EntryCategory.DEFAULT_CATEGORY: entryCategory.getLabel());
 
 		entry.setCreatedOn(Calendar.getInstance().getTime());
 		pm.makePersistent(entry);
@@ -167,7 +167,7 @@ public class EntryDAOImpl implements EntryDAO {
 				entry.setLastUpdatedOn((java.util.Date)entity.getProperty("lastUpdatedOn"));
 			}
 			if (ObjectUtils.isNullOrEmpty(entity.getProperty("category"))) {
-				entry.setCategory(EntryCategory.OTHERS_MISCELANEOUS.getLabel());
+				entry.setCategory(EntryCategory.DEFAULT_CATEGORY);
 			}
 			
 			entriesList.add(entry);
@@ -193,7 +193,7 @@ public class EntryDAOImpl implements EntryDAO {
 			e.printStackTrace();
 		}
 		if (ObjectUtils.isNullOrEmpty(entity.getProperty("category"))) {
-			entry.setCategory(EntryCategory.OTHERS_MISCELANEOUS.getLabel());
+			entry.setCategory(EntryCategory.DEFAULT_CATEGORY);
 		}
 		return entry;
 	}
