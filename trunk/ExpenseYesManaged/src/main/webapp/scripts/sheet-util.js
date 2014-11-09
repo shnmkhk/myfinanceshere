@@ -82,7 +82,6 @@ function showLoader(linkObj, msg) {
 	linkObj.innerHTML = "Loading" + msg + "..";
 }
 
-
 var ENTRY_TYPE_INCOME = 'I';
 var ENTRY_TYPE_EXPENSE = 'E';
 
@@ -109,37 +108,59 @@ EntryCategory.prototype.isExpense = function () {
 
 var EntryCategoryList = [];
 
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "Salary", "Salary"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "House Rent", "House Rent"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_INCOME, "Other Sources", "Other Sources"));
+var INCOME_CATEGORY_ARR = [ 'Salary', 'House Rent', 'Other Sources' ];
+var EXPENSE_CATEGORY_ARR = [ 'Food', 'House Rent', 'Clothing', 'Entertainment',
+		'Household Goods', 'Groceries', 'Commuting', 'Electricity', 'Internet',
+		'Mobile Phone Recharges/ Bills', 'Facilities', 'House Renovation',
+		'Medicines', 'Newspaper Subscription', 'Cable/ DTH ', 'Vegetables',
+		'Eggs/ Meat', 'Emergency/ Travel', 'Others/ Miscelaneous' ];
 
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Food", "Food"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "House Rent", "House Rent"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Clothing", "Clothing"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Entertainment", "Entertainment"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Household Goods", "Household Goods"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Groceries", "Groceries"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Commuting", "Commuting"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Electricity", "Electricity"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Internet", "Internet"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Mobile Phone Recharges/ Bills", "Mobile Phone Recharges/ Bills"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Facilities", "Facilities"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "House Renovation", "House Renovation"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Medicines", "Medicines"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Newspaper Subscription", "Newspaper Subscription"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Cable/ DTH ", "Cable/ DTH"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Vegetables", "Vegetables"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Eggs/ Meat", "Eggs/ Meat"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Emergency/ Travel", "Emergency/ Travel"));
-EntryCategoryList.push(new EntryCategory(ENTRY_TYPE_EXPENSE, "Others/ Miscelaneous", "Others/ Miscelaneous"));
-
-function loadEntryCategories (select_id, entry_type) {
-	DWRUtil.removeAllOptions(select_id);
-	var optionsArr = [];
-	for (var entryCategory in EntryCategoryList) {
-		if (entry_type === EntryCategoryList[entryCategory].type) {
-			optionsArr.push(EntryCategoryList[entryCategory].text);
+var INCOME_CATEGORY_OBJECTS = [];
+var EXPENSE_CATEGORY_OBJECTS = [];
+function loadEntryCategoryOptions() 
+{
+	if (INCOME_CATEGORY_OBJECTS.length == 0) {
+		for (var index in INCOME_CATEGORY_ARR) {
+			INCOME_CATEGORY_OBJECTS.push(new EntryCategory(ENTRY_TYPE_INCOME, INCOME_CATEGORY_ARR[index], INCOME_CATEGORY_ARR[index]));		
 		}
 	}
-	DWRUtil.addOptions(select_id, optionsArr);
+	if (EXPENSE_CATEGORY_OBJECTS.length == 0) {
+		for (var index in EXPENSE_CATEGORY_ARR) {
+			EXPENSE_CATEGORY_OBJECTS.push(new EntryCategory(ENTRY_TYPE_EXPENSE, EXPENSE_CATEGORY_ARR[index], EXPENSE_CATEGORY_ARR[index]));		
+		}	
+	}
+}
+
+function loadEntryCategories (select_index, entry_type, default_check_ix) {
+	var select_id = 'category_' + select_index;
+	DWRUtil.removeAllOptions(select_id);
+	if (entry_type === ENTRY_TYPE_INCOME) {
+		DWRUtil.addOptions(select_id, INCOME_CATEGORY_ARR);
+		autoFillShortCode(INCOME_CATEGORY_ARR[default_check_ix], select_index);
+		DWRUtil.setValue(select_id, INCOME_CATEGORY_ARR[default_check_ix]);
+	} else if (entry_type === ENTRY_TYPE_EXPENSE) {
+		DWRUtil.addOptions(select_id, EXPENSE_CATEGORY_ARR);
+		autoFillShortCode(EXPENSE_CATEGORY_ARR[default_check_ix], select_index);
+		DWRUtil.setValue(select_id, EXPENSE_CATEGORY_ARR[default_check_ix]);
+	} 
+}
+
+function contains (text, arr) {
+	if (Object.prototype.toString.call( arr ) === '[object Array]') {
+		for (var i in arr) {
+			if (text === arr[i]) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+function autoFillShortCode(selectedCategory, index) {
+	var availableShortCode = $("#short_code_" + index).val();
+	if (availableShortCode === "" || contains (availableShortCode, INCOME_CATEGORY_ARR) || 
+			contains (availableShortCode, EXPENSE_CATEGORY_ARR)) {
+		$("#short_code_" + index).val(selectedCategory);
+	}
 }

@@ -121,9 +121,9 @@
 						$("#add_entries").show();
 						addAnEntryLoaded = true;
 						$("body").removeClass("loading");
-						loadEntryCategories('category_1', 'I');
-						loadEntryCategories('category_2', 'I');
-						loadEntryCategories('category_3', 'I');
+						loadEntryCategories(1, 'E', 5);
+						loadEntryCategories(2, 'E', 5);
+						loadEntryCategories(3, 'E', 5);
 					},
 					timeout: failureHandler
 				});
@@ -227,6 +227,7 @@
 			$("body").addClass("loading");
 			if (showSheetListPage) {
 				showSheetListPage();
+				loadEntryCategoryOptions();
 			}
 		});
 	</script>	

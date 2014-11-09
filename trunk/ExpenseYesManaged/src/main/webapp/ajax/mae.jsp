@@ -33,18 +33,19 @@
 			<fieldset data-role="controlgroup" data-type="horizontal" data-theme="b">
 				<label style="float: left;">Type:&nbsp;&nbsp;</label>
 		        
-		        <input id="type_income_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="I" checked="checked" type="radio"  style="float: left;"  onclick="loadEntryCategories('category_<c:out value='${index}'/>', this.value);">
+		        <input id="type_income_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="I" type="radio"  style="float: left;"  onclick="loadEntryCategories('<c:out value='${index}'/>', this.value, 0);">
 		        <label for="type_income_<c:out value='${index}'/>" style="float: left;">&nbsp;Income&nbsp;</label>
 		        
-		        <input id="type_expense_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="E" type="radio" style="float: left;"   onclick="loadEntryCategories('category_<c:out value='${index}'/>', this.value);">
+		        <input id="type_expense_<c:out value='${index}'/>" name="type_<c:out value='${index}'/>" value="E" type="radio" style="float: left;"   checked="checked" onclick="loadEntryCategories('<c:out value='${index}'/>', this.value, 5);">
 		        <label for="type_expense_<c:out value='${index}'/>"  style="float: left;">&nbsp;Expense&nbsp;</label>
 		        
 	    	</fieldset>
 			<div> 
-				<input type="text" id="short_code_<c:out value='${index}'/>" name="shortCode_<c:out value='${index}'/>" maxlength="32" size="14" value="<c:out value='${sessionScope.INPUT_SHORT_CODE}'/>" placeholder="Eg. Grocery" alt="Label Eg. Grocery" title="Label Eg. Grocery"  class="entry_field"/>
 				<input type="text" id="amount_<c:out value='${index}'/>" name="amount_<c:out value='${index}'/>" maxlength="32" size="10" value="<c:out value='${sessionScope.INPUT_AMOUNT}'/>" placeholder="Eg. 8000" alt="Amount Eg. 8000" title="Amount Eg. 8000"  class="entry_field"/>
+				<input type="text" id="short_code_<c:out value='${index}'/>" name="shortCode_<c:out value='${index}'/>" maxlength="32" size="14" value="<c:out value='${sessionScope.INPUT_SHORT_CODE}'/>" placeholder="Eg. Grocery" alt="Label Eg. Grocery" title="Label Eg. Grocery"  class="entry_field"/>
 				<div  style="padding-top: 5px">
-					<select id="category_<c:out value='${index}'/>" name="category_<c:out value='${index}'/>" class="rounded-corners"></select>
+					<select id="category_<c:out value='${index}'/>" name="category_<c:out value='${index}'/>" class="rounded-corners" onchange="autoFillShortCode(this.value, '<c:out value='${index}'/>')"></select>
+					<span class="btn btn-default help-tooltip" data-toggle="tooltip" data-placement="top" title="Entry Category Eg. Groceries" style="font-weight: bold; background-color: orange; color: white; height: 30px" onclick="$(this).tooltip('show')">?</span>
 				</div>
 			</div>
 		</div>
