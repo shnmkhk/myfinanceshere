@@ -45,7 +45,7 @@
 				<input type="text" id="short_code_<c:out value='${index}'/>" name="shortCode_<c:out value='${index}'/>" maxlength="32" size="14" value="<c:out value='${sessionScope.INPUT_SHORT_CODE}'/>" placeholder="Eg. Grocery" alt="Label Eg. Grocery" title="Label Eg. Grocery"  class="entry_field"/>
 				<div  style="padding-top: 5px">
 					<select id="category_<c:out value='${index}'/>" name="category_<c:out value='${index}'/>" class="rounded-corners" onchange="autoFillShortCode(this.value, '<c:out value='${index}'/>')"></select>
-					<span class="btn btn-default help-tooltip" data-toggle="tooltip" data-placement="top" title="Entry Category Eg. Groceries" style="font-weight: bold; background-color: orange; color: white; height: 30px" onclick="$(this).tooltip('show')">?</span>
+					<span class="btn btn-default help-tooltip" data-toggle="tooltip" data-placement="top" title="Entry Category Eg. Groceries" style="font-weight: bold; background-color: orange; color: white; height: 30px" onclick="$(this).tooltip('show')" onblur="$(this).tooltip('hide')">?</span>
 				</div>
 			</div>
 		</div>

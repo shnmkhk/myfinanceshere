@@ -37,9 +37,9 @@
 						success: function(data) {
 							hideAll();
 							$("#list_sheets").html(data);
-							$("#list_sheets").show();
 							listSheetsLoaded = true;
 							$("body").removeClass("loading");
+							$("#list_sheets").show();
 						},
 						timeout: failureHandler
 				});
