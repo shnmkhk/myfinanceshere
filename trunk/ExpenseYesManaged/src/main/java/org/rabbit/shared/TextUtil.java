@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.Key;
 
 public class TextUtil {
 
+	protected static final int	MAXIMUM_ALLOWED_WORD_LENGTH	= 18;
 	public static final NumberFormat nf = new DecimalFormat("###,###,###.00");
 	public static final String getNumbersAlone(String input){
 		final String REPLACE_STRING = "[^\\s0-9\\-]|((?<!\\S*\\d)-(?!\\S*\\d))";
@@ -40,9 +41,9 @@ public class TextUtil {
 	private static StringBuffer sb = new StringBuffer();
 	private static String getCorrectedString(String s) {
 		sb.setLength(0);
-		while (s.length() > 10) {
-			sb.append(s.substring(0, 10));
-			s = s.substring(10);
+		while (s.length() > MAXIMUM_ALLOWED_WORD_LENGTH) {
+			sb.append(s.substring(0, MAXIMUM_ALLOWED_WORD_LENGTH));
+			s = s.substring(MAXIMUM_ALLOWED_WORD_LENGTH);
 			sb.append(" ");
 		}
 		sb.append(s);
