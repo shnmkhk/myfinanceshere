@@ -18,11 +18,6 @@ public class SheetDecorator extends TableDecorator {
 		Sheet sheet = (Sheet) getCurrentRowObject();
 		String keyStr = sheet.getKeyStr();
 
-		return "<a href='/ea/"
-				+ keyStr
-				+ "'><li><div class='sheet-container'><div class='sheet-container-month'>"
-				+ sheet.getShortMonthStr()
-				+ "</div><div class='sheet-container-year'>" + sheet.getYear()
-				+ "</div></div></li>";
+		return "<a href='/ea/" + keyStr + "'><li><div class='sheet-container'><div class='sheet-container-month'>" + sheet.getShortMonthStr() + "</div><div class='sheet-container-year'>" + sheet.getYear() + "</div></div></li>";
 	}
 }

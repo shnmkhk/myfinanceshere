@@ -21,19 +21,19 @@ public abstract class BaseEntity implements Serializable {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	protected Key key;
+	protected Key		key;
 
 	@Persistent
-	protected Date createdOn;
+	protected Date		createdOn;
 
 	@Persistent
-	protected Date lastUpdatedOn;
+	protected Date		lastUpdatedOn;
 
 	@Persistent
-	protected String createdBy;
+	protected String	createdBy;
 
 	@Persistent
-	protected String lastUpdatedBy;
+	protected String	lastUpdatedBy;
 
 	public Date getCreatedOn() {
 		return createdOn;

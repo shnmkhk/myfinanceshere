@@ -24,16 +24,16 @@ import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 public class DWREntryServiceImpl implements DWREntryService {
-	private EntryService entryService = EntryServiceImpl.getInstance();
-	private SheetService sheetService = SheetServiceImpl.getInstance();
+	private EntryService		entryService				= EntryServiceImpl.getInstance();
+	private SheetService		sheetService				= SheetServiceImpl.getInstance();
 
-	public static final String ENTRY_PROP_AMOUNT = "amount";
-	public static final String ENTRY_PROP_SHORTCODE = "shortCode";
-	public static final String ENTRY_PROP_DESCR = "descr";
-	public static final String ENTRY_PROP_TYPE = "type";
-	public static final String ENTRY_PROP_CATEGORY = "category";
-	public static final String ENTRY_PROP_SEQ_IX = "seq_ix";
-	public static final String ENTRY_PROP_SHEET_KEY_STR = "sheet_key_str";
+	public static final String	ENTRY_PROP_AMOUNT			= "amount";
+	public static final String	ENTRY_PROP_SHORTCODE		= "shortCode";
+	public static final String	ENTRY_PROP_DESCR			= "descr";
+	public static final String	ENTRY_PROP_TYPE				= "type";
+	public static final String	ENTRY_PROP_CATEGORY			= "category";
+	public static final String	ENTRY_PROP_SEQ_IX			= "seq_ix";
+	public static final String	ENTRY_PROP_SHEET_KEY_STR	= "sheet_key_str";
 
 	public EntryResponseWrapper deleteSelectedEntries(String entriesInJSON) {
 
@@ -48,7 +48,7 @@ public class DWREntryServiceImpl implements DWREntryService {
 		try {
 			JSONObject wrapperJSON = new JSONObject(entriesInJSON);
 			String sheetKeyStr = (String) request.getSession().getAttribute("SHEET_KEY_ID");
-			String sheetKeyIdFromPage = (String)wrapperJSON.get(ENTRY_PROP_SHEET_KEY_STR);
+			String sheetKeyIdFromPage = (String) wrapperJSON.get(ENTRY_PROP_SHEET_KEY_STR);
 			if (ObjectUtils.isNotNullAndNotEmpty(sheetKeyIdFromPage)) {
 				sheetKeyStr = sheetKeyIdFromPage;
 			}
@@ -63,7 +63,7 @@ public class DWREntryServiceImpl implements DWREntryService {
 					deleteResponseWrapper.setRecordsChanged(++recordsChanged);
 				}
 			}
-			
+
 			if (recordsChanged == 0) {
 				deleteResponseWrapper.setErrored(true);
 				deleteResponseWrapper.setErrorMessage("One or more deletion of entries went unsuccessful, try again.");
@@ -97,8 +97,7 @@ public class DWREntryServiceImpl implements DWREntryService {
 		JSONArray entriesJsonArr;
 		try {
 			JSONObject wrapperJSON = new JSONObject(entriesInJSON);
-			String sheetKeyStr = (String) request.getSession().getAttribute(
-					"SHEET_KEY_ID");
+			String sheetKeyStr = (String) request.getSession().getAttribute("SHEET_KEY_ID");
 			Sheet sheet = sheetService.getSheet(userId, sheetKeyStr);
 
 			entriesJsonArr = wrapperJSON.getJSONArray("entries");
@@ -107,7 +106,7 @@ public class DWREntryServiceImpl implements DWREntryService {
 				JSONObject entryJson = entriesJsonArr.getJSONObject(i);
 				double amount = -1;
 				try {
-					amount = TextUtil.nf.parse((String)entryJson.get(ENTRY_PROP_AMOUNT)).doubleValue();
+					amount = TextUtil.nf.parse((String) entryJson.get(ENTRY_PROP_AMOUNT)).doubleValue();
 				} catch (ParseException e) {
 				}
 				String shortCode = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_SHORTCODE));
@@ -115,8 +114,7 @@ public class DWREntryServiceImpl implements DWREntryService {
 				String typeStr = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_TYPE));
 				char type = (typeStr.length() == 0) ? 'I' : typeStr.charAt(0);
 				String category = ObjectUtils.getStrValue(entryJson.get(ENTRY_PROP_CATEGORY));
-				if (ObjectUtils.isNullOrEmpty(shortCode) || ObjectUtils.isNullOrEmpty(descr) || amount <= -1 || 
-						ObjectUtils.isNullOrEmpty(category)) {
+				if (ObjectUtils.isNullOrEmpty(shortCode) || ObjectUtils.isNullOrEmpty(descr) || amount <= -1 || ObjectUtils.isNullOrEmpty(category)) {
 					continue;
 				}
 				entryService.addANewEntry(type, amount, shortCode, descr, 'A', sheet, category);
@@ -126,8 +124,7 @@ public class DWREntryServiceImpl implements DWREntryService {
 				entryResponseWrapper.setErrored(true);
 				entryResponseWrapper.setErrorMessage("Incomplete input data.");
 			} else {
-				entryResponseWrapper
-						.setStatusMessage("New entries have been added to the sheet successfully");
+				entryResponseWrapper.setStatusMessage("New entries have been added to the sheet successfully");
 				entryResponseWrapper.setResponseAsString("SUCCESS");
 			}
 		} catch (JSONException e) {

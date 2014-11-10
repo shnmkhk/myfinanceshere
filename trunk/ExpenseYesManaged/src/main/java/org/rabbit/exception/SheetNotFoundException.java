@@ -2,7 +2,7 @@ package org.rabbit.exception;
 
 public class SheetNotFoundException extends Throwable {
 
-	private static final long serialVersionUID = -5442015109681117358L;
+	private static final long	serialVersionUID	= -5442015109681117358L;
 
 	public SheetNotFoundException() {
 		// TODO Auto-generated constructor stub

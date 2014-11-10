@@ -24,10 +24,9 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 public class EntryAction extends BaseServlet {
 
-	private static final long serialVersionUID = -9092072935123090022L;
+	private static final long	serialVersionUID	= -9092072935123090022L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		if (!doAuthCheck(request, response)) {
 			return;
 		}
@@ -36,105 +35,57 @@ public class EntryAction extends BaseServlet {
 		if (uriFragments.length == 1) {
 			retrieveEntriesBasedOnSheetKeyInSession(request, response, baseHref);
 		} else if (uriFragments.length == 2) {
-			retrieveEntriesBasedOnGivenSheetKey(request, response, baseHref,
-					uriFragments);
+			retrieveEntriesBasedOnGivenSheetKey(request, response, baseHref, uriFragments);
 		} else if (uriFragments.length > 2) {
-			deleteSpecificEntryBasedOnGivenSheetKeyAndEntrySeqNumber(request,
-					response, baseHref, uriFragments);
+			deleteSpecificEntryBasedOnGivenSheetKeyAndEntrySeqNumber(request, response, baseHref, uriFragments);
 
 		} else {
-			request.getSession().setAttribute("ERROR_MESSAGE", String.format("Invalid number of arguments in the RequestedURI %s",request.getRequestURI()));
+			request.getSession().setAttribute("ERROR_MESSAGE", String.format("Invalid number of arguments in the RequestedURI %s", request.getRequestURI()));
 			response.sendRedirect(baseHref + "/error.jsp#content");
 			return;
 		}
 	}
 
-	private void deleteSpecificEntryBasedOnGivenSheetKeyAndEntrySeqNumber(
-			HttpServletRequest request, HttpServletResponse response,
-			String baseHref, String[] uriFragments) throws IOException {
+	private void deleteSpecificEntryBasedOnGivenSheetKeyAndEntrySeqNumber(HttpServletRequest request, HttpServletResponse response, String baseHref, String[] uriFragments) throws IOException {
 		// Delete specific entry
 		String monthYrFragment = ObjectUtils.getStrValue(uriFragments[1]);
-		String fullSheetKey = request.getUserPrincipal().getName() + "_"
-				+ monthYrFragment;
-		int[] monthYrFragmentsIntArr = ObjectUtils
-				.getMonthYr(uriFragments[1]);
-		int entrySequence = ObjectUtils.getIntValue(uriFragments[2],
-				NumUtil.MINUS_ONE);
+		String fullSheetKey = request.getUserPrincipal().getName() + "_" + monthYrFragment;
+		int[] monthYrFragmentsIntArr = ObjectUtils.getMonthYr(uriFragments[1]);
+		int entrySequence = ObjectUtils.getIntValue(uriFragments[2], NumUtil.MINUS_ONE);
 		if (entrySequence != NumUtil.MINUS_ONE) {
 			try {
-				boolean recordDeleted = entryService.deleteEntry(KeyFactory
-						.createKey(Sheet.class.getSimpleName(),
-								fullSheetKey), entrySequence);
+				boolean recordDeleted = entryService.deleteEntry(KeyFactory.createKey(Sheet.class.getSimpleName(), fullSheetKey), entrySequence);
 				if (recordDeleted) {
-					RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(
-							request, sheetService.getSheet(request
-									.getUserPrincipal().getName(),
-									monthYrFragment));
-					request.getSession()
-							.setAttribute(
-									"INFO_MESSAGE",
-									String.format(
-											"Entry deleted successfully with sheetKey [%s %d] and sequence %d",
-											Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1],
-											monthYrFragmentsIntArr[1],
-											entrySequence));
+					RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(request, sheetService.getSheet(request.getUserPrincipal().getName(), monthYrFragment));
+					request.getSession().setAttribute("INFO_MESSAGE", String.format("Entry deleted successfully with sheetKey [%s %d] and sequence %d", Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1], monthYrFragmentsIntArr[1], entrySequence));
 				} else {
-					request.getSession()
-							.setAttribute(
-									"ERROR_MESSAGE",
-									String.format(
-											"Entry deletion failed with sheetKey [%s %d] and sequence %d",
-											Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1],
-											monthYrFragmentsIntArr[1],
-											entrySequence));
+					request.getSession().setAttribute("ERROR_MESSAGE", String.format("Entry deletion failed with sheetKey [%s %d] and sequence %d", Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1], monthYrFragmentsIntArr[1], entrySequence));
 				}
 				response.sendRedirect(baseHref + "/list/le.jsp#content");
 			} catch (EntryNotFoundException e) {
-				request.getSession()
-						.setAttribute(
-								"ERROR_MESSAGE",
-								String.format(
-										"Entry not found with sheet key [%s %d] and sequence %d",
-										Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1],
-										monthYrFragmentsIntArr[1],
-										entrySequence));
+				request.getSession().setAttribute("ERROR_MESSAGE", String.format("Entry not found with sheet key [%s %d] and sequence %d", Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1], monthYrFragmentsIntArr[1], entrySequence));
 				response.sendRedirect(baseHref + "/error.jsp#content");
 				e.printStackTrace();
 			} catch (SheetNotFoundException e) {
-				request.getSession()
-						.setAttribute(
-								"ERROR_MESSAGE",
-								String.format(
-										"Sheet not found with sheet key [%s %d]",
-										Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1],
-										monthYrFragmentsIntArr[1]));
+				request.getSession().setAttribute("ERROR_MESSAGE", String.format("Sheet not found with sheet key [%s %d]", Month.shortMonthArr[monthYrFragmentsIntArr[0] - 1], monthYrFragmentsIntArr[1]));
 				response.sendRedirect(baseHref + "/error.jsp#content");
 				e.printStackTrace();
 			}
 		}
 	}
 
-	private void retrieveEntriesBasedOnGivenSheetKey(
-			HttpServletRequest request, HttpServletResponse response,
-			String baseHref, String[] uriFragments) throws IOException {
+	private void retrieveEntriesBasedOnGivenSheetKey(HttpServletRequest request, HttpServletResponse response, String baseHref, String[] uriFragments) throws IOException {
 		List<Entry> listOfEntries;
 		// Listing entries
 		// It is only sheet key.
 		String monthYrKeyFragment = uriFragments[1];
-		String fullSheetKeyId = request.getUserPrincipal().getName() + "_"
-				+ uriFragments[1];
+		String fullSheetKeyId = request.getUserPrincipal().getName() + "_" + uriFragments[1];
 		int[] monthYr = ObjectUtils.getMonthYr(uriFragments[1]);
 		try {
-			listOfEntries = entryService.getEntries(KeyFactory.createKey(
-					Sheet.class.getSimpleName(), fullSheetKeyId));
+			listOfEntries = entryService.getEntries(KeyFactory.createKey(Sheet.class.getSimpleName(), fullSheetKeyId));
 		} catch (SheetNotFoundException e) {
 			System.err.println(e.getMessage());
-			request.getSession()
-					.setAttribute(
-							"ERROR_MESSAGE",
-							String.format(
-									"Sheet doesn't exist with month - <b>%d</b> and year - <b>%d</b>",
-									monthYr[0], monthYr[1]));
+			request.getSession().setAttribute("ERROR_MESSAGE", String.format("Sheet doesn't exist with month - <b>%d</b> and year - <b>%d</b>", monthYr[0], monthYr[1]));
 			RequestUtil.refreshAllSheetsIntoSession(request);
 			response.sendRedirect(baseHref + "/list/ls.jsp#content");
 			return;
@@ -142,33 +93,22 @@ public class EntryAction extends BaseServlet {
 
 		Sheet sheet;
 		try {
-			sheet = sheetService.getSheet(request.getUserPrincipal()
-					.getName(), monthYrKeyFragment);
-			RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(request,
-					sheet);
-			request.getSession().setAttribute(Constants.SHEET_KEY_ID,
-					monthYrKeyFragment);
-			request.getSession().setAttribute(
-					Constants.SHEET_MONTH_YR_ARRAY,
-					new String[] { sheet.getShortMonthStr(),
-							String.valueOf(sheet.getYear()) });
+			sheet = sheetService.getSheet(request.getUserPrincipal().getName(), monthYrKeyFragment);
+			RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(request, sheet);
+			request.getSession().setAttribute(Constants.SHEET_KEY_ID, monthYrKeyFragment);
+			request.getSession().setAttribute(Constants.SHEET_MONTH_YR_ARRAY, new String[] { sheet.getShortMonthStr(), String.valueOf(sheet.getYear()) });
 		} catch (SheetNotFoundException e) {
 			e.printStackTrace();
 		}
 		response.sendRedirect(baseHref + "/list/le.jsp#content");
 	}
 
-	private void retrieveEntriesBasedOnSheetKeyInSession(
-			HttpServletRequest request, HttpServletResponse response,
-			String baseHref) throws IOException {
-		String sheetKeyId = (String) request.getSession().getAttribute(
-				Constants.SHEET_KEY_ID);
+	private void retrieveEntriesBasedOnSheetKeyInSession(HttpServletRequest request, HttpServletResponse response, String baseHref) throws IOException {
+		String sheetKeyId = (String) request.getSession().getAttribute(Constants.SHEET_KEY_ID);
 		if (ObjectUtils.isNotNullAndNotEmpty(sheetKeyId)) {
 			try {
-				Sheet sheet = sheetService.getSheet(request
-						.getUserPrincipal().getName(), sheetKeyId);
-				RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(
-						request, sheet);
+				Sheet sheet = sheetService.getSheet(request.getUserPrincipal().getName(), sheetKeyId);
+				RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(request, sheet);
 			} catch (SheetNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -176,83 +116,47 @@ public class EntryAction extends BaseServlet {
 		} else {
 			// No sheet key id found in the session, so redirecting it to
 			// list sheets
-			request.getSession().setAttribute("ERROR_MESSAGE",
-					String.format("Please select a sheet"));
+			request.getSession().setAttribute("ERROR_MESSAGE", String.format("Please select a sheet"));
 			response.sendRedirect(baseHref + "/sa/#content");
 		}
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		if (!(doAuthCheck(request, response)))
 			return;
-		String str1 = handleCancelAndReturnBaseHref(request,
-				response);
-		String str2 = RequestUtil.getStringValue(request,
-				"submit");
+		String str1 = handleCancelAndReturnBaseHref(request, response);
+		String str2 = RequestUtil.getStringValue(request, "submit");
 		if (("".equals(str2)) || ("Cancel".equalsIgnoreCase(str2))) {
-			response
-					.sendRedirect(str1 + "/list/le.jsp#content");
+			response.sendRedirect(str1 + "/list/le.jsp#content");
 			return;
 		}
 		HashMap localHashMap = new HashMap();
-		Enumeration localEnumeration = request
-				.getParameterNames();
+		Enumeration localEnumeration = request.getParameterNames();
 		while (localEnumeration.hasMoreElements()) {
-			String localObject = ObjectUtils.getStrValue(localEnumeration
-					.nextElement());
-			localHashMap.put(localObject,
-					request.getParameter((String) localObject));
+			String localObject = ObjectUtils.getStrValue(localEnumeration.nextElement());
+			localHashMap.put(localObject, request.getParameter((String) localObject));
 		}
 		if (ObjectUtils.isNullOrEmpty(localHashMap.get("sid")))
-			localHashMap.put("sid", request.getSession()
-					.getAttribute("SHEET_KEY_ID"));
-		EntryStatusWrapper localObject = this.entryService.addMultipleEntries(
-				request.getUserPrincipal().getName(),
-				localHashMap);
+			localHashMap.put("sid", request.getSession().getAttribute("SHEET_KEY_ID"));
+		EntryStatusWrapper localObject = this.entryService.addMultipleEntries(request.getUserPrincipal().getName(), localHashMap);
 		try {
-			RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(
-					request,
-					((EntryStatusWrapper) localObject).getAssociatedSheet());
-			response.sendRedirect(String.format(
-					"%s/list/le.jsp?sid=%s#content", new Object[] {
-							str1,
-							((EntryStatusWrapper) localObject)
-									.getAssociatedSheet().getKeyStr() }));
+			RequestUtil.refreshAllEntriesOfGivenSheetIntoSession(request, ((EntryStatusWrapper) localObject).getAssociatedSheet());
+			response.sendRedirect(String.format("%s/list/le.jsp?sid=%s#content", new Object[] { str1, ((EntryStatusWrapper) localObject).getAssociatedSheet().getKeyStr() }));
 			if (((EntryStatusWrapper) localObject).isErrored())
-				request.getSession().setAttribute(
-						"ERROR_MESSAGE",
-						((EntryStatusWrapper) localObject).getErrorMessage());
+				request.getSession().setAttribute("ERROR_MESSAGE", ((EntryStatusWrapper) localObject).getErrorMessage());
 			else
-				request.getSession().setAttribute(
-						"INFO_MESSAGE",
-						((EntryStatusWrapper) localObject).getStatusMessage());
-			response.sendRedirect(String
-					.format("%s%s",
-							new Object[] {
-									str1,
-									((EntryStatusWrapper) localObject)
-											.getRedirectURI() }));
+				request.getSession().setAttribute("INFO_MESSAGE", ((EntryStatusWrapper) localObject).getStatusMessage());
+			response.sendRedirect(String.format("%s%s", new Object[] { str1, ((EntryStatusWrapper) localObject).getRedirectURI() }));
 			return;
 		} catch (IllegalArgumentException localIllegalArgumentException) {
 			System.err.println(localIllegalArgumentException.getMessage());
-			request.getSession().setAttribute("ERROR_MESSAGE",
-					localIllegalArgumentException.getMessage());
-			response.sendRedirect(String.format(
-					"%s/mae.jsp?sid=%s#content", new Object[] {
-							str1,
-							((EntryStatusWrapper) localObject)
-									.getAssociatedSheet().getKeyStr() }));
+			request.getSession().setAttribute("ERROR_MESSAGE", localIllegalArgumentException.getMessage());
+			response.sendRedirect(String.format("%s/mae.jsp?sid=%s#content", new Object[] { str1, ((EntryStatusWrapper) localObject).getAssociatedSheet().getKeyStr() }));
 			return;
 		} catch (SheetNotFoundException localSheetNotFoundException) {
 			localSheetNotFoundException.printStackTrace();
-			request.getSession().setAttribute("ERROR_MESSAGE",
-					localSheetNotFoundException.getMessage());
-			response.sendRedirect(String.format(
-					"%s/mae.jsp?sid=%s#content", new Object[] {
-							str1,
-							((EntryStatusWrapper) localObject)
-									.getAssociatedSheet().getKeyStr() }));
+			request.getSession().setAttribute("ERROR_MESSAGE", localSheetNotFoundException.getMessage());
+			response.sendRedirect(String.format("%s/mae.jsp?sid=%s#content", new Object[] { str1, ((EntryStatusWrapper) localObject).getAssociatedSheet().getKeyStr() }));
 		}
 	}
 }

@@ -3,25 +3,25 @@
  */
 package org.rabbit.services.dwr.vo;
 
-
 /**
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: Aug 3, 2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: Aug 3, 2013
  */
 public class TransactionVO extends BaseAbstractVO {
 
-	private static final long serialVersionUID = 2861258207084591504L;
+	private static final long	serialVersionUID	= 2861258207084591504L;
 
-	private String openingBalStr;
+	private String				openingBalStr;
 
-	private String description;
+	private String				description;
 
-	private String transAmountStr;
-	
-	private String sequenceIndexStr;
-	
-	private EntryVO entryVO;
+	private String				transAmountStr;
+
+	private String				sequenceIndexStr;
+
+	private EntryVO				entryVO;
 
 	/**
 	 * @return the openingBalStr
@@ -31,7 +31,8 @@ public class TransactionVO extends BaseAbstractVO {
 	}
 
 	/**
-	 * @param openingBalStr the openingBalStr to set
+	 * @param openingBalStr
+	 *            the openingBalStr to set
 	 */
 	public void setOpeningBalStr(String openingBalStr) {
 		this.openingBalStr = openingBalStr;
@@ -45,7 +46,8 @@ public class TransactionVO extends BaseAbstractVO {
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -59,7 +61,8 @@ public class TransactionVO extends BaseAbstractVO {
 	}
 
 	/**
-	 * @param transAmountStr the transAmountStr to set
+	 * @param transAmountStr
+	 *            the transAmountStr to set
 	 */
 	public void setTransAmountStr(String transAmountStr) {
 		this.transAmountStr = transAmountStr;
@@ -73,13 +76,16 @@ public class TransactionVO extends BaseAbstractVO {
 	}
 
 	/**
-	 * @param sequenceIndexStr the sequenceIndexStr to set
+	 * @param sequenceIndexStr
+	 *            the sequenceIndexStr to set
 	 */
 	public void setSequenceIndexStr(String sequenceIndexStr) {
 		this.sequenceIndexStr = sequenceIndexStr;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.rabbit.services.dwr.vo.BaseAbstractVO#getKeyStr()
 	 */
 	/**
@@ -90,7 +96,8 @@ public class TransactionVO extends BaseAbstractVO {
 	}
 
 	/**
-	 * @param entryVO the entryVO to set
+	 * @param entryVO
+	 *            the entryVO to set
 	 */
 	public void setEntryVO(EntryVO entryVO) {
 		this.entryVO = entryVO;
@@ -98,6 +105,6 @@ public class TransactionVO extends BaseAbstractVO {
 
 	@Override
 	public String getKeyStr() {
-		return entryVO.getKeyStr() + "/" + sequenceIndexStr; 
+		return entryVO.getKeyStr() + "/" + sequenceIndexStr;
 	}
 }

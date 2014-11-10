@@ -25,10 +25,10 @@ public class ObjectUtils {
 		int[] monthYrInt = new int[monthYrStr.length];
 		monthYrInt[0] = getIntValue(monthYrStr[0], NumUtil.MINUS_ONE);
 		monthYrInt[1] = getIntValue(monthYrStr[1], NumUtil.MINUS_ONE);
-		
+
 		return monthYrInt;
 	}
-	
+
 	public static final String[] getSheetKeyFragments(String sheetKeyId) {
 		if (isNullOrEmpty(sheetKeyId)) {
 			return null;
@@ -45,8 +45,7 @@ public class ObjectUtils {
 	}
 
 	public static void main(String[] args) {
-		System.out
-				.println(getNumbersAlone("abcd1234efgh~!@#$%^&*()_+\\|=-{}[];;\'\"<,.>/?"));
+		System.out.println(getNumbersAlone("abcd1234efgh~!@#$%^&*()_+\\|=-{}[];;\'\"<,.>/?"));
 	}
 
 	public static final boolean isNullOrEmpty(Object obj) {
@@ -137,14 +136,16 @@ public class ObjectUtils {
 
 		return RequestUtil.EMPTY_STR;
 	}
-	
+
 	public static final String getSimpleDate(Date date) {
-		if (isNullOrEmpty(date)){
+		if (isNullOrEmpty(date)) {
 			return RequestUtil.EMPTY_STR;
 		}
 		return "(" + simplestDf.format(date) + ")";
 	}
-	private static final DateFormat simplestDf = new SimpleDateFormat("MMM dd, yyyy");
+
+	private static final DateFormat	simplestDf	= new SimpleDateFormat("MMM dd, yyyy");
+
 	/**
 	 * @param month
 	 * @param year

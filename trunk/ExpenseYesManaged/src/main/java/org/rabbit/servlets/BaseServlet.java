@@ -21,49 +21,48 @@ import org.rabbit.shared.RequestUtil;
 
 /**
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: 28-Jun-2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: 28-Jun-2013
  */
 public class BaseServlet extends HttpServlet {
-	
-    /**
+
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6793891460811213736L;
-	protected TransactionService transactionService = TransactionServiceImpl.getInstance();
-    protected EntryService entryService = EntryServiceImpl.getInstance();
-    protected SheetService sheetService = SheetServiceImpl.getInstance();
+	private static final long		serialVersionUID	= 6793891460811213736L;
+	protected TransactionService	transactionService	= TransactionServiceImpl.getInstance();
+	protected EntryService			entryService		= EntryServiceImpl.getInstance();
+	protected SheetService			sheetService		= SheetServiceImpl.getInstance();
 
-	protected void unloadMessages(HttpServletRequest request){
+	protected void unloadMessages(HttpServletRequest request) {
 		request.getSession().removeAttribute("INFO_MESSAGE");
 		request.getSession().removeAttribute("ERROR_MESSAGE");
 	}
-	
-	public boolean doAuthCheck(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-        response.setContentType("text/html");
-        if (request.getUserPrincipal() != null) {            
-            return true;
-        } else {
-            response.sendRedirect("/");
-            return false;
-        }
+
+	public boolean doAuthCheck(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		response.setContentType("text/html");
+		if (request.getUserPrincipal() != null) {
+			return true;
+		} else {
+			response.sendRedirect("/");
+			return false;
+		}
 	}
-	
+
 	/**
 	 * @param request
 	 * @param response
 	 * @return
 	 * @throws IOException
 	 */
-	protected String handleCancelAndReturnBaseHref(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	protected String handleCancelAndReturnBaseHref(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		unloadMessages(request);
 		String baseHref = (String) request.getSession().getServletContext().getAttribute("baseHref");
 		if (ObjectUtils.isNullOrEmpty(baseHref)) {
 			baseHref = RequestUtil.EMPTY_STR;
 		}
-		
+
 		return baseHref;
 	}
 }

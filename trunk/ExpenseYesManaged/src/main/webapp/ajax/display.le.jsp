@@ -2,18 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
-	
+
 <div style="text-align: right; float: right; width: 100%; padding: 5px 0px 10px;" id="ajxDspId">
 	<display:table name="${sessionScope.entriesOfSelectedSheet}"
 		class="Mars" requestURI="/ajax/display.le.jsp#content"
 		id="entryRow" decorator="org.rabbit.decorators.EntryDecorator"
-		style="text-align: right;" pagesize="5" requestURIcontext="true">
+		style="text-align: right;" pagesize="${param.pageSize}" requestURIcontext="true">
 		<display:column property="icons" title="#"
 			class="align-right"
-			style="width: 5%"/>
-		<display:column property="hyperlink" title="Label"
+			style="width: 5%" />
+		<display:column property="hyperlink" title="Detail"
 			class="align-right"
-			style="width: 80%"/>
+			style="width: 75%"/>
 		<display:column property="amount" title="Amount"
 			class="align-right ${entryRow.styleClass}"
 			format="{0,number,#,###.00}" style="width: 15%"/>

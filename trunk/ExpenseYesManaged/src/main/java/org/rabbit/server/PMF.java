@@ -4,16 +4,16 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
 public final class PMF {
-	private static PersistenceManagerFactory pmfInstance = null;
+	private static PersistenceManagerFactory	pmfInstance	= null;
 
 	static {
 		try {
-		 pmfInstance = JDOHelper
-					.getPersistenceManagerFactory("transactions-optional");
-		} catch (Exception e){
+			pmfInstance = JDOHelper.getPersistenceManagerFactory("transactions-optional");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	private PMF() {
 	}
 

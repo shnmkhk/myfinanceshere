@@ -16,16 +16,16 @@ import com.google.appengine.api.datastore.Key;
 @PersistenceCapable(detachable = "true", identityType = IdentityType.APPLICATION)
 public class Sheet extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -7567328471499565269L;
+	private static final long	serialVersionUID	= -7567328471499565269L;
 
 	@Persistent
-	private int month;
+	private int					month;
 
 	@Persistent
-	private int year;
+	private int					year;
 
 	@Persistent
-	private String userId;
+	private String				userId;
 
 	public Sheet(Key key, int month, int year, String userId) {
 		super();
@@ -95,8 +95,7 @@ public class Sheet extends BaseEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Sheet [month=" + month + ", year=" + year + ", userId="
-				+ userId + "]";
+		return "Sheet [month=" + month + ", year=" + year + ", userId=" + userId + "]";
 	}
 
 	public String getShortMonthStr() {
@@ -107,7 +106,7 @@ public class Sheet extends BaseEntity implements Serializable {
 		return ObjectUtils.getSheetKeyStrForView(month, year);
 	}
 
-	private SheetVO sheetVO = null;
+	private SheetVO	sheetVO	= null;
 
 	/*
 	 * (non-Javadoc)

@@ -21,7 +21,7 @@ import org.rabbit.services.impl.SheetServiceImpl;
  */
 public class SheetServiceImplTest extends BaseTest {
 
-	private final SheetService sheetService = SheetServiceImpl.getInstance();
+	private final SheetService	sheetService	= SheetServiceImpl.getInstance();
 
 	@Test(expected = IllegalArgumentException.class)
 	public final void testAddNewSheetInvalidMonthNegative() throws SheetAlreadyExistsException {
