@@ -15,11 +15,11 @@ import org.rabbit.shared.TextUtil;
  */
 public class SheetVO extends BaseAbstractVO implements Serializable {
 
-	private static final long serialVersionUID = -4875450449226274227L;
+	private static final long	serialVersionUID	= -4875450449226274227L;
 
-	private String month;
+	private String				month;
 
-	private String year;
+	private String				year;
 
 	/**
 	 * @return the month
@@ -55,7 +55,9 @@ public class SheetVO extends BaseAbstractVO implements Serializable {
 		return TextUtil.getSheetKeyId(month, year);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {

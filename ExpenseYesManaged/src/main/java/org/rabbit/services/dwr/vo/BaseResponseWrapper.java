@@ -2,15 +2,15 @@ package org.rabbit.services.dwr.vo;
 
 public class BaseResponseWrapper {
 
-	private String errorMessage = "";
-	
-	private String statusMessage = "";
+	private String	errorMessage		= "";
 
-	private boolean errored = false;
+	private String	statusMessage		= "";
 
-	private int recordsChanged = 0;
+	private boolean	errored				= false;
 
-	private String responseAsString = "";
+	private int		recordsChanged		= 0;
+
+	private String	responseAsString	= "";
 
 	public String getErrorMessage() {
 		return errorMessage;

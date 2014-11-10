@@ -31,26 +31,25 @@ import com.google.appengine.api.datastore.Query.SortDirection;
  * DAO layer loading/ persisting implementation for Sheet entity
  * 
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: 01-May-2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: 01-May-2013
  */
 public class SheetDAOImpl implements SheetDAO {
 
-	private SheetDAOImpl(){
+	private SheetDAOImpl() {
 		// Do nothing in the private constructor
 	}
+
 	private static class SheetDAOImplHandler {
-		public static SheetDAOImpl sheetDAOImpl = new SheetDAOImpl();
+		public static SheetDAOImpl	sheetDAOImpl	= new SheetDAOImpl();
 	}
 
 	public static SheetDAOImpl getInstance() {
 		return SheetDAOImplHandler.sheetDAOImpl;
 	}
 
-	
-	
-	public Sheet createNewSheet(String userId, int month, int year)
-			throws SheetAlreadyExistsException {
+	public Sheet createNewSheet(String userId, int month, int year) throws SheetAlreadyExistsException {
 
 		Sheet sheet = null;
 		try {
@@ -59,54 +58,47 @@ public class SheetDAOImpl implements SheetDAO {
 		} catch (SheetNotFoundException e1) {
 			// Ignore if it throws Sheet not found, it is expected
 		}
-		
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Key key = KeyFactory.createKey(null, Sheet.class.getSimpleName(),
-				ObjectUtils.getSheetKeyId(userId, month, year));
+		Key key = KeyFactory.createKey(null, Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(userId, month, year));
 		sheet = new Sheet(key, month, year, userId);
 		sheet.setCreatedOn(Calendar.getInstance().getTime());
-		
+
 		pm.makePersistent(sheet);
 		sheet = pm.detachCopy(sheet);
 		pm.close();
-		
+
 		return sheet;
 	}
 
-	
 	public void deleteSheet(String userId, int month, int year) throws SheetNotFoundException {
 		Sheet sheet = null;
 		try {
 			sheet = getSheet(userId, month, year);
-		} catch (SheetNotFoundException nfe){
+		} catch (SheetNotFoundException nfe) {
 			throw nfe;
 		}
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		pm.deletePersistent( pm.getObjectById( Sheet.class,
-				ObjectUtils.getSheetKeyId(userId, month, year) ) ); 
-		
+		pm.deletePersistent(pm.getObjectById(Sheet.class, ObjectUtils.getSheetKeyId(userId, month, year)));
+
 		pm.close();
 	}
 
 	public Map<Integer, List<Sheet>> getAllSheetsMap(String userId) {
 		Map<Integer, List<Sheet>> yearSheetsMap = new LinkedHashMap<Integer, List<Sheet>>();
 		Query query = new Query(Sheet.class.getSimpleName());
-		
-		Filter userIdFilter =
-				  new FilterPredicate("userId", Query.FilterOperator.EQUAL, userId);
+
+		Filter userIdFilter = new FilterPredicate("userId", Query.FilterOperator.EQUAL, userId);
 		query.setFilter(userIdFilter);
 		query.addSort("year", SortDirection.DESCENDING);
 		query.addSort("month", SortDirection.DESCENDING);
-		List<Entity> list = Util.getDatastoreServiceInstance().prepare(query)
-				.asList(FetchOptions.Builder.withDefaults());
+		List<Entity> list = Util.getDatastoreServiceInstance().prepare(query).asList(FetchOptions.Builder.withDefaults());
 
 		List<Sheet> sheetsList = new ArrayList<Sheet>();
 		int currentYear = 0;
 		for (Entity e : list) {
-			int month = NumUtil.getIntValue(
-					e.getProperty("month"), -1);
-			int year = NumUtil.getIntValue(
-					e.getProperty("year"), -1);
+			int month = NumUtil.getIntValue(e.getProperty("month"), -1);
+			int year = NumUtil.getIntValue(e.getProperty("year"), -1);
 			if (currentYear == 0 || currentYear != year) {
 				if (currentYear != year && currentYear != 0) {
 					List<Sheet> tempSheetsList = new ArrayList<Sheet>();
@@ -116,17 +108,17 @@ public class SheetDAOImpl implements SheetDAO {
 				}
 				currentYear = year;
 			}
-			
+
 			Sheet sheet = new Sheet(e.getKey(), month, year, userId);
 			sheet.setCreatedBy(ObjectUtils.getStrValue(e.getProperty("createdBy")));
 			if (ObjectUtils.isNotNullAndNotEmpty(e.getProperty("createdOn"))) {
-				sheet.setCreatedOn((java.util.Date)e.getProperty("createdOn"));
+				sheet.setCreatedOn((java.util.Date) e.getProperty("createdOn"));
 			}
 			sheet.setLastUpdatedBy(ObjectUtils.getStrValue(e.getProperty("lastUpdatedBy")));
 			if (ObjectUtils.isNotNullAndNotEmpty(e.getProperty("lastUpdatedOn"))) {
-				sheet.setLastUpdatedOn((java.util.Date)e.getProperty("lastUpdatedOn"));
+				sheet.setLastUpdatedOn((java.util.Date) e.getProperty("lastUpdatedOn"));
 			}
-			
+
 			sheetsList.add(sheet);
 		}
 		if (currentYear != 0) {
@@ -134,41 +126,36 @@ public class SheetDAOImpl implements SheetDAO {
 		}
 		return yearSheetsMap;
 	}
+
 	public List<Sheet> getAllSheets(String userId) {
 
 		Query query = new Query(Sheet.class.getSimpleName());
-		
-		Filter userIdFilter =
-				  new FilterPredicate("userId", Query.FilterOperator.EQUAL, userId);
+
+		Filter userIdFilter = new FilterPredicate("userId", Query.FilterOperator.EQUAL, userId);
 		query.setFilter(userIdFilter);
-		List<Entity> list = Util.getDatastoreServiceInstance().prepare(query)
-				.asList(FetchOptions.Builder.withDefaults());
+		List<Entity> list = Util.getDatastoreServiceInstance().prepare(query).asList(FetchOptions.Builder.withDefaults());
 
 		List<Sheet> sheetsList = new ArrayList<Sheet>(list.size());
 		for (Entity e : list) {
-			Sheet sheet = new Sheet(e.getKey(), NumUtil.getIntValue(e
-					.getProperty("month"), -1), NumUtil.getIntValue(
-					e.getProperty("year"), -1), userId);
-			
+			Sheet sheet = new Sheet(e.getKey(), NumUtil.getIntValue(e.getProperty("month"), -1), NumUtil.getIntValue(e.getProperty("year"), -1), userId);
+
 			sheet.setCreatedBy(ObjectUtils.getStrValue(e.getProperty("createdBy")));
 			if (ObjectUtils.isNotNullAndNotEmpty(e.getProperty("createdOn"))) {
-				sheet.setCreatedOn((java.util.Date)e.getProperty("createdOn"));
+				sheet.setCreatedOn((java.util.Date) e.getProperty("createdOn"));
 			}
 			sheet.setLastUpdatedBy(ObjectUtils.getStrValue(e.getProperty("lastUpdatedBy")));
 			if (ObjectUtils.isNotNullAndNotEmpty(e.getProperty("lastUpdatedOn"))) {
-				sheet.setLastUpdatedOn((java.util.Date)e.getProperty("lastUpdatedOn"));
+				sheet.setLastUpdatedOn((java.util.Date) e.getProperty("lastUpdatedOn"));
 			}
-			
+
 			sheetsList.add(sheet);
 		}
 
 		return sheetsList;
 	}
 
-	
 	public Sheet getSheet(String userId, int month, int year) throws SheetNotFoundException {
-		Key key = KeyFactory.createKey(Sheet.class.getSimpleName(),
-				ObjectUtils.getSheetKeyId(userId, month, year));
+		Key key = KeyFactory.createKey(Sheet.class.getSimpleName(), ObjectUtils.getSheetKeyId(userId, month, year));
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
@@ -179,8 +166,7 @@ public class SheetDAOImpl implements SheetDAO {
 			throw new SheetNotFoundException(String.format("No sheet found with month %d and year %d", month, year));
 		}
 	}
-	
-	
+
 	public Sheet getSheet(Key sheetKey) throws SheetNotFoundException {
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();

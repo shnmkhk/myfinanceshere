@@ -11,19 +11,18 @@ import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.model.Sheet;
 
-public class SheetDAOImplUTest extends BaseTest  {
+public class SheetDAOImplUTest extends BaseTest {
 
-	private SheetDAO sheetDAO = SheetDAOImpl.getInstance();
+	private SheetDAO	sheetDAO	= SheetDAOImpl.getInstance();
 
 	@Test
-	public void testCreateNewSheet() throws SheetAlreadyExistsException,
-			SheetNotFoundException {
+	public void testCreateNewSheet() throws SheetAlreadyExistsException, SheetNotFoundException {
 		// Persist Sheet entry.
 		Sheet sheet = sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 
 		// Retrieve it back from the database again.
 		// sheet = sheetDAO.getSheet(12, 2013);
-		
+
 		// Assert each property against the expected values.
 		Assert.assertNotNull(sheet);
 		System.out.println(sheet.getCreatedOn());
@@ -33,8 +32,7 @@ public class SheetDAOImplUTest extends BaseTest  {
 	}
 
 	@Test
-	public void testDeleteSheet() throws SheetAlreadyExistsException,
-			SheetNotFoundException {
+	public void testDeleteSheet() throws SheetAlreadyExistsException, SheetNotFoundException {
 
 		// Persist Sheet entry.
 		sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
@@ -61,8 +59,7 @@ public class SheetDAOImplUTest extends BaseTest  {
 	}
 
 	@Test
-	public void testGetSheet() throws SheetAlreadyExistsException,
-			SheetNotFoundException {
+	public void testGetSheet() throws SheetAlreadyExistsException, SheetNotFoundException {
 		sheetDAO.createNewSheet(Constants.TEST_USER_ID, 12, 2013);
 		// Retrieve it back from the database again.
 		Sheet sheet = sheetDAO.getSheet(Constants.TEST_USER_ID, 12, 2013);

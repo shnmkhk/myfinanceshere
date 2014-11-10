@@ -15,20 +15,20 @@ import org.rabbit.shared.TextUtil;
  */
 public class EntryVO extends BaseAbstractVO {
 
-	private static final long serialVersionUID = -2292475062455022964L;
+	private static final long	serialVersionUID	= -2292475062455022964L;
 
-	private SheetVO parentSheetVO;
+	private SheetVO				parentSheetVO;
 
-	private String formattedAmount;
+	private String				formattedAmount;
 
-	private String shortCode;
+	private String				shortCode;
 
-	private String description;
-	
-	private String seqIxStr;
-	
-	private String entryCategory;
-	
+	private String				description;
+
+	private String				seqIxStr;
+
+	private String				entryCategory;
+
 	public void setEntryCategory(String entryCategory) {
 		this.entryCategory = entryCategory;
 	}
@@ -99,7 +99,7 @@ public class EntryVO extends BaseAbstractVO {
 	public void setShortCode(String shortCode) {
 		this.shortCode = shortCode;
 	}
-	
+
 	/**
 	 * @return the seqIx
 	 */
@@ -108,22 +108,25 @@ public class EntryVO extends BaseAbstractVO {
 	}
 
 	/**
-	 * @param seqIx the seqIx to set
+	 * @param seqIx
+	 *            the seqIx to set
 	 */
 	public void setSeqIx(String seqIx) {
 		this.seqIxStr = seqIx;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.rabbit.services.dwr.vo.BaseAbstractVO#getKeyStr()
 	 */
 	@Override
 	public String getKeyStr() {
 		StringBuffer sb = new StringBuffer();
-		if (parentSheetVO == null){
+		if (parentSheetVO == null) {
 			throw new RuntimeException("Parent sheet VO is not set for this entry");
 		}
-		
+
 		return sb.append(parentSheetVO.getKeyStr()).append("/").append(seqIxStr).append("/").toString();
 	}
 }

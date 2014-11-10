@@ -9,14 +9,13 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class BaseTest {
 
-	private static LocalServiceTestHelper helper = null;
-	
+	private static LocalServiceTestHelper	helper	= null;
+
 	static {
-		helper = new LocalServiceTestHelper(
-				new LocalDatastoreServiceTestConfig());
+		helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 		DataStoreJDOInitializer.initialize();
 	}
-	
+
 	@Before
 	public void setUp() {
 		helper.setUp();

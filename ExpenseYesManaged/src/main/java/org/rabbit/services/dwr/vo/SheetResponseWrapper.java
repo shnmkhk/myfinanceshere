@@ -9,14 +9,14 @@ public class SheetResponseWrapper extends BaseResponseWrapper implements Seriali
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5963862850951458372L;
+	private static final long			serialVersionUID	= 5963862850951458372L;
 
-	private SheetVO uniqueSheet;
-	
-	private Map<String, List<SheetVO>> sheetListMap;
-	
-	private List<SheetVO> sheetList;
-	
+	private SheetVO						uniqueSheet;
+
+	private Map<String, List<SheetVO>>	sheetListMap;
+
+	private List<SheetVO>				sheetList;
+
 	public Map<String, List<SheetVO>> getSheetListMap() {
 		return sheetListMap;
 	}

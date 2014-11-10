@@ -7,11 +7,11 @@ import org.rabbit.exception.SheetAlreadyExistsException;
 import org.rabbit.exception.SheetNotFoundException;
 import org.rabbit.services.dwr.vo.SheetResponseWrapper;
 
-
 /**
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: Aug 3, 2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: Aug 3, 2013
  */
 public interface DWRSheetService {
 
@@ -20,16 +20,14 @@ public interface DWRSheetService {
 	 * @param year
 	 * @throws SheetNotFoundException
 	 */
-	SheetResponseWrapper deleteSheet(int month, int year)
-			throws SheetNotFoundException;
+	SheetResponseWrapper deleteSheet(int month, int year) throws SheetNotFoundException;
 
 	/**
 	 * @param sheetKeyStr
 	 * @return
 	 * @throws SheetNotFoundException
 	 */
-	SheetResponseWrapper getSheet(String sheetKeyStr)
-			throws SheetNotFoundException;
+	SheetResponseWrapper getSheet(String sheetKeyStr) throws SheetNotFoundException;
 
 	/**
 	 * @param month
@@ -37,8 +35,7 @@ public interface DWRSheetService {
 	 * @return
 	 * @throws SheetNotFoundException
 	 */
-	SheetResponseWrapper getSheet(int month, int year)
-			throws SheetNotFoundException;
+	SheetResponseWrapper getSheet(int month, int year) throws SheetNotFoundException;
 
 	/**
 	 * @return
@@ -56,12 +53,11 @@ public interface DWRSheetService {
 	 * @return
 	 * @throws SheetAlreadyExistsException
 	 */
-	SheetResponseWrapper createNew(int month, int year)
-			throws SheetAlreadyExistsException;
+	SheetResponseWrapper createNew(int month, int year) throws SheetAlreadyExistsException;
 
 	/**
-	 * Gets all the sheet map in HTML format straight
-	 * away.
+	 * Gets all the sheet map in HTML format straight away.
+	 * 
 	 * @return
 	 */
 	SheetResponseWrapper getAllSheetMapHTML(int interfaceId);

@@ -11,8 +11,9 @@ import org.rabbit.model.Sheet;
  * Service layer interface for 'Sheet'
  * 
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: 02-Jun-2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: 02-Jun-2013
  */
 public interface SheetService {
 
@@ -24,8 +25,7 @@ public interface SheetService {
 	 * @return
 	 * @throws SheetAlreadyExistsException
 	 */
-	public Sheet addNewSheet(String userId, int month, int year)
-			throws SheetAlreadyExistsException;
+	public Sheet addNewSheet(String userId, int month, int year) throws SheetAlreadyExistsException;
 
 	/**
 	 * Returns all the available sheets in the system.
@@ -33,10 +33,10 @@ public interface SheetService {
 	 * @return
 	 */
 	public List<Sheet> getAllSheets(String userId);
-	
+
 	/**
-	 * Returns all the available sheets keeping years in the keys and sheet entries 
-	 * in the values.
+	 * Returns all the available sheets keeping years in the keys and sheet
+	 * entries in the values.
 	 * 
 	 * @param userId
 	 * @return
@@ -44,7 +44,7 @@ public interface SheetService {
 	public Map<Integer, List<Sheet>> getAllSheetsMap(String userId);
 
 	/**
-	 * Returns the sheet of respective month, year 
+	 * Returns the sheet of respective month, year
 	 * 
 	 * @param month
 	 * @param year
@@ -70,6 +70,5 @@ public interface SheetService {
 	 * @throws SheetNotFoundException
 	 */
 	public void deleteSheet(String userId, int month, int year) throws SheetNotFoundException;
-	
-	
+
 }

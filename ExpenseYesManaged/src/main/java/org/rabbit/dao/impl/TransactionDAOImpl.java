@@ -27,46 +27,39 @@ import com.google.appengine.api.datastore.Query.SortDirection;
  * DAO layer loading/ persisting implementation for Transaction entity
  * 
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: 01-May-2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: 01-May-2013
  */
 public class TransactionDAOImpl implements TransactionDAO {
 
-	private TransactionDAOImpl(){
+	private TransactionDAOImpl() {
 		// Do nothing in the private constructor
 	}
+
 	private static class TransactionDAOImplHandler {
-		public static TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
+		public static TransactionDAOImpl	transactionDAOImpl	= new TransactionDAOImpl();
 	}
 
 	public static TransactionDAOImpl getInstance() {
 		return TransactionDAOImplHandler.transactionDAOImpl;
 	}
 
-	
-	
-	public Transaction createNewTransaction(String description,
-			double openingBalance, double transactionAmount, Entry entry) {
+	public Transaction createNewTransaction(String description, double openingBalance, double transactionAmount, Entry entry) {
 
-		Query query = new Query(Transaction.class.getSimpleName(),
-				entry.getKey());
+		Query query = new Query(Transaction.class.getSimpleName(), entry.getKey());
 		query.addSort("sequenceIndex", SortDirection.DESCENDING);
 
-		List<Entity> results = Util.getDatastoreServiceInstance()
-		.prepare(query).asList(FetchOptions.Builder.withDefaults());
-		
-		int maxSeqIx = 0;
-		if (results != null && results.size() > 0){
-			Entity recentEntry = results.get(0);	
-			maxSeqIx = NumUtil.getIntValue(
-					recentEntry.getProperty("sequenceIndex").toString(), 0);
-		}
-		Key key = KeyFactory.createKey(entry.getKey(),
-				Transaction.class.getSimpleName(),
-				ObjectUtils.getEntryKeyId(entry.getKey(), ++maxSeqIx));
+		List<Entity> results = Util.getDatastoreServiceInstance().prepare(query).asList(FetchOptions.Builder.withDefaults());
 
-		Transaction transaction = new Transaction(key, openingBalance,
-				description, transactionAmount, maxSeqIx);
+		int maxSeqIx = 0;
+		if (results != null && results.size() > 0) {
+			Entity recentEntry = results.get(0);
+			maxSeqIx = NumUtil.getIntValue(recentEntry.getProperty("sequenceIndex").toString(), 0);
+		}
+		Key key = KeyFactory.createKey(entry.getKey(), Transaction.class.getSimpleName(), ObjectUtils.getEntryKeyId(entry.getKey(), ++maxSeqIx));
+
+		Transaction transaction = new Transaction(key, openingBalance, description, transactionAmount, maxSeqIx);
 		transaction.setCreatedOn(Calendar.getInstance().getTime());
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		pm.makePersistent(transaction);
@@ -75,58 +68,42 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return transaction;
 	}
 
-	
-	public void deleteTransaction(Entry entry, int sequenceIndex)
-			throws TransactionNotFoundException {
-		Transaction transaction = getTransactionByEntryAndIndex(entry,
-				sequenceIndex);
+	public void deleteTransaction(Entry entry, int sequenceIndex) throws TransactionNotFoundException {
+		Transaction transaction = getTransactionByEntryAndIndex(entry, sequenceIndex);
 		if (transaction == null) {
-			throw new TransactionNotFoundException(
-					String.format(
-							"Transaction with entry id %s and sequence index %d not found",
-							entry.getKey().getName(), sequenceIndex));
+			throw new TransactionNotFoundException(String.format("Transaction with entry id %s and sequence index %d not found", entry.getKey().getName(), sequenceIndex));
 		}
 
 		Util.deleteEntity(transaction.getKey());
 	}
 
-	
 	public List<Transaction> getAllTransactions() {
 		Query query = new Query(Transaction.class.getSimpleName());
-		List<Entity> entitiesList = Util.getDatastoreServiceInstance()
-				.prepare(query).asList(FetchOptions.Builder.withDefaults());
+		List<Entity> entitiesList = Util.getDatastoreServiceInstance().prepare(query).asList(FetchOptions.Builder.withDefaults());
 
 		return prepareTransactionsList(entitiesList);
 	}
 
-	
 	public List<Transaction> getTransactionByEntry(Entry entry) {
-		Query query = new Query(Transaction.class.getSimpleName(),
-				entry.getKey());
-		List<Entity> entitiesList = Util.getDatastoreServiceInstance()
-				.prepare(query).asList(FetchOptions.Builder.withDefaults());
+		Query query = new Query(Transaction.class.getSimpleName(), entry.getKey());
+		List<Entity> entitiesList = Util.getDatastoreServiceInstance().prepare(query).asList(FetchOptions.Builder.withDefaults());
 
 		return prepareTransactionsList(entitiesList);
 	}
 
-	
 	@SuppressWarnings("deprecation")
-	public Transaction getTransactionByEntryAndIndex(Entry entry,
-			int sequenceIndex) throws TransactionNotFoundException {
-		Query query = new Query(Transaction.class.getSimpleName(),
-				entry.getKey());
+	public Transaction getTransactionByEntryAndIndex(Entry entry, int sequenceIndex) throws TransactionNotFoundException {
+		Query query = new Query(Transaction.class.getSimpleName(), entry.getKey());
 		query.addFilter("sequenceIndex", FilterOperator.EQUAL, sequenceIndex);
 
-		Entity entity = Util.getDatastoreServiceInstance().prepare(query)
-				.asSingleEntity();
+		Entity entity = Util.getDatastoreServiceInstance().prepare(query).asSingleEntity();
 
-		if (entity == null){
+		if (entity == null) {
 			throw new TransactionNotFoundException(String.format("No transaction found with entry %s and sequence index %d", entry.getKey().getName(), sequenceIndex));
 		}
 		return prepareTransaction(entity);
 	}
 
-	
 	public Transaction updateTransaction(Transaction transaction) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		return pm.makePersistent(transaction);
@@ -137,8 +114,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			return null;
 		}
 
-		List<Transaction> transactionsList = new ArrayList<Transaction>(
-				entitiesList.size());
+		List<Transaction> transactionsList = new ArrayList<Transaction>(entitiesList.size());
 		for (Entity entity : entitiesList) {
 			Transaction transaction = prepareTransaction(entity);
 			transactionsList.add(transaction);
@@ -151,13 +127,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			return null;
 		}
 
-		Transaction transaction = new Transaction(entity.getKey(),
-				NumUtil.getDoubleValue(entity.getProperty("openingBalance")
-						.toString(), -1), entity.getProperty("description")
-						.toString(),
-				NumUtil.getDoubleValue(entity.getProperty("transactionAmount")
-						.toString(), -1), NumUtil.getIntValue(entity
-						.getProperty("sequenceIndex").toString(), -1));
+		Transaction transaction = new Transaction(entity.getKey(), NumUtil.getDoubleValue(entity.getProperty("openingBalance").toString(), -1), entity.getProperty("description").toString(), NumUtil.getDoubleValue(entity.getProperty("transactionAmount").toString(), -1), NumUtil.getIntValue(entity.getProperty("sequenceIndex").toString(), -1));
 
 		return transaction;
 	}

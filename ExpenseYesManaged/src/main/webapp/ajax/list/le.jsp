@@ -40,7 +40,9 @@
 			</ul>
 		</div>
 	</c:if>
-	<jsp:include page="../display.le.jsp"></jsp:include>
+	<jsp:include page="../display.le.jsp">
+		<jsp:param name="pageSize" value="5"/>
+	</jsp:include>
 	
 	<script type="text/javascript">
 		<!--

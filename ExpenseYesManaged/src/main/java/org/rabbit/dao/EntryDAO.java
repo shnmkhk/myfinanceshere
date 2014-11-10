@@ -12,38 +12,41 @@ import org.rabbit.model.Sheet;
  * DAO Interface for Entry
  * 
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: 01-May-2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: 01-May-2013
  */
 public interface EntryDAO {
 
 	/**
 	 * Creates a new entry with given type, amount, short code and description
 	 * 
-	 * @param type 'E' for expenditure and 'I' for income
-	 * @param amount in current locale currency
+	 * @param type
+	 *            'E' for expenditure and 'I' for income
+	 * @param amount
+	 *            in current locale currency
 	 * @param shortCode
 	 * @param description
 	 * @param status
 	 * @param sheet
 	 * @return
 	 */
-	public Entry createNewEntry(char type, double amount, String shortCode,
-			String description, char status, Sheet sheet, EntryCategory entryCategory) throws EntryAlreadyExistsException;
-	
+	public Entry createNewEntry(char type, double amount, String shortCode, String description, char status, Sheet sheet, EntryCategory entryCategory) throws EntryAlreadyExistsException;
+
 	/**
 	 * Creates a new entry with given type, amount, short code and description
 	 * 
-	 * @param type 'E' for expenditure and 'I' for income
-	 * @param amount in current locale currency
+	 * @param type
+	 *            'E' for expenditure and 'I' for income
+	 * @param amount
+	 *            in current locale currency
 	 * @param shortCode
 	 * @param description
 	 * @param status
 	 * @param sheet
 	 * @return
 	 */
-	public Entry createNewEntry(char type, double amount, String shortCode,
-			String description, char status, Sheet sheet) throws EntryAlreadyExistsException;
+	public Entry createNewEntry(char type, double amount, String shortCode, String description, char status, Sheet sheet) throws EntryAlreadyExistsException;
 
 	/**
 	 * Deletes an entry specific to given sheet and sequence id.
@@ -71,21 +74,23 @@ public interface EntryDAO {
 
 	/**
 	 * Updates existing entry with the new values set to the entry
+	 * 
 	 * @param entry
 	 * @return
 	 */
 	public Entry updateEntry(Entry entry);
-	
+
 	/**
-	 * Returns an entry associated with the given sheet and given sequence index.
+	 * Returns an entry associated with the given sheet and given sequence
+	 * index.
 	 * 
 	 * @param sheet
 	 * @param sequenceIndex
 	 * @return
-	 * @throws EntryNotFoundException 
+	 * @throws EntryNotFoundException
 	 */
 	public Entry getEntryBySheetAndIndex(Sheet sheet, int sequenceIndex) throws EntryNotFoundException;
-	
+
 	/**
 	 * Sets the given entry category to the given entry.
 	 * 

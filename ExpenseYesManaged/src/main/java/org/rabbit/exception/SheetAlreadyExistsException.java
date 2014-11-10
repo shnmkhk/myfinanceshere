@@ -2,7 +2,7 @@ package org.rabbit.exception;
 
 public class SheetAlreadyExistsException extends Throwable {
 
-	private static final long serialVersionUID = 8015553168176956634L;
+	private static final long	serialVersionUID	= 8015553168176956634L;
 
 	public SheetAlreadyExistsException() {
 		// TODO Auto-generated constructor stub

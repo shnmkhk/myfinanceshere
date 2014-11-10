@@ -39,16 +39,16 @@ public class EntryServiceImpl implements EntryService {
 	}
 
 	private static class EntryServiceImplHolder {
-		public static EntryServiceImpl ENTRY_SERVICE_IMPL_SINGLETON_INSTANCE = new EntryServiceImpl();
+		public static EntryServiceImpl	ENTRY_SERVICE_IMPL_SINGLETON_INSTANCE	= new EntryServiceImpl();
 	}
 
 	public static EntryServiceImpl getInstance() {
 		return EntryServiceImplHolder.ENTRY_SERVICE_IMPL_SINGLETON_INSTANCE;
 	}
 
-	private final EntryDAO entryDAO = EntryDAOImpl.getInstance();
-	private final SheetDAO sheetDAO = SheetDAOImpl.getInstance();
-	private final SheetService sheetService = SheetServiceImpl.getInstance();
+	private final EntryDAO		entryDAO		= EntryDAOImpl.getInstance();
+	private final SheetDAO		sheetDAO		= SheetDAOImpl.getInstance();
+	private final SheetService	sheetService	= SheetServiceImpl.getInstance();
 
 	/*
 	 * (non-Javadoc)
@@ -58,11 +58,8 @@ public class EntryServiceImpl implements EntryService {
 	 * com.google.appengine.api.datastore.Key)
 	 */
 
-	public Entry addANewEntry(char type, double amount, String shortCode,
-			String description, char status, Sheet sheet, String categoryLabel)
-			throws EntryAlreadyExistsException {
-		return entryDAO.createNewEntry(type, amount, shortCode, description,
-				status, sheet, EntryCategory.getCategory(categoryLabel));
+	public Entry addANewEntry(char type, double amount, String shortCode, String description, char status, Sheet sheet, String categoryLabel) throws EntryAlreadyExistsException {
+		return entryDAO.createNewEntry(type, amount, shortCode, description, status, sheet, EntryCategory.getCategory(categoryLabel));
 	}
 
 	/*
@@ -73,12 +70,10 @@ public class EntryServiceImpl implements EntryService {
 	 * .datastore.Key, int)
 	 */
 
-	public boolean deleteEntry(Key parentSheetKey, int sequenceIndex)
-			throws EntryNotFoundException, SheetNotFoundException {
+	public boolean deleteEntry(Key parentSheetKey, int sequenceIndex) throws EntryNotFoundException, SheetNotFoundException {
 		Sheet parentSsheetForSpecifiedKey = sheetDAO.getSheet(parentSheetKey);
 		if (parentSsheetForSpecifiedKey == null) {
-			throw new SheetNotFoundException("Sheet doesn't exist for key: "
-					+ parentSheetKey);
+			throw new SheetNotFoundException("Sheet doesn't exist for key: " + parentSheetKey);
 		}
 		return entryDAO.deleteEntry(parentSsheetForSpecifiedKey, sequenceIndex);
 	}
@@ -101,8 +96,7 @@ public class EntryServiceImpl implements EntryService {
 	 * datastore.Key)
 	 */
 
-	public List<Entry> getEntries(Key parentSheetKey)
-			throws SheetNotFoundException {
+	public List<Entry> getEntries(Key parentSheetKey) throws SheetNotFoundException {
 		return entryDAO.getEntriesBySheet(sheetDAO.getSheet(parentSheetKey));
 	}
 
@@ -114,10 +108,8 @@ public class EntryServiceImpl implements EntryService {
 	 * .api.datastore.Key, int)
 	 */
 
-	public Entry getEntryBySheetAndIndex(Key parentSheetKey, int sequenceIndex)
-			throws EntryNotFoundException, SheetNotFoundException {
-		return entryDAO.getEntryBySheetAndIndex(
-				sheetDAO.getSheet(parentSheetKey), sequenceIndex);
+	public Entry getEntryBySheetAndIndex(Key parentSheetKey, int sequenceIndex) throws EntryNotFoundException, SheetNotFoundException {
+		return entryDAO.getEntryBySheetAndIndex(sheetDAO.getSheet(parentSheetKey), sequenceIndex);
 	}
 
 	/*
@@ -130,10 +122,8 @@ public class EntryServiceImpl implements EntryService {
 		return entryDAO.updateEntry(entry);
 	}
 
-	public EntryStatusWrapper addMultipleEntries(String paramString,
-			Map<String, String> paramMap) {
-		EntryStatusWrapper localEntryStatusWrapper = EntryStatusWrapperFactory
-				.getInstance().generateOne();
+	public EntryStatusWrapper addMultipleEntries(String paramString, Map<String, String> paramMap) {
+		EntryStatusWrapper localEntryStatusWrapper = EntryStatusWrapperFactory.getInstance().generateOne();
 		Map<String, String> localHashMap = new HashMap<String, String>();
 		String str1 = String.valueOf(paramMap.get("sid"));
 		Sheet localSheet = null;
@@ -144,8 +134,7 @@ public class EntryServiceImpl implements EntryService {
 		double amount = 0.0D;
 		try {
 			if (StringUtils.isEmpty(str1)) {
-				localEntryStatusWrapper.setErrorMessage(String.format(
-						"Invalid sheet identifier %s", new Object[] { str1 }));
+				localEntryStatusWrapper.setErrorMessage(String.format("Invalid sheet identifier %s", new Object[] { str1 }));
 				localEntryStatusWrapper.setRedirectURI("/list/le.jsp#content");
 				localEntryStatusWrapper.setErrored(true);
 				return localEntryStatusWrapper;
@@ -154,27 +143,14 @@ public class EntryServiceImpl implements EntryService {
 			localEntryStatusWrapper.setAssociatedSheet(localSheet);
 			int i = ObjectUtils.getIntValue(paramMap.get("no-of-entries"), 0);
 			if (i == 0) {
-				localEntryStatusWrapper.setErrorMessage(String.format(
-						"Received %d number of entries for [%s %d]",
-						new Object[] { Integer.valueOf(i),
-								localSheet.getShortMonthStr(),
-								Integer.valueOf(localSheet.getYear()) }));
-				localEntryStatusWrapper.setRedirectURI(String.format(
-						"/mae.jsp?sid=%s#content", new Object[] { str1 }));
+				localEntryStatusWrapper.setErrorMessage(String.format("Received %d number of entries for [%s %d]", new Object[] { Integer.valueOf(i), localSheet.getShortMonthStr(), Integer.valueOf(localSheet.getYear()) }));
+				localEntryStatusWrapper.setRedirectURI(String.format("/mae.jsp?sid=%s#content", new Object[] { str1 }));
 				localEntryStatusWrapper.setErrored(true);
 				return localEntryStatusWrapper;
 			}
 			if (!(ValidationUtils.doesAnyEntryHasCompleteData(i, paramMap))) {
-				localEntryStatusWrapper
-						.setErrorMessage(String
-								.format("None of the %d entries has complete data given for [%s %d]. Both Label and Amount are required for an entry",
-										new Object[] {
-												Integer.valueOf(i),
-												localSheet.getShortMonthStr(),
-												Integer.valueOf(localSheet
-														.getYear()) }));
-				localEntryStatusWrapper.setRedirectURI(String.format(
-						"/mae.jsp?sid=%s#content", new Object[] { str1 }));
+				localEntryStatusWrapper.setErrorMessage(String.format("None of the %d entries has complete data given for [%s %d]. Both Label and Amount are required for an entry", new Object[] { Integer.valueOf(i), localSheet.getShortMonthStr(), Integer.valueOf(localSheet.getYear()) }));
+				localEntryStatusWrapper.setRedirectURI(String.format("/mae.jsp?sid=%s#content", new Object[] { str1 }));
 				localEntryStatusWrapper.setErrored(true);
 				return localEntryStatusWrapper;
 			}
@@ -188,78 +164,43 @@ public class EntryServiceImpl implements EntryService {
 				entryCategory = (tempCategory.length() > 0) ? tempCategory : entryCategory;
 				if ((ObjectUtils.isNullOrEmpty(shortCode)) && (-1.0D == amount))
 					continue;
-				if (((ObjectUtils.isNotNullAndNotEmpty(shortCode)) && (-1.0D == amount))
-						|| ((ObjectUtils.isNullOrEmpty(shortCode)) && (-1.0D != amount))) {
-					localStringBuffer.append(
-							String.format("<br/>Entry index %d is skipped due to incomplete inputs [shortCode='%s', amount='%f']",
-											new Object[] { Integer.valueOf(j),
-													shortCode, Double.valueOf(amount) }));
+				if (((ObjectUtils.isNotNullAndNotEmpty(shortCode)) && (-1.0D == amount)) || ((ObjectUtils.isNullOrEmpty(shortCode)) && (-1.0D != amount))) {
+					localStringBuffer.append(String.format("<br/>Entry index %d is skipped due to incomplete inputs [shortCode='%s', amount='%f']", new Object[] { Integer.valueOf(j), shortCode, Double.valueOf(amount) }));
 				} else {
-					if ((ObjectUtils.isNullOrEmpty(str1))
-							&& (ObjectUtils.isNotNullAndNotEmpty(localHashMap
-									.get("SHEET_KEY_ID"))))
-						str1 = ObjectUtils.getStrValue(localHashMap
-								.get("SHEET_KEY_ID"));
-					else if ((ObjectUtils.isNotNullAndNotEmpty(str1))
-							&& (ObjectUtils.isNullOrEmpty(localHashMap
-									.get("SHEET_KEY_ID"))))
+					if ((ObjectUtils.isNullOrEmpty(str1)) && (ObjectUtils.isNotNullAndNotEmpty(localHashMap.get("SHEET_KEY_ID"))))
+						str1 = ObjectUtils.getStrValue(localHashMap.get("SHEET_KEY_ID"));
+					else if ((ObjectUtils.isNotNullAndNotEmpty(str1)) && (ObjectUtils.isNullOrEmpty(localHashMap.get("SHEET_KEY_ID"))))
 						localHashMap.put("SHEET_KEY_ID", str1);
 					addANewEntry(entryType, amount, shortCode, description, 'A', localSheet, entryCategory);
 				}
 			}
-			localStringBuffer
-					.insert(0,
-							String.format(
-									"New entries have been added to the sheet [%s %d]; details below",
-									new Object[] {
-											localSheet.getShortMonthStr(),
-											Integer.valueOf(localSheet
-													.getYear()) }));
-			localEntryStatusWrapper.setStatusMessage(localStringBuffer
-					.toString());
-			localEntryStatusWrapper.setRedirectURI(String.format(
-					"/list/le.jsp?sid=%s#content", new Object[] { str1 }));
+			localStringBuffer.insert(0, String.format("New entries have been added to the sheet [%s %d]; details below", new Object[] { localSheet.getShortMonthStr(), Integer.valueOf(localSheet.getYear()) }));
+			localEntryStatusWrapper.setStatusMessage(localStringBuffer.toString());
+			localEntryStatusWrapper.setRedirectURI(String.format("/list/le.jsp?sid=%s#content", new Object[] { str1 }));
 			return localEntryStatusWrapper;
 		} catch (ClassCastException localClassCastException) {
 			localClassCastException.printStackTrace();
-			localEntryStatusWrapper
-					.setErrorMessage(String
-							.format("Entry already exists with [%s %d] and other given details",
-									new Object[] {
-											localSheet.getShortMonthStr(),
-											Integer.valueOf(localSheet
-													.getYear()) }));
+			localEntryStatusWrapper.setErrorMessage(String.format("Entry already exists with [%s %d] and other given details", new Object[] { localSheet.getShortMonthStr(), Integer.valueOf(localSheet.getYear()) }));
 			localEntryStatusWrapper.setErrored(true);
 		} catch (EntryAlreadyExistsException localEntryAlreadyExistsException) {
 			localEntryAlreadyExistsException.printStackTrace();
-			localEntryStatusWrapper
-					.setErrorMessage(String
-							.format("Entry already exists with [%s %d] and other given details",
-									new Object[] {
-											localSheet.getShortMonthStr(),
-											Integer.valueOf(localSheet
-													.getYear()) }));
+			localEntryStatusWrapper.setErrorMessage(String.format("Entry already exists with [%s %d] and other given details", new Object[] { localSheet.getShortMonthStr(), Integer.valueOf(localSheet.getYear()) }));
 			localEntryStatusWrapper.setErrored(true);
 		} catch (IllegalArgumentException localIllegalArgumentException) {
 			localIllegalArgumentException.printStackTrace();
-			localEntryStatusWrapper
-					.setErrorMessage(localIllegalArgumentException.getMessage());
+			localEntryStatusWrapper.setErrorMessage(localIllegalArgumentException.getMessage());
 			localEntryStatusWrapper.setErrored(true);
 		} catch (SheetNotFoundException localSheetNotFoundException) {
 			localSheetNotFoundException.printStackTrace();
-			localEntryStatusWrapper.setErrorMessage(localSheetNotFoundException
-					.getMessage());
+			localEntryStatusWrapper.setErrorMessage(localSheetNotFoundException.getMessage());
 			localEntryStatusWrapper.setErrored(true);
 		}
-		localEntryStatusWrapper.setRedirectURI(String.format(
-				"/mae.jsp?sid=%s#content", new Object[] { str1 }));
+		localEntryStatusWrapper.setRedirectURI(String.format("/mae.jsp?sid=%s#content", new Object[] { str1 }));
 		return localEntryStatusWrapper;
 	}
 
 	@Override
-	public Entry addANewEntry(char type, double amount, String shortCode,
-			String description, char status, Sheet parentSheet)
-			throws EntryAlreadyExistsException {
+	public Entry addANewEntry(char type, double amount, String shortCode, String description, char status, Sheet parentSheet) throws EntryAlreadyExistsException {
 		return addANewEntry(type, amount, shortCode, description, status, parentSheet, EntryCategory.DEFAULT_CATEGORY);
 	}
 }

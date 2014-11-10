@@ -14,34 +14,32 @@ import org.rabbit.shared.TextUtil;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(detachable="true", identityType=IdentityType.APPLICATION)
+@PersistenceCapable(detachable = "true", identityType = IdentityType.APPLICATION)
 public class Transaction extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 4351901171868709445L;
+	private static final long	serialVersionUID	= 4351901171868709445L;
 
 	@Persistent
-	private double openingBalance;
+	private double				openingBalance;
 
 	@Persistent
-	private String description;
+	private String				description;
 
 	@Persistent
-	private double transactionAmount;
-	
+	private double				transactionAmount;
+
 	@Persistent
-	private int sequenceIndex;
-	
+	private int					sequenceIndex;
+
 	@ForeignKey
-	private Entry entry;
-	
-	
+	private Entry				entry;
+
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction(Key key, double openingBalance, String description,
-			double transactionAmount, int sequenceIndex) {
+	public Transaction(Key key, double openingBalance, String description, double transactionAmount, int sequenceIndex) {
 		super();
 		this.key = key;
 		this.openingBalance = openingBalance;
@@ -119,35 +117,36 @@ public class Transaction extends BaseEntity implements Serializable {
 		this.sequenceIndex = sequenceIndex;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	
+
 	public String toString() {
-		return "Transaction [key=" + key + ", openingBalance=" + openingBalance
-				+ ", description=" + description + ", transactionAmount="
-				+ transactionAmount + ", sequenceIndex=" + sequenceIndex
-				+ ", entry=" + entry + "]";
+		return "Transaction [key=" + key + ", openingBalance=" + openingBalance + ", description=" + description + ", transactionAmount=" + transactionAmount + ", sequenceIndex=" + sequenceIndex + ", entry=" + entry + "]";
 	}
 
-	private TransactionVO transactionVO = null;
-	
-	/* (non-Javadoc)
+	private TransactionVO	transactionVO	= null;
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.rabbit.model.BaseEntity#getVO()
 	 */
 	@Override
 	public BaseAbstractVO getVO() {
-		if (entry == null){
+		if (entry == null) {
 			throw new RuntimeException("Entry is not set to this transaction");
 		}
-		
+
 		transactionVO = new TransactionVO();
 		transactionVO.setDescription(description);
 		transactionVO.setEntryVO((EntryVO) entry.getVO());
 		transactionVO.setOpeningBalStr(TextUtil.nf.format(openingBalance));
 		transactionVO.setSequenceIndexStr(String.valueOf(sequenceIndex));
 		transactionVO.setTransAmountStr(TextUtil.nf.format(transactionAmount));
-		
+
 		return transactionVO;
 	}
 }

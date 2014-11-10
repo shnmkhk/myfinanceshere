@@ -10,8 +10,9 @@ import org.rabbit.model.Transaction;
  * DAO Interface for Transaction entity
  * 
  * @author shanmukha.k@gmail.com <br/>
- * for <b>Rabbit Computing, Inc.</b> <br/><br/> 
- * Date created: 01-May-2013
+ *         for <b>Rabbit Computing, Inc.</b> <br/>
+ * <br/>
+ *         Date created: 01-May-2013
  */
 public interface TransactionDAO {
 
@@ -24,15 +25,14 @@ public interface TransactionDAO {
 	 * @param openingBalance
 	 * @return
 	 */
-	public Transaction createNewTransaction(String description, double openingBalance,
-			double transactionAmount, Entry entry);
+	public Transaction createNewTransaction(String description, double openingBalance, double transactionAmount, Entry entry);
 
 	/**
 	 * Deletes the transaction matching the entry and given sequence index.
 	 * 
 	 * @param entry
 	 * @param sequenceIndex
-	 * @throws TransactionNotFoundException 
+	 * @throws TransactionNotFoundException
 	 */
 	public void deleteTransaction(Entry entry, int sequenceIndex) throws TransactionNotFoundException;
 
@@ -60,8 +60,7 @@ public interface TransactionDAO {
 	 * @param sequenceIndex
 	 * @return
 	 */
-	public Transaction getTransactionByEntryAndIndex(Entry entry,
-			int sequenceIndex) throws TransactionNotFoundException;
+	public Transaction getTransactionByEntryAndIndex(Entry entry, int sequenceIndex) throws TransactionNotFoundException;
 
 	/**
 	 * Updates the existing transaction with the newly set transaction object.
@@ -71,5 +70,4 @@ public interface TransactionDAO {
 	 */
 	public Transaction updateTransaction(Transaction transaction);
 
-	
 }

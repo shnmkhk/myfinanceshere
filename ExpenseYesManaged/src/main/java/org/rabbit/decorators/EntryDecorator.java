@@ -17,7 +17,7 @@ import com.google.appengine.labs.repackaged.org.json.JSONException;
  */
 public class EntryDecorator extends TableDecorator {
 
-	private static StringBuffer sb = new StringBuffer();
+	private static StringBuffer	sb	= new StringBuffer();
 
 	public String getHyperlink() throws JSONException {
 		sb.setLength(0);
@@ -29,7 +29,7 @@ public class EntryDecorator extends TableDecorator {
 		sb.append("</big>&nbsp;<br/>");
 		sb.append(entry.getTypeStr());
 		sb.append("</div>");
-		
+
 		return sb.toString();
 	}
 
@@ -39,7 +39,7 @@ public class EntryDecorator extends TableDecorator {
 
 		return inputStr;
 	}
-	
+
 	public String getIcons() {
 		sb.setLength(0);
 		Entry entry = (Entry) getCurrentRowObject();
@@ -59,6 +59,21 @@ public class EntryDecorator extends TableDecorator {
 		sb.append("', '");
 		sb.append(sequenceNumber);
 		sb.append("')\" data-ajax=\"false'\"><img src=\"/images/delete-icon.png\" width=\"16\" height=\"16\"/></a>&nbsp;<br/>");
+
+		return sb.toString();
+	}
+
+	public String getCheck() {
+		sb.setLength(0);
+		Entry entry = (Entry) getCurrentRowObject();
+		String sheetKeyStr = entry.getSheet().getKeyStr();
+		int sequenceNumber = entry.getSequenceIndex();
+
+		sb.append("<input type=\"checkbox\" id=\"");
+		sb.append(sheetKeyStr);
+		sb.append("_");
+		sb.append(sequenceNumber);
+		sb.append("\" onclick=\"checkOrUncheck(this.id)\"/>");
 
 		return sb.toString();
 	}

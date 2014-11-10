@@ -11,10 +11,9 @@ import org.rabbit.services.SheetServiceImplTest;
 import org.rabbit.services.TransactionServiceImplTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({ SheetDAOImplUTest.class, EntryDAOImplUTest.class,
-	TransactionDAOImplUTest.class, SheetServiceImplTest.class, 
-	EntryServiceImplTest.class, TransactionServiceImplTest.class})
+@SuiteClasses({ SheetDAOImplUTest.class, EntryDAOImplUTest.class, TransactionDAOImplUTest.class, SheetServiceImplTest.class, EntryServiceImplTest.class, TransactionServiceImplTest.class })
 public class DAOTestSuite {
 
-	// Do nothing, annotations take care of picking the test case classes and execute testcases.
+	// Do nothing, annotations take care of picking the test case classes and
+	// execute testcases.
 }

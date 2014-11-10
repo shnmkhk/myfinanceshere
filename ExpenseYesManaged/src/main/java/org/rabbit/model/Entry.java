@@ -19,34 +19,33 @@ import com.google.appengine.api.datastore.Key;
 @PersistenceCapable(detachable = "true", identityType = IdentityType.APPLICATION)
 public class Entry extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 1910736454574078429L;
+	private static final long	serialVersionUID	= 1910736454574078429L;
 
 	@Persistent
-	private int sequenceIndex;
+	private int					sequenceIndex;
 
 	@Persistent
-	private char type;
+	private char				type;
 
 	@Persistent
-	private double amount;
+	private double				amount;
 
 	@Persistent
-	private String shortCode;
+	private String				shortCode;
 
 	@Persistent
-	private String description;
+	private String				description;
 
 	@Persistent
-	private char status;
+	private char				status;
 
 	@ForeignKey
-	private Sheet sheet;
-	
-	@Persistent 
-	private String category;
+	private Sheet				sheet;
 
-	public Entry(int sequenceIndex, char type, double amount, String shortCode,
-			String description, char status, String category) {
+	@Persistent
+	private String				category;
+
+	public Entry(int sequenceIndex, char type, double amount, String shortCode, String description, char status, String category) {
 		this.sequenceIndex = sequenceIndex;
 		this.type = type;
 		this.amount = amount;
@@ -56,8 +55,7 @@ public class Entry extends BaseEntity implements Serializable {
 		this.category = category;
 	}
 
-	public Entry(Key key, int sequenceIndex, char type, double amount,
-			String shortCode, String description, char status, String category) {
+	public Entry(Key key, int sequenceIndex, char type, double amount, String shortCode, String description, char status, String category) {
 		super();
 		this.key = key;
 		this.sequenceIndex = sequenceIndex;
@@ -170,10 +168,7 @@ public class Entry extends BaseEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Entry [key=" + key + ", sequenceIndex=" + sequenceIndex
-				+ ", type=" + type + ", amount=" + amount + ", shortCode="
-				+ shortCode + ", description=" + description + ", status="
-				+ status + ", sheet=" + sheet + "]";
+		return "Entry [key=" + key + ", sequenceIndex=" + sequenceIndex + ", type=" + type + ", amount=" + amount + ", shortCode=" + shortCode + ", description=" + description + ", status=" + status + ", sheet=" + sheet + "]";
 	}
 
 	public String getStyleClass() {
@@ -211,15 +206,13 @@ public class Entry extends BaseEntity implements Serializable {
 	public String getViewFormatLabel() {
 		String sheetKeyStr = getSheet().getKeyStr();
 		int sequenceNumber = getSequenceIndex();
-		return getShortCode() + "&nbsp;<a href='/ea/" + sheetKeyStr + "/"
-				+ sequenceNumber + "/delete#content'>[Del]</a>&nbsp;<br/>"
-				+ getTypeStr();
+		return getShortCode() + "&nbsp;<a href='/ea/" + sheetKeyStr + "/" + sequenceNumber + "/delete#content'>[Del]</a>&nbsp;<br/>" + getTypeStr();
 	}
 
 	public String getViewFormatAmount() {
 		return TextUtil.nf.format(amount);
 	}
-	
+
 	public String getCategory() {
 		return category;
 	}
@@ -228,7 +221,7 @@ public class Entry extends BaseEntity implements Serializable {
 		this.category = category;
 	}
 
-	private EntryVO entryVO = null;
+	private EntryVO	entryVO	= null;
 
 	/*
 	 * (non-Javadoc)
@@ -247,7 +240,7 @@ public class Entry extends BaseEntity implements Serializable {
 		entryVO.setSeqIx(String.valueOf(sequenceIndex));
 		entryVO.setShortCode(shortCode);
 		entryVO.setEntryCategory(category);
-		
+
 		return entryVO;
 	}
 }

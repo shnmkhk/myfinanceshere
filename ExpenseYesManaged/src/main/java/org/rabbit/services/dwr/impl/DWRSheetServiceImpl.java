@@ -22,7 +22,6 @@ import org.rabbit.services.dwr.vo.SheetResponseWrapper;
 import org.rabbit.services.dwr.vo.SheetVO;
 import org.rabbit.services.impl.SheetServiceImpl;
 
-
 /**
  * @author shanmukha.k@gmail.com <br/>
  *         for <b>Rabbit Computing, Inc.</b> <br/>
@@ -31,13 +30,12 @@ import org.rabbit.services.impl.SheetServiceImpl;
  */
 public class DWRSheetServiceImpl implements DWRSheetService {
 
-	public static final int INTERFACE_PLAIN = 0;
-	public static final int INTERFACE_AJAX = 1;
-	
-	private SheetService sheetService = SheetServiceImpl.getInstance();
+	public static final int	INTERFACE_PLAIN	= 0;
+	public static final int	INTERFACE_AJAX	= 1;
 
-	public SheetResponseWrapper createNew(int month, int year)
-			throws SheetAlreadyExistsException {
+	private SheetService	sheetService	= SheetServiceImpl.getInstance();
+
+	public SheetResponseWrapper createNew(int month, int year) throws SheetAlreadyExistsException {
 
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
@@ -48,12 +46,10 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 			sheetResponseWrapper.setUniqueSheet((SheetVO) sheet.getVO());
 		} catch (SheetAlreadyExistsException sheetAlreadyExistsException) {
 			sheetResponseWrapper.setErrored(true);
-			sheetResponseWrapper.setErrorMessage(sheetAlreadyExistsException
-					.getMessage());
+			sheetResponseWrapper.setErrorMessage(sheetAlreadyExistsException.getMessage());
 		} catch (IllegalArgumentException argumentException) {
 			sheetResponseWrapper.setErrored(true);
-			sheetResponseWrapper.setErrorMessage(argumentException
-					.getMessage());
+			sheetResponseWrapper.setErrorMessage(argumentException.getMessage());
 		}
 		return sheetResponseWrapper;
 	}
@@ -91,13 +87,10 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 		String userId = request.getUserPrincipal().getName();
 		SheetResponseWrapper sheetResponseWrapper = new SheetResponseWrapper();
 		try {
-			Map<Integer, List<Sheet>> allSheetsMap = sheetService
-					.getAllSheetsMap(userId);
+			Map<Integer, List<Sheet>> allSheetsMap = sheetService.getAllSheetsMap(userId);
 			Map<String, List<SheetVO>> allSheetsForView = new LinkedHashMap<String, List<SheetVO>>();
-			for (Map.Entry<Integer, List<Sheet>> entry : allSheetsMap
-					.entrySet()) {
-				allSheetsForView.put(String.valueOf(entry.getKey()),
-						getVOsListFromEntities(entry.getValue()));
+			for (Map.Entry<Integer, List<Sheet>> entry : allSheetsMap.entrySet()) {
+				allSheetsForView.put(String.valueOf(entry.getKey()), getVOsListFromEntities(entry.getValue()));
 			}
 			sheetResponseWrapper.setSheetListMap(allSheetsForView);
 		} catch (Exception e) {
@@ -112,18 +105,15 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 		HttpServletRequest request = ctx.getHttpServletRequest();
 		Principal userPrincipal = request.getUserPrincipal();
 		SheetResponseWrapper sheetResponseWrapper = new SheetResponseWrapper();
-		if (userPrincipal == null) { 
+		if (userPrincipal == null) {
 			return sheetResponseWrapper;
 		}
 		String userId = userPrincipal.getName();
 		try {
-			Map<Integer, List<Sheet>> allSheetsMap = sheetService
-					.getAllSheetsMap(userId);
+			Map<Integer, List<Sheet>> allSheetsMap = sheetService.getAllSheetsMap(userId);
 			StringBuffer sb = new StringBuffer();
-			for (Map.Entry<Integer, List<Sheet>> entry : allSheetsMap
-					.entrySet()) {
-				sb.append("<li class=\"header-two\">").append(entry.getKey())
-						.append("</li>");
+			for (Map.Entry<Integer, List<Sheet>> entry : allSheetsMap.entrySet()) {
+				sb.append("<li class=\"header-two\">").append(entry.getKey()).append("</li>");
 				sb.append("<li>");
 				sb.append("<ul class=\"calendar-icon-ul\">");
 				List<Sheet> entryList = entry.getValue();
@@ -133,12 +123,10 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 						sb.append("<a class=\"no-underline\" href=\"javascript:void(0);\" onclick=\"showListEntriesPage('/ajax/ea/").append(sheet.getKeyStr()).append("/#content')\">");
 					} else {
 						sb.append("<a class=\"no-underline\" href=\"/ea/").append(sheet.getKeyStr()).append("/#content\">");
-					} 
+					}
 					sb.append("<div class=\"sheet-container cursor-pointer\">");
-					sb.append("<div class=\"sheet-container-month\">")
-							.append(sheet.getShortMonthStr()).append("</div>");
-					sb.append("<div class=\"sheet-container-year\">")
-							.append(sheet.getYear()).append("</div>");
+					sb.append("<div class=\"sheet-container-month\">").append(sheet.getShortMonthStr()).append("</div>");
+					sb.append("<div class=\"sheet-container-year\">").append(sheet.getYear()).append("</div>");
 					sb.append("</div>");
 					sb.append("</a>");
 					sb.append("</li>");
@@ -162,16 +150,14 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 	 * @see org.rabbit.services.SheetService#getSheet(java.lang.String, int,
 	 * int)
 	 */
-	public SheetResponseWrapper getSheet(int month, int year)
-			throws SheetNotFoundException {
+	public SheetResponseWrapper getSheet(int month, int year) throws SheetNotFoundException {
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
 		String userId = request.getUserPrincipal().getName();
 
 		SheetResponseWrapper sheetResponseWrapper = new SheetResponseWrapper();
 		try {
-			sheetResponseWrapper.setUniqueSheet((SheetVO) sheetService
-					.getSheet(userId, month, year).getVO());
+			sheetResponseWrapper.setUniqueSheet((SheetVO) sheetService.getSheet(userId, month, year).getVO());
 		} catch (SheetNotFoundException e) {
 			sheetResponseWrapper.setErrored(true);
 			sheetResponseWrapper.setErrorMessage(e.getMessage());
@@ -186,16 +172,14 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 	 * @see org.rabbit.services.SheetService#getSheet(java.lang.String,
 	 * java.lang.String)
 	 */
-	public SheetResponseWrapper getSheet(String sheetKeyStr)
-			throws SheetNotFoundException {
+	public SheetResponseWrapper getSheet(String sheetKeyStr) throws SheetNotFoundException {
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
 		String userId = request.getUserPrincipal().getName();
 
 		SheetResponseWrapper sheetResponseWrapper = new SheetResponseWrapper();
 		try {
-			sheetResponseWrapper.setUniqueSheet((SheetVO) sheetService
-					.getSheet(userId, sheetKeyStr).getVO());
+			sheetResponseWrapper.setUniqueSheet((SheetVO) sheetService.getSheet(userId, sheetKeyStr).getVO());
 		} catch (SheetNotFoundException e) {
 			sheetResponseWrapper.setErrored(true);
 			sheetResponseWrapper.setErrorMessage(e.getMessage());
@@ -209,8 +193,7 @@ public class DWRSheetServiceImpl implements DWRSheetService {
 	 * @see org.rabbit.services.SheetService#deleteSheet(java.lang.String, int,
 	 * int)
 	 */
-	public SheetResponseWrapper deleteSheet(int month, int year)
-			throws SheetNotFoundException {
+	public SheetResponseWrapper deleteSheet(int month, int year) throws SheetNotFoundException {
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
 		String userId = request.getUserPrincipal().getName();
