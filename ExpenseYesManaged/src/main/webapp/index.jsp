@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div style="padding: 5px;">
-		<p class="lead">
+		<p>
 			Efficient money flow monitoring system<br /> Expense-yes-managed is
 			very easy, intuitive expense tracking system from almost every
 			device. <br /> Be it a mobile or desktop or tablet pc as it is built

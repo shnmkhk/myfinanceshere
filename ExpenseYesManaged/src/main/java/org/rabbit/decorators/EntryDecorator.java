@@ -58,7 +58,8 @@ public class EntryDecorator extends TableDecorator {
 		sb.append(sheetKeyStr);
 		sb.append("', '");
 		sb.append(sequenceNumber);
-		sb.append("')\" data-ajax=\"false'\"><img src=\"/images/delete-icon.png\" width=\"16\" height=\"16\"/></a>&nbsp;<br/>");
+		sb.append("')\" data-ajax=\"false'\"><img src=\"/images/delete-icon.png\" width=\"16\" height=\"16\"/></a>&nbsp;");
+		sb.append("<a href=\"javascript:void(0)\"><img src=\"/images/edit-icon.png\" width=\"16\" height=\"16\"/></a>");
 
 		return sb.toString();
 	}
