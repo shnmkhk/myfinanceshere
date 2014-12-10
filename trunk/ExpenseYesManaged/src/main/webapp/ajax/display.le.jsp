@@ -4,10 +4,14 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 
 <div style="text-align: right; float: right; width: 100%; padding: 5px 0px 10px;" id="ajxDspId">
+	<c:set var="currentPageSize" value="5" scope="page"/>
+	<c:if test="${not empty param.pageSize }">
+		<c:set var="currentPageSize" scope="page" value="${param.pageSize}"/>
+	</c:if>
 	<display:table name="${sessionScope.entriesOfSelectedSheet}"
 		class="Mars" requestURI="/ajax/display.le.jsp#content"
 		id="entryRow" decorator="org.rabbit.decorators.EntryDecorator"
-		style="text-align: right;" pagesize="${param.pageSize}" requestURIcontext="true">
+		style="text-align: right;" pagesize="${currentPageSize}" requestURIcontext="true">
 		<display:column property="icons" title="#"
 			class="align-right"
 			style="width: 5%" />
