@@ -19,6 +19,8 @@ import com.google.appengine.api.datastore.Key;
 @PersistenceCapable(detachable = "true", identityType = IdentityType.APPLICATION)
 public class Entry extends BaseEntity implements Serializable {
 
+	public static final String NEW_LINE = "\n";
+
 	private static final long	serialVersionUID	= 1910736454574078429L;
 
 	@Persistent
@@ -181,7 +183,7 @@ public class Entry extends BaseEntity implements Serializable {
 
 	public String getTypeStr() {
 		final StringBuffer sb = new StringBuffer();
-		sb.append("&nbsp;<span ");
+		sb.append("<span ");
 		if (type == 'I') {
 			sb.append("class=\"income-label\"");
 		} else {
@@ -189,9 +191,8 @@ public class Entry extends BaseEntity implements Serializable {
 		}
 		sb.append(">");
 		sb.append("<span class=\"category\">").append(getCategory()).append("</span>");
-		sb.append("<br/>&nbsp;");
-		sb.append(ObjectUtils.getSimpleDate(getCreatedOn()));
-		sb.append("</span>");
+		sb.append("&nbsp;");
+		sb.append("<span class=\"entry-tiny-date\" style=\"font-size: 0.8em\">").append(ObjectUtils.getTinyDate(getCreatedOn())).append("</span>");
 		return sb.toString();
 	}
 
@@ -242,5 +243,33 @@ public class Entry extends BaseEntity implements Serializable {
 		entryVO.setEntryCategory(category);
 
 		return entryVO;
+	}
+	
+	public String getEditDescriptionBlock() {
+		final StringBuffer sb = new StringBuffer();
+		sb.append("<div class=\"row\">");
+			sb.append("<div class=\"col-md-4\">");
+				sb.append("<fieldset data-role=\"controlgroup\" data-type=\"horizontal\" data-theme=\"b\">");
+				sb.append("<label style=\"float: left\">Type:&nbsp;&nbsp;</label>");
+				sb.append("<input style=\"float: left\" id=\"type_income_edit_"+sequenceIndex+"\" name=\"type_edit_"+sequenceIndex+"\" value=\"I\" type=\"radio\"  onclick=\"loadEntryCategories('category_edit_"+sequenceIndex+"', 'short_code_edit_"+sequenceIndex+"', this.value, 0);\"/>");
+				sb.append("<label style=\"float: left\" for=\"type_income_edit_"+sequenceIndex+"\" >&nbsp;Income&nbsp;</label>");
+				sb.append("<input style=\"float: left\" id=\"type_expense_edit_"+sequenceIndex+"\" name=\"type_edit_"+sequenceIndex+"\" value=\"E\" type=\"radio\"  checked=\"checked\" onclick=\"loadEntryCategories('category_edit_"+sequenceIndex+"', 'short_code_edit_"+sequenceIndex+"', this.value, 0);\"/>");
+				sb.append("<label style=\"float: left\" for=\"type_expense_edit_"+sequenceIndex+"\" >&nbsp;Expense&nbsp;</label>");
+				sb.append("</fieldset>");
+			sb.append("</div>");
+			
+			sb.append("<div class=\"col-md-4\">");
+				sb.append("<select id=\"category_edit_"+sequenceIndex+"\" name=\"category_edit_"+sequenceIndex+"\" class=\"edit-entry-select rounded-corners\" onchange=\"autoFillShortCode(this.value, 'short_code_edit_"+sequenceIndex+"')\"  style=\"background-color: #f5f5f5; color: #8b8989; height: 2.5em;\"></select>");
+			sb.append("</div>");
+			
+			sb.append("<div class=\"col-md-4\">");
+				sb.append("<input type=\"text\" id=\"short_code_edit_"+sequenceIndex+"\" name=\"shortCode_edit_"+sequenceIndex+"\" maxlength=\"32\" size=\"14\" value=\""+shortCode+"\" placeholder=\"Eg. Grocery\" alt=\"Label Eg. Grocery\" title=\"Label Eg. Grocery\"  class=\"entry_field\" style=\"background-color: #fffaf0; color: #000000; height: 2.5em; margin-right: 3px;\"/>");
+				sb.append("<input type=\"text\" id=\"amount_edit_"+sequenceIndex+"\" name=\"amount_edit_"+sequenceIndex+"\" maxlength=\"32\" size=\"10\" value=\""+amount+"\" placeholder=\"Eg. 8000\" alt=\"Amount Eg. 8000\" title=\"Amount Eg. 8000\"  class=\"entry_field\" style=\"background-color: #fffaf0; color: #000000; height: 2.5em;\"/>");
+			sb.append("</div>");
+		sb.append("</div>");
+		sb.append("<input type=\"hidden\" id=\"h_category_edit_"+sequenceIndex+"\" name=\"h_category_edit_"+sequenceIndex+"\" value=\""+category+"\"/>");
+		sb.append("<input type=\"hidden\" id=\"h_type_edit_"+sequenceIndex+"\" name=\"h_type_edit_"+sequenceIndex+"\" value=\""+type+"\"/>");
+		
+		return sb.toString();
 	}
 }

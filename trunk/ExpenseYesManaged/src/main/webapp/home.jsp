@@ -70,6 +70,20 @@
 			}
 		}
 
+		function postProcessingEntriesListing() {
+			hideEntryEl();
+			var iterated = false;
+			$( ".edit-entry-select").each(function() {
+				var ix = $(this).attr('id').match(/\d+/)[0];
+				loadEntryCategories($(this).attr("id"), ix, $("#h_type_edit_" + ix).val(), 5);
+				$('input[name=type_edit_' + ix +'][value=' + $("#h_type_edit_" + ix).val() + ']').attr('checked', 'checked');
+				$('#category_edit_' + ix).val($("#h_category_edit_" + ix).val());
+				iterated = true;
+			});
+			if (iterated) {
+				displayListEntries();
+			}
+		}
 		function showListEntriesPage(urlToLoad, successMsg) {
 			if (listEntriesLoaded && !urlToLoad) {
 				hideAll();
@@ -92,6 +106,7 @@
 						$("body").removeClass("loading");
 						$("span.pagelinks a").attr('data-ajax', 'false');
 						$("table#entryRow a").attr('data-ajax', 'false');
+						postProcessingEntriesListing();
 					},
 					timeout: failureHandler
 				});
@@ -99,8 +114,8 @@
 		}
 
 		function resetAddEntriesFields() {
-			$(".entry_field").val("");
-			$(".entry_field_checked").prop("checked", true);
+			$("div#add_entries .entry_field").val("");
+			$("div#add_entries .entry_field_checked").prop("checked", true);
 		}
 
 		function showAddEntriesPage(loadAgain) {
@@ -121,9 +136,9 @@
 						$("#add_entries").show();
 						addAnEntryLoaded = true;
 						$("body").removeClass("loading");
-						loadEntryCategories(1, 'E', 5);
-						loadEntryCategories(2, 'E', 5);
-						loadEntryCategories(3, 'E', 5);
+						loadEntryCategories('category_1', 'short_code_1', 'E', 5);
+						loadEntryCategories('category_2', 'short_code_2', 'E', 5);
+						loadEntryCategories('category_3', 'short_code_3', 'E', 5);
 					},
 					timeout: failureHandler
 				});
@@ -210,6 +225,26 @@
 				});
 			} 
 		}
+		
+		function hideEntryEl () {
+			$(".edit-entries-el").hide();
+			$(".list-entries-el").hide();
+		}
+		function displayEditEntries() {
+			$("#display-readonly-list").hide();
+			$("#display-editable-list").show();
+			
+			hideEntryEl();
+			$(".list-entries-el").show();
+		}
+		
+		function displayListEntries() {
+			$("#display-readonly-list").show();
+			$("#display-editable-list").hide();
+			
+			hideEntryEl();
+			$(".edit-entries-el").show();
+		} 
 	</script>
 
 

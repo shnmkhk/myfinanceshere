@@ -15,7 +15,7 @@ import com.google.appengine.labs.repackaged.org.json.JSONException;
  * <br/>
  *         Date created: 28-Jun-2013
  */
-public class EntryDecorator extends TableDecorator {
+public class EditableEntryDecorator extends TableDecorator {
 
 	private static StringBuffer	sb	= new StringBuffer();
 
@@ -24,15 +24,12 @@ public class EntryDecorator extends TableDecorator {
 		Entry entry = (Entry) getCurrentRowObject();
 
 		sb.append("<div class=\"entry-label-full\">");
-		sb.append("<big><b>");
-		sb.append(entry.getShortCode());
-		sb.append("</b></big>&nbsp;<br/>");
-		sb.append(entry.getTypeStr());
+		sb.append(entry.getEditDescriptionBlock());
 		sb.append("</div>");
 
 		return sb.toString();
 	}
-
+	
 	public String esc(String inputStr) {
 		inputStr = inputStr.replaceAll("'", "\\\\'");
 		inputStr = inputStr.replaceAll("\"", "\\\\\"");

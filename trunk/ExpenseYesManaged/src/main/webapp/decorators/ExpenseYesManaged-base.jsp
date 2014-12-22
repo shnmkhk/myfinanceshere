@@ -22,13 +22,14 @@
 <link type="text/css" rel="stylesheet" href="/css/ExpenseYesManaged.css"></link>
 <link type="text/css" rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css"></link>
 
+<link type="text/css" rel="stylesheet" href="/css/merged.min.css"></link>
+
 <script type="text/javascript" src="<c:url value='/scripts/jquery.min.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/dwr/interface/SheetService.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/dwr/interface/EntryService.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/scripts/dwr.engine.min.js'/>"></script>
 <script type='text/javascript' src="<c:url value='/dwr/util.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/sheet-util.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/jquery.mobile-1.4.3.min.js'/>"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="<c:url value='/scripts/bootstrap.min.js'/>"></script>
@@ -114,4 +115,5 @@
 	</div>
 	<div class="modal"></div>
 </body>
+<script type="text/javascript" src="<c:url value='/scripts/displayTagAjax.js'/>"></script>
 </html>
