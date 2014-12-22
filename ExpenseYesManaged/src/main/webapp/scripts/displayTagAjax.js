@@ -51,6 +51,7 @@ function doAjax(url, data)
             $('#ajxDspId').html(htmlStr);
             changeLinks();
             $("body").removeClass("loading");
+            postProcessingEntriesListing();
         }
     });
 }

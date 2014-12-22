@@ -111,9 +111,9 @@ var EntryCategoryList = [];
 var INCOME_CATEGORY_ARR = [ 'Salary', 'House Rent', 'Other Sources' ];
 var EXPENSE_CATEGORY_ARR = [ 'Food', 'House Rent', 'Clothing', 'Entertainment',
 		'Household Goods', 'Groceries', 'Commuting', 'Electricity', 'Internet',
-		'Mobile Phone Recharges/ Bills', 'Facilities', 'House Renovation',
-		'Medicines', 'Newspaper Subscription', 'Cable/ DTH ', 'Vegetables',
-		'Eggs/ Meat', 'Emergency/ Travel', 'Others/ Miscelaneous' ];
+		'Prepaids/ Bills', 'Facilities', 'House Renovation',
+		'Medicines', 'Newspaper Subscr..', 'Cable/ DTH ', 'Vegetables',
+		'Eggs/ Meat', 'Travel/ Emergency', 'Others/ Misc..' ];
 
 var INCOME_CATEGORY_OBJECTS = [];
 var EXPENSE_CATEGORY_OBJECTS = [];
@@ -131,16 +131,16 @@ function loadEntryCategoryOptions()
 	}
 }
 
-function loadEntryCategories (select_index, entry_type, default_check_ix) {
-	var select_id = 'category_' + select_index;
+function loadEntryCategories (select_id, short_code_id, entry_type, default_check_ix) {
+	// var select_id = 'category_' + select_index;
 	DWRUtil.removeAllOptions(select_id);
 	if (entry_type === ENTRY_TYPE_INCOME) {
 		DWRUtil.addOptions(select_id, INCOME_CATEGORY_ARR);
-		autoFillShortCode(INCOME_CATEGORY_ARR[default_check_ix], select_index);
+		autoFillShortCode(INCOME_CATEGORY_ARR[default_check_ix], short_code_id);
 		DWRUtil.setValue(select_id, INCOME_CATEGORY_ARR[default_check_ix]);
 	} else if (entry_type === ENTRY_TYPE_EXPENSE) {
 		DWRUtil.addOptions(select_id, EXPENSE_CATEGORY_ARR);
-		autoFillShortCode(EXPENSE_CATEGORY_ARR[default_check_ix], select_index);
+		autoFillShortCode(EXPENSE_CATEGORY_ARR[default_check_ix], short_code_id);
 		DWRUtil.setValue(select_id, EXPENSE_CATEGORY_ARR[default_check_ix]);
 	} 
 }
@@ -157,10 +157,11 @@ function contains (text, arr) {
 	return false;
 }
 
-function autoFillShortCode(selectedCategory, index) {
-	var availableShortCode = $("#short_code_" + index).val();
+function autoFillShortCode(selectedCategory, shortCodeId) {
+	console.log("shortCodeId: " + shortCodeId)
+	var availableShortCode = $("#"+shortCodeId).val();
 	if (availableShortCode === "" || contains (availableShortCode, INCOME_CATEGORY_ARR) || 
 			contains (availableShortCode, EXPENSE_CATEGORY_ARR)) {
-		$("#short_code_" + index).val(selectedCategory);
+		$("#"+shortCodeId).val(selectedCategory);
 	}
 }

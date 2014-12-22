@@ -38,8 +38,9 @@
 				<li>
 					<ul class="calendar-icon-ul">
 						<c:forEach var="sheetObj" items="${sheetEntry.value}">
-							<li class="calendar-icon-li"><a class="no-underline"
-								href="javascript:void(0)" onclick="showListEntriesPage('/ajax/ea/${sheetObj.keyStr }')">
+							<li class="calendar-icon-li">
+								<a class="no-underline"
+									href="javascript:void(0)" onclick="showListEntriesPage('/ajax/ea/${sheetObj.keyStr }')">
 									<div class="sheet-container cursor-pointer">
 										<div class="sheet-container-month">
 											<c:out value="${sheetObj.shortMonthStr}" />
@@ -48,7 +49,8 @@
 											<c:out value="${sheetObj.year}" />
 										</div>
 									</div>
-							</a></li>
+								</a>
+							</li>
 						</c:forEach>
 					</ul>
 				</li>

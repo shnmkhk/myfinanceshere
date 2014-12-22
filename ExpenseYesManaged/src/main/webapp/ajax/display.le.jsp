@@ -8,20 +8,32 @@
 	<c:if test="${not empty param.pageSize }">
 		<c:set var="currentPageSize" scope="page" value="${param.pageSize}"/>
 	</c:if>
-	<display:table name="${sessionScope.entriesOfSelectedSheet}"
-		class="Mars" requestURI="/ajax/display.le.jsp#content"
-		id="entryRow" decorator="org.rabbit.decorators.EntryDecorator"
-		style="text-align: right;" pagesize="${currentPageSize}" requestURIcontext="true">
-		<display:column property="icons" title="#"
-			class="align-right"
-			style="width: 5%" />
-		<display:column property="hyperlink" title="Detail"
-			class="align-right"
-			style="width: 75%"/>
-		<display:column property="amount" title="Amount"
-			class="align-right ${entryRow.styleClass}"
-			format="{0,number,#,###.00}" style="width: 15%"/>
-	</display:table>
+	<div id="display-readonly-list" class="show-list">
+		<display:table name="${sessionScope.entriesOfSelectedSheet}"
+			class="Mars" requestURI="/ajax/display.le.jsp#content"
+			id="entryRow" decorator="org.rabbit.decorators.EntryDecorator"
+			style="text-align: right;" pagesize="${currentPageSize}" requestURIcontext="true">
+			<display:column property="icons" title="#"
+				class="align-right"
+				style="width: 5%" />
+			<display:column property="hyperlink" title="Detail"
+				class="align-right"
+				style="width: 75%"/>
+			<display:column property="amount" title="Amount"
+				class="align-right ${entryRow.styleClass}"
+				format="{0,number,#,###.00}" style="width: 15%"/>
+		</display:table>
+	</div>
+	<div id="display-editable-list" class="hide-list">
+		<display:table name="${sessionScope.entriesOfSelectedSheet}"
+			class="Mars editable-table" requestURI="/ajax/display.le.jsp#content"
+			id="entryRow" decorator="org.rabbit.decorators.EditableEntryDecorator"
+			style="text-align: right;" pagesize="${currentPageSize}" requestURIcontext="true">
+			<display:column property="hyperlink" title="Edit entries !"
+				class="align-left"
+				style="width: 100%; text-align: left;"/>
+		</display:table>
+	</div>
 	<c:if test="${not empty sessionScope.entriesTotal}">
 		<hr width="50%" style="float: right; text-align: right; width: 50%;" />
 		<div style="float: right; text-align: right; width: 100%; padding-bottom: 5px;">

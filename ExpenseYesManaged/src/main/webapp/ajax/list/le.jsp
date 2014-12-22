@@ -35,6 +35,10 @@
 				<li><a href="javascript:void(0);" onclick="showSheetListPage();return false;">Back to sheets</a></li>
 				<li>&nbsp;|&nbsp;</li>
 				<li><a href="javascript:void(0);" onclick="doAjax(current_page_uri);return false;">Reload entries</a></li>
+				<li class="edit-entries-el">&nbsp;|&nbsp;</li>
+				<li class="edit-entries-el"><a class="cancel" href="javascript:void(0)" onclick="displayEditEntries();return false;">Edit entries</a></li>
+				<li class="list-entries-el">&nbsp;|&nbsp;</li>
+				<li class="list-entries-el"><a class="cancel" href="javascript:void(0)" onclick="displayListEntries();return false;">List entries</a></li>
 				<li>&nbsp;|&nbsp;</li>
 				<li><a href="javascript:void(0);" class="submit" onclick="showAddEntriesPage(true);return false;">Add entries </a></li>
 			</ul>

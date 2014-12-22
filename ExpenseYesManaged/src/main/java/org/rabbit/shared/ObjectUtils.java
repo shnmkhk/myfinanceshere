@@ -143,8 +143,16 @@ public class ObjectUtils {
 		}
 		return "(" + simplestDf.format(date) + ")";
 	}
+	
+	public static final String getTinyDate(Date date) {
+		if (isNullOrEmpty(date)) {
+			return RequestUtil.EMPTY_STR;
+		}
+		return tinyDf.format(date);
+	}
 
 	private static final DateFormat	simplestDf	= new SimpleDateFormat("MMM dd, yyyy");
+	private static final DateFormat	tinyDf	= new SimpleDateFormat("dd-MMM");
 
 	/**
 	 * @param month
