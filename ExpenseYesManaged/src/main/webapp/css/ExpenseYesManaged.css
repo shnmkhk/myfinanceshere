@@ -171,10 +171,15 @@ table.form-container td {
 	text-align: left;
 }
 
-input[type="button"].cancel, input[type="submit"].cancel {
+input[type="button"].cancel, input[type="submit"].cancel, li a.cancel {
 	background-color: #FFFFFF;
 	color: #000000;
 	border: 1px solid #000000;
+	padding: 3px;
+	border-radius: 2px;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
 }
 
 input[type="button"].submit, input[type="submit"], li a.submit {
@@ -344,6 +349,7 @@ div.sheet-container div.sheet-container-month, div.sheet-container div.sheet-con
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
 } 
+
 div.sheet-container div.sheet-container-month {
 	color: orange;
 	background-color: #FFFFFF;
@@ -502,6 +508,7 @@ span.income-label span.category {
 div.entry-label-full {
 	vertical-align: middle;
 	padding: 3px 0px;
+	color: #333;
 }
 
 select {
@@ -537,4 +544,27 @@ span.entry-counter {
 	width		: 100%;
 	height		: 500px;
 	font-size	: 11px;
+}
+
+.show-list {
+	display: block;
+}
+
+.hide-list {
+	display: none;
+}
+
+table.form-background td table.editable-table th {
+	text-align: left;
+}
+
+span.entry-tiny-date {
+	padding: 2px;
+	border-radius: 2px;
+	font-weight: normal;
+	border: 1px solid #333;
+}
+
+select.edit-entry-select {
+	margin-bottom: 5px; 
 }
