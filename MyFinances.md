@@ -1,0 +1,11 @@
+**MyFinances**
+
+---
+
+Efficient money flow monitoring system
+
+This application can be accessed through web, mobile and other client apps through its efficient API.
+
+http://myfinanceshere.appspot.com
+
+The application is available on web right now and extending its services to Android and iPhone apps as well by end of 2013.
