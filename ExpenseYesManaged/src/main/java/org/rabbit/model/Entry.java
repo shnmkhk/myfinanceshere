@@ -6,6 +6,7 @@ import javax.jdo.annotations.ForeignKey;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.persistence.PersistenceUnit;
 
 import org.rabbit.common.EntryCategory;
 import org.rabbit.services.dwr.vo.BaseAbstractVO;
@@ -46,7 +47,10 @@ public class Entry extends BaseEntity implements Serializable {
 
 	@Persistent
 	private String				category;
-
+	
+	public Entry(){
+		
+	}
 	public Entry(int sequenceIndex, char type, double amount, String shortCode, String description, char status, String category) {
 		this.sequenceIndex = sequenceIndex;
 		this.type = type;

@@ -172,7 +172,6 @@ public class EntryDAOImpl implements EntryDAO {
 		return entry;
 	}
 
-	@Override
 	public void setEntryCategory(Entry entry, EntryCategory entryCategory) {
 		entry.setCategory(entryCategory.getLabel());
 		updateEntry(entry);

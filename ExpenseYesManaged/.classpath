@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry including="**/*.java" kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/appengine-api-stubs.jar"/>
 	<classpathentry kind="lib" path="lib/appengine-testing.jar"/>
@@ -12,127 +22,118 @@
 	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/jsp-api.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/jsp-api.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/el-api.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/el-api.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/servlet-api.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/servlet-api.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/jsp/repackaged-appengine-ant-launcher-1.7.1.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/jsp/repackaged-appengine-ant-launcher-1.7.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/jsp/repackaged-appengine-ant-1.7.1.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/jsp/repackaged-appengine-ant-1.7.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/jsp/repackaged-appengine-jasper-6.0.29.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/jsp/repackaged-appengine-jasper-6.0.29.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/jsp/repackaged-appengine-jasper-el-6.0.29.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/jsp/repackaged-appengine-jasper-el-6.0.29.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/jsp/repackaged-appengine-tomcat-juli-6.0.29.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/jsp/repackaged-appengine-tomcat-juli-6.0.29.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/shared/appengine-local-runtime-shared.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/shared/appengine-local-runtime-shared.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/appengine-tools-api.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/appengine-tools-api.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/appengine-api-labs/v1/appengine-api-labs.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/appengine-api-labs/v1/appengine-api-labs.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/appengine-endpoints/v1/appengine-endpoints.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/appengine-endpoints/v1/appengine-endpoints.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/jsr107/v1/jsr107cache-1.1.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/jsr107/v1/jsr107cache-1.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/jsr107/v1/appengine-jsr107cache-1.8.4.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/asm-4.0.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/user/appengine-api-1.0-sdk-1.8.4.jar" sourcepath="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/src/user/appengine-api-1.0-sdk-1.8.4-src.zip">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/jta-1.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/asm-4.0.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/geronimo-jpa_2.0_spec-1.0.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/jta-1.1.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/jdo-api-3.0.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/geronimo-jpa_2.0_spec-1.0.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/datanucleus-appengine-2.1.2.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/jdo-api-3.0.1.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/datanucleus-api-jdo-3.1.3.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/datanucleus-appengine-2.1.2.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/datanucleus-core-3.1.3.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/datanucleus-api-jdo-3.1.3.jar">
+	<classpathentry kind="lib" path="C:/appengine-java-sdk-1.9.14/lib/opt/user/datanucleus/v2/datanucleus-api-jpa-3.1.3.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/datanucleus-core-3.1.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/shanmukha/Documents/appengine-java-sdk-1.8.4/lib/opt/user/datanucleus/v2/datanucleus-api-jpa-3.1.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/home/shanmukha/Documents/appengine-java-sdk-1.8.4/docs/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
+			<attribute name="javadoc_location" value="file:C:\appengine-java-sdk-1.9.14/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/dwr-2.0.5.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

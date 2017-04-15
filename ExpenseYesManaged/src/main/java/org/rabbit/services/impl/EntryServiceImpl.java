@@ -199,7 +199,6 @@ public class EntryServiceImpl implements EntryService {
 		return localEntryStatusWrapper;
 	}
 
-	@Override
 	public Entry addANewEntry(char type, double amount, String shortCode, String description, char status, Sheet parentSheet) throws EntryAlreadyExistsException {
 		return addANewEntry(type, amount, shortCode, description, status, parentSheet, EntryCategory.DEFAULT_CATEGORY);
 	}
